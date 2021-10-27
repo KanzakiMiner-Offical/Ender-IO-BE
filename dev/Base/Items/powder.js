@@ -37,7 +37,7 @@ Recipes.addShaped({ id: ItemID.machineDye, count: 6, data: 0 }, [
   ], ['i', ItemID.greenDye, 0, 'f', ItemID.dustLapis, 0, "m", ItemID.blackDye, 0, "p", ItemID.dustQuarzt, 0]);
 
 RecipeRegistry.addCrusher({
-  ingridient: { id: 2, data: 0 },
+  ingredient: { id: 2, data: 0 },
   result0: { id: ItemID.clipAndTrim, data: 0, chance: 0.25 },
   result1: { id: ItemID.clipAndTrim, data: 0, chance: 0.3 },
   result2: { id: 0, data: 0, chance: 0 },
@@ -45,7 +45,7 @@ RecipeRegistry.addCrusher({
   time: 100
 });
 RecipeRegistry.addCrusher({
-  ingridient: { id: 38, data: 0 },
+  ingredient: { id: 38, data: 0 },
   result0: { id: VanillaItemID.red_dye, data: 0, chance: 1 },
   result1: { id: VanillaItemID.red_dye, data: 0, chance: 1 },
   result2: { id: VanillaItemID.red_dye, data: 0, chance: 0.95 },
@@ -53,7 +53,7 @@ RecipeRegistry.addCrusher({
   time: 100
 });
 RecipeRegistry.addCrusher({
-  ingridient: { id: 37, data: 0 },
+  ingredient: { id: 37, data: 0 },
   result0: { id: VanillaItemID.yellow_dye, data: 0, chance: 1 },
   result1: { id: VanillaItemID.yellow_dye, data: 0, chance: 1 },
   result2: { id: VanillaItemID.yellow_dye, data: 0, chance: 0.95 },
@@ -61,7 +61,7 @@ RecipeRegistry.addCrusher({
   time: 100
 });
 RecipeRegistry.addCrusher({
-  ingridient: { id: 32, data: 0 },
+  ingredient: { id: 32, data: 0 },
   result0: { id: ItemID.twigAndPrun, data: 0, chance: 0.6 },
   result1: { id: ItemID.twigAndPrun, data: 0, chance: 0.3 },
   result2: { id: ItemID.twigAndPrun, data: 0, chance: 0.1 },
@@ -70,41 +70,41 @@ RecipeRegistry.addCrusher({
 });
 
 RecipeRegistry.addSmelter({
-  ingridient1: { id: VanillaItemID.green_dye, data: 0, count: 6 },
-  ingridient2: { id: VanillaItemID.egg, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: VanillaItemID.green_dye, data: 0, count: 6 },
+  ingredient2: { id: VanillaItemID.egg, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: ItemID.greenDye, count: 2, data: 0 },
   time: 500
 });
 
 RecipeRegistry.addSmelter({
-  ingridient1: { id: ItemID.clipAndTrim, data: 0, count: 12 },
-  ingridient2: { id: VanillaItemID.slime_ball, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: ItemID.clipAndTrim, data: 0, count: 12 },
+  ingredient2: { id: VanillaItemID.slime_ball, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: ItemID.greenDye, count: 2, data: 0 },
   time: 500
 });
 
 RecipeRegistry.addSmelter({
-  ingridient1: { id: ItemID.twigAndPrun, data: 0, count: 12 },
-  ingridient2: { id: VanillaItemID.slime_ball, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: ItemID.twigAndPrun, data: 0, count: 12 },
+  ingredient2: { id: VanillaItemID.slime_ball, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: ItemID.brownDye, count: 2, data: 0 },
   time: 500
 });
 
 RecipeRegistry.addSmelter({
-  ingridient1: { id: ItemID.dustCoal, data: 0, count: 6 },
-  ingridient2: { id: VanillaItemID.slime_ball, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: ItemID.dustCoal, data: 0, count: 6 },
+  ingredient2: { id: VanillaItemID.slime_ball, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: ItemID.blackDye, count: 2, data: 0 },
   time: 500
 });
 
 RecipeRegistry.addSmelter({
-  ingridient1: { id: BlockID.machineChassiSimple, data: 0, count: 1 },
-  ingridient2: { id: ItemID.machineDye, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: BlockID.machineChassiSimple, data: 0, count: 1 },
+  ingredient2: { id: ItemID.machineDye, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: BlockID.machineChassi, count: 1, data: 0 },
   time: 500
 });

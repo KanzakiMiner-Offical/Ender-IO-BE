@@ -28,7 +28,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
       moveItems: {
         x: 630,
         y: 330,
-        slots: ["ingridient1", "ingridient2", "ingridient3"]
+        slots: ["ingredient1", "ingredient2", "ingredient3"]
       }
     },
     getList: function(id, data, isUsage) {
@@ -38,9 +38,9 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
         for (let i in rec) {
           let recipe = rec[i]
           let result0 = recipe.result;
-          let input0 = recipe.ingridient1;
-          let input1 = recipe.ingridient2;
-          let input2 = recipe.ingridient3;
+          let input0 = recipe.ingredient1;
+          let input1 = recipe.ingredient2;
+          let input2 = recipe.ingredient3;
           if (input1.id == id || input0.id == id || input2.id == id) {
             list.push({
               input: [
@@ -68,9 +68,9 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
         for (let i in rec) {
           let recipe = rec[i]
           let result0 = recipe.result;
-          let input0 = recipe.ingridient1;
-          let input1 = recipe.ingridient2;
-          let input2 = recipe.ingridient3;
+          let input0 = recipe.ingredient1;
+          let input1 = recipe.ingredient2;
+          let input2 = recipe.ingredient3;
           if (result0.id == id) {
             list.push({
               input: [
@@ -94,9 +94,9 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
       for (let i in rec) {
         let recipe = rec[i]
         let result0 = recipe.result;
-        let input0 = recipe.ingridient1;
-        let input1 = recipe.ingridient2;
-        let input2 = recipe.ingridient3;
+        let input0 = recipe.ingredient1;
+        let input1 = recipe.ingredient2;
+        let input2 = recipe.ingredient3;
         list.push({
           input: [
             { id: input0.id, data: input0.data, count: input1.count || 1 },
@@ -140,7 +140,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
       moveItems: {
         x: 730,
         y: 375,
-        slots: ["ingridient"]
+        slots: ["ingredient"]
       }
     },
     getList: function(id, data, isUsage) {
@@ -150,7 +150,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
         var rec = RecipeRegistry.reqCrusher(true)
         for (let i in rec) {
           let recipe = rec[i];
-          let input = recipe.ingridient;
+          let input = recipe.ingredient;
           let result0 = recipe.result0;
           let result1 = recipe.result1;
           let result2 = recipe.result2;
@@ -178,7 +178,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
         var rec = RecipeRegistry.reqCrusher(true)
         for (let i in rec) {
           let recipe = rec[i];
-          let input = recipe.ingridient;
+          let input = recipe.ingredient;
           let result0 = recipe.result0;
           let result1 = recipe.result1;
           let result2 = recipe.result2;
@@ -212,7 +212,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
       var rec = RecipeRegistry.reqCrusher(true)
       for (let i in rec) {
         let recipe = rec[i];
-        let input = recipe.ingridient;
+        let input = recipe.ingredient;
         let result0 = recipe.result0;
         let result1 = recipe.result1;
         let result2 = recipe.result2;
@@ -374,7 +374,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
             moveItems: {
               x: 730,
               y: 375,
-              slots: ["ingridient"]
+              slots: ["ingredient"]
             }*/
     },
     getList: function(id, data, isUsage) {

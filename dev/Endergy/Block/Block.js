@@ -1,3 +1,4 @@
 Block.createResourceBlock("crudeSteel", "Crude Steel");
 Block.createResourceBlock("crystalline", "Crystalline");
-/*mod_endergy(BlockID.crudeSteelBlock)*/
+endergy_tip(BlockID.crudeSteelBlock);
+endergy_tip(BlockID.crystallineBlock);

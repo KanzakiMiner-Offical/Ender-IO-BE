@@ -47,7 +47,7 @@ var SimpleSAGGui = new UI.StandartWindow({
     "energyScale": { type: "scale", x: 335, y: 140, direction: 1, value: 0.5, bitmap: "redflux_bar1", scale: 3.2 },
     "siliconScale": { type: "scale", x: 765, y: 165, direction: 1, value: 0.5, bitmap: "bar_silicon1", scale: 6.8 },
     "text": { type: "text", x: 400, y: 100, width: 100, height: 30, text: "RF" },
-    "ingridient": { type: "slot", x: 602, y: 170 },
+    "ingredient": { type: "slot", x: 602, y: 170 },
     "slotSilicon": { type: "slot", x: 700, y: 170 },
     "result0": { type: "slot", x: 505, y: 340 },
     "result1": { type: "slot", x: 570, y: 340 },
@@ -79,7 +79,7 @@ MachineRegistry.registerElectricMachine(BlockID.simplesagmill, {
 
   tick: function() {
 
-    let ingridient = this.container.getSlot("ingridient");
+    let ingredient = this.container.getSlot("ingredient");
     let res0 = this.container.getSlot("result0");
     let res1 = this.container.getSlot("result1");
     let res2 = this.container.getSlot("result2");
@@ -104,7 +104,7 @@ MachineRegistry.registerElectricMachine(BlockID.simplesagmill, {
         time = Math.round(recipe.time / 1.15);
       }
       // KTRA ĐIỆN NĂNG VÀ OUTPUT
-      if (ingridient.id == recipe.ingridient.id && ingridient.data == recipe.ingridient.data /*&& ((res0.id = recipe.result0.id || 0) && (res1.id = recipe.result1.id || 0) && (res2.id == recipe.result2.id || 0) && (res3.id == recipe.result3.id || 0))*/) {
+      if (ingredient.id == recipe.ingredient.id && ingredient.data == recipe.ingredient.data /*&& ((res0.id = recipe.result0.id || 0) && (res1.id = recipe.result1.id || 0) && (res2.id == recipe.result2.id || 0) && (res3.id == recipe.result3.id || 0))*/) {
         this.data.work_time = time;
         if (this.data.energy >= this.data.energy_consumption) {
           Particles.addFarParticle(Native.ParticleType.itemBreak, this.x, this.y + .1, this.z)
@@ -112,7 +112,7 @@ MachineRegistry.registerElectricMachine(BlockID.simplesagmill, {
           this.data.energy -= this.data.energy_consumption;
           this.data.progress += this.data.speed;
           if (this.data.progress >= this.data.work_time) {
-            ingridient.count--;
+            ingredient.count--;
             var RDM = Math.random() * 1;
             if (RDM <= recipe.result0.chance) {
               res0.id = recipe.result0.id;
@@ -176,7 +176,7 @@ Callback.addCallback("PostLoaded", function() {
 
 StorageInterface.createInterface(BlockID.simplesagmill, {
   slots: {
-    "ingridient": {
+    "ingredient": {
       input: true,
       isValid: function(item) {
         return RecipeRegistry.getInCrusher(item.id);

@@ -44,9 +44,9 @@ var smelterGUI = new UI.StandartWindow({
             }
         }},
     "energyScale": { type: "scale", x: 335, y: 140, direction: 1, bitmap: "redflux_bar1", scale: 3.2 },
-    "ingridient1": { type: "slot", x: 520, y: 170 },
-    "ingridient2": { type: "slot", x: 600, y: 140 },
-    "ingridient3": { type: "slot", x: 680, y: 170 },
+    "ingredient1": { type: "slot", x: 520, y: 170 },
+    "ingredient2": { type: "slot", x: 600, y: 140 },
+    "ingredient3": { type: "slot", x: 680, y: 170 },
     "text": { type: "text", x: 400, y: 100, width: 100, height: 30, text: "RF" },
     "slotCapacitor": { type: "slot", x: 325, y: 320 },
     "resultSlot": { type: "slot", x: 600, y: 320 },
@@ -69,72 +69,72 @@ Callback.addCallback("PostLoaded", function(){
 	Recipes.addFurnace(ItemID.dustLapis, VanillaItemID.lapis_lazuli, 0);
 Recipes.addFurnace(ItemID.dustQuarzt, VanillaItemID.quartz, 0);
 RecipeRegistry.addSmelter({
-  ingridient1: { id: ItemID.dustQuarzt, data: 0 },
-  ingridient2: { id: 0, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: ItemID.dustQuarzt, data: 0 },
+  ingredient2: { id: 0, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: VanillaItemID.quartz, count: 1, data: 0 },
   time: 500
 });
 RecipeRegistry.addSmelter({
-  ingridient1: { id: ItemID.dustLapis, data: 0 },
-  ingridient2: { id: 0, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: ItemID.dustLapis, data: 0 },
+  ingredient2: { id: 0, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: VanillaItemID.lapis_lazuli, count: 1, data: 0 },
   time: 500
 });
 RecipeRegistry.addSmelter({
-  ingridient1: { id: 331, data: 0 },
-  ingridient2: { id: 265, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: 331, data: 0 },
+  ingredient2: { id: 265, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: ItemID.conductiveIron, count: 1, data: 0 },
   time: 500
 });
 RecipeRegistry.addSmelter({
-  ingridient1: { id: 331, data: 0 },
-  ingridient2: { id: 265, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: 331, data: 0 },
+  ingredient2: { id: 265, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: ItemID.conductiveIron, count: 1, data: 0 },
   time: 500
 });
 RecipeRegistry.addSmelter({
-  ingridient1: { id: 266, data: 0 },
-  ingridient2: { id: 331, data: 0 },
-  ingridient3: { id: 348, data: 0 },
+  ingredient1: { id: 266, data: 0 },
+  ingredient2: { id: 331, data: 0 },
+  ingredient3: { id: 348, data: 0 },
   result: { id: ItemID.energeticAlloy, count: 1, data: 0 },
   time: 500
 });
 RecipeRegistry.addSmelter({
-  ingridient1: { id: ItemID.energeticAlloy, data: 0 },
-  ingridient2: { id: 368, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: ItemID.energeticAlloy, data: 0 },
+  ingredient2: { id: 368, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: ItemID.vibrantAlloy, count: 1, data: 0 },
   time: 550
 });
 RecipeRegistry.addSmelter({
-  ingridient1: { id: 265, data: 0 },
-  ingridient2: { id: 368, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: 265, data: 0 },
+  ingredient2: { id: 368, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: ItemID.pulsatingIron, count: 1, data: 0 },
   time: 500
 });
 RecipeRegistry.addSmelter({
-  ingridient1: { id: VanillaItemID.iron_ingot, data: 0 },
-  ingridient2: { id: ItemID.dustCoal, data: 0 },
-  ingridient3: { id: 49, data: 0 },
+  ingredient1: { id: VanillaItemID.iron_ingot, data: 0 },
+  ingredient2: { id: ItemID.dustCoal, data: 0 },
+  ingredient3: { id: 49, data: 0 },
   result: { id: ItemID.darkSteel, count: 1, data: 0 },
   time: 1000
 });
 RecipeRegistry.addSmelter({
-  ingridient1: { id: VanillaItemID.iron_ingot, data: 0 },
-  ingridient2: { id: ItemID.dustCoal, data: 0 },
-  ingridient3: { id: ItemID.silicon, data: 0 },
+  ingredient1: { id: VanillaItemID.iron_ingot, data: 0 },
+  ingredient2: { id: ItemID.dustCoal, data: 0 },
+  ingredient3: { id: ItemID.silicon, data: 0 },
   result: { id: ItemID.electricalSteel, count: 1, data: 0 },
   time: 500
 });
 RecipeRegistry.addSmelter({
-  ingridient1: { id: 331, data: 0 },
-  ingridient2: { id: ItemID.silicon, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: 331, data: 0 },
+  ingredient2: { id: ItemID.silicon, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: ItemID.redstoneAlloy, count: 1, data: 0 },
   time: 500
 });
@@ -181,20 +181,20 @@ MachineRegistry.registerElectricMachine(BlockID.alloySmelter, {
   },
 
   alloy: function() {
-    let ingridient1 = this.container.getSlot("ingridient1");
-    let ingridient2 = this.container.getSlot("ingridient2");
-    let ingridient3 = this.container.getSlot("ingridient3");
+    let ingredient1 = this.container.getSlot("ingredient1");
+    let ingredient2 = this.container.getSlot("ingredient2");
+    let ingredient3 = this.container.getSlot("ingredient3");
     let resultSlot = this.container.getSlot("resultSlot");
 
     let newActive = false;
     for (let i in RecipeRegistry.smelter) {
       var Recipe = RecipeRegistry.smelter[i];
-      var ingri1 = Recipe.ingridient1;
-      var ingri2 = Recipe.ingridient2;
-      var ingri3 = Recipe.ingridient3;
+      var ingri1 = Recipe.ingredient1;
+      var ingri2 = Recipe.ingredient2;
+      var ingri3 = Recipe.ingredient3;
       var time = Recipe.time
       var result = Recipe.result
-      if (ingridient1.id == ingri1.id && ingridient1.data == ingri1.data && (ingridient1.count == ingri1.count || 1 ) && ingridient2.id == ingri2.id && ingridient2.data == ingri2.data && ingridient3.id == ingri3.id && ingridient3.data == ingri3.data && (ingridient3.count == ingri3.count || 1 ) ) {
+      if (ingredient1.id == ingri1.id && ingredient1.data == ingri1.data && (ingredient1.count == ingri1.count || 1 ) && ingredient2.id == ingri2.id && ingredient2.data == ingri2.data && ingredient3.id == ingri3.id && ingredient3.data == ingri3.data && (ingredient3.count == ingri3.count || 1 ) ) {
         this.data.work_time = time;
         if (this.data.energy >= this.data.energy_consumption) {
           newActive = true;
@@ -206,9 +206,9 @@ MachineRegistry.registerElectricMachine(BlockID.alloySmelter, {
             resultSlot.id = result.id;
             resultSlot.data = result.data;
             resultSlot.count += result.count;
-            ingridient1.count--;
-            ingridient2.count--;
-            ingridient3.count--;
+            ingredient1.count--;
+            ingredient2.count--;
+            ingredient3.count--;
             this.container.validateAll();
             this.data.progress = 0;
           }
@@ -226,11 +226,11 @@ MachineRegistry.registerElectricMachine(BlockID.alloySmelter, {
   },
 
   furnace: function() {
-    let ingridient1 = this.container.getSlot("ingridient1");
-    let ingridient2 = this.container.getSlot("ingridient2");
-    let ingridient3 = this.container.getSlot("ingridient3");
+    let ingredient1 = this.container.getSlot("ingredient1");
+    let ingredient2 = this.container.getSlot("ingredient2");
+    let ingredient3 = this.container.getSlot("ingredient3");
     let result = this.container.getSlot("resultSlot");
-    let rec = Recipes.getFurnaceRecipeResult(ingridient1.id, "iron");
+    let rec = Recipes.getFurnaceRecipeResult(ingredient1.id, "iron");
 
     let newActive = false;
     if (rec) {
@@ -247,7 +247,7 @@ MachineRegistry.registerElectricMachine(BlockID.alloySmelter, {
           result.data = rec.data;
           result.count++;
           this.data.progress = 0;
-          ingridient1.count--;
+          ingredient1.count--;
           this.container.validateAll();
         }
 
@@ -305,9 +305,9 @@ MachineRegistry.registerElectricMachine(BlockID.alloySmelter, {
 });
 StorageInterface.createInterface(BlockID.alloySmelter, {
 	slots: {
-		"ingridient1": {input: true},
-		"ingridient2": {input: true},
-		"ingridient3": {input: true},
+		"ingredient1": {input: true},
+		"ingredient2": {input: true},
+		"ingredient3": {input: true},
 		"resultSlot": {output: true}
 	}
 });

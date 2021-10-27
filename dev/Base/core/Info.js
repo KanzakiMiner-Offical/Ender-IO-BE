@@ -47,3 +47,25 @@ const mod_tip = function (id) {
 		})
 	});
 }
+
+const endergy_tip = function (id) {
+	Callback.addCallback('PostLoaded', function () {
+		var _func = Item.nameOverrideFunctions[id];
+		Item.registerNameOverrideFunction(id, function (item, name) {
+			if (_func) name = _func(item, name);
+			if (_inventory_open) name += "\n§9" + mod.name + ": Endergy";
+			return name;
+		})
+	});
+}
+
+const machine_tip = function (id) {
+	Callback.addCallback('PostLoaded', function () {
+		var _func = Item.nameOverrideFunctions[id];
+		Item.registerNameOverrideFunction(id, function (item, name) {
+			if (_func) name = _func(item, name);
+			if (_inventory_open) name += "\n§9" + mod.name + ": Machine";
+			return name;
+		})
+	});
+}

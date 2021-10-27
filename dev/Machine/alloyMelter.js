@@ -55,9 +55,9 @@ var simpleAlloyUI = new UI.StandartWindow({
             }
         }},
     "energyScale": { type: "scale", x: 335, y: 140, direction: 1, bitmap: "redflux_bar1", scale: 3.2 },
-    "ingridient1": { type: "slot", x: 520, y: 170 },
-    "ingridient2": { type: "slot", x: 600, y: 140 },
-    "ingridient3": { type: "slot", x: 680, y: 170 },
+    "ingredient1": { type: "slot", x: 520, y: 170 },
+    "ingredient2": { type: "slot", x: 600, y: 140 },
+    "ingredient3": { type: "slot", x: 680, y: 170 },
     "text": { type: "text", x: 400, y: 100, width: 100, height: 30, text: "RF" },
     "resultSlot": { type: "slot", x: 600, y: 320 }
   }
@@ -88,20 +88,20 @@ MachineRegistry.registerElectricMachine(BlockID.simpleAlloySmelter, {
   },
 
   tick: function() {
-        let ingridient1 = this.container.getSlot("ingridient1");
-    let ingridient2 = this.container.getSlot("ingridient2");
-    let ingridient3 = this.container.getSlot("ingridient3");
+        let ingredient1 = this.container.getSlot("ingredient1");
+    let ingredient2 = this.container.getSlot("ingredient2");
+    let ingredient3 = this.container.getSlot("ingredient3");
     let resultSlot = this.container.getSlot("resultSlot");
 
     let newActive = false;
     for (let i in RecipeRegistry.smelter) {
       var Recipe = RecipeRegistry.smelter[i];
-      var ingri1 = Recipe.ingridient1;
-      var ingri2 = Recipe.ingridient2;
-      var ingri3 = Recipe.ingridient3;
+      var ingri1 = Recipe.ingredient1;
+      var ingri2 = Recipe.ingredient2;
+      var ingri3 = Recipe.ingredient3;
       var time = Recipe.time*2;
       var result = Recipe.result
-      if (ingridient1.id == ingri1.id && ingridient1.data == ingri1.data && ingridient2.id == ingri2.id && ingridient2.data == ingri2.data && ingridient3.id == ingri3.id && ingridient3.data == ingri3.data) {
+      if (ingredient1.id == ingri1.id && ingredient1.data == ingri1.data && ingredient2.id == ingri2.id && ingredient2.data == ingri2.data && ingredient3.id == ingri3.id && ingredient3.data == ingri3.data) {
         this.data.work_time = time;
         if (this.data.energy >= this.data.energy_consumption) {
           newActive = true;
@@ -113,9 +113,9 @@ MachineRegistry.registerElectricMachine(BlockID.simpleAlloySmelter, {
             resultSlot.id = result.id;
             resultSlot.data = result.data;
             resultSlot.count += result.count;
-            ingridient1.count--;
-            ingridient2.count--;
-            ingridient3.count--;
+            ingredient1.count--;
+            ingredient2.count--;
+            ingredient3.count--;
             this.container.validateAll();
             this.data.progress = 0;
           }

@@ -40,7 +40,7 @@ var SAGGui = new UI.StandartWindow({
     "energyScale": { type: "scale", x: 335, y: 140, direction: 1, value: 0.5, bitmap: "redflux_bar1", scale: 3.2 },
     "siliconScale": { type: "scale", x: 765, y: 165, direction: 1, value: 0.5, bitmap: "bar_silicon1", scale: 6.8 },
     "text": { type: "text", x: 400, y: 100, width: 100, height: 30, text: "RF" },
-    "ingridient": { type: "slot", x: 602, y: 170 },
+    "ingredient": { type: "slot", x: 602, y: 170 },
     "slotSilicon": { type: "slot", x: 700, y: 170 },
     "slotCapacitor": { type: "slot", x: 325, y: 310 },
     "result0": { type: "slot", x: 505, y: 340 },
@@ -88,7 +88,7 @@ MachineRegistry.registerElectricMachine(BlockID.sagmill, {
     this.resetValues();
     UpgradeAPI.executeUpgrades(this);
 
-    let ingridient = this.container.getSlot("ingridient");
+    let ingredient = this.container.getSlot("ingredient");
     let res0 = this.container.getSlot("result0");
     let res1 = this.container.getSlot("result1");
     let res2 = this.container.getSlot("result2");
@@ -113,7 +113,7 @@ MachineRegistry.registerElectricMachine(BlockID.sagmill, {
         time = Math.round(recipe.time / 1.25);
       }
       // KTRA ĐIỆN NĂNG VÀ OUTPUT
-      if (ingridient.id == recipe.ingridient.id && ingridient.data == recipe.ingridient.data) {
+      if (ingredient.id == recipe.ingredient.id && ingredient.data == recipe.ingredient.data) {
         this.data.work_time = time;
         if (this.data.energy >= this.data.energy_consumption) {
         	Particles.addParticle(Native.ParticleType.itemBreak, this.x, this.y+.1, this.z, 0, 0, 0)
@@ -121,7 +121,7 @@ MachineRegistry.registerElectricMachine(BlockID.sagmill, {
           this.data.energy -= this.data.energy_consumption;
           this.data.progress += this.data.speed;
           if (this.data.progress >= this.data.work_time) {
-            ingridient.count--;
+            ingredient.count--;
             var RDM = Math.random() * 1;
             /*
             var Chance0 = recipe.result0.chance;
@@ -217,7 +217,7 @@ Recipes.addShaped({ id: BlockID.sagmill, count: 1, data: 0 }, [
   ], ['i', ItemID.darkSteel, 0, 'f', VanillaItemID.flint, 0, "m", BlockID.simplesagmill, 0, "p", BlockID.machineChassi, 0]);
 /*
 RecipeRegistry.addCrusher({
-  ingridient: { id: BlockID.oreAluminum, data: 0 },
+  ingredient: { id: BlockID.oreAluminum, data: 0 },
   result0: { id: ItemID.dustAluminum, data: 0, chance: 1 },
   result1: { id: ItemID.dustAluminum, data: 0, chance: 1 },
   result2: { id: 0, data: 0, chance: 0 },
@@ -226,7 +226,7 @@ RecipeRegistry.addCrusher({
 });
 */
 RecipeRegistry.addCrusher({
-  ingridient: { id: 49, data: 0 },
+  ingredient: { id: 49, data: 0 },
   result0: { id: ItemID.dustObsidian, data: 0, chance: 1 },
   result1: { id: ItemID.dustObsidian, data: 0, chance: 1 },
   result2: { id: ItemID.dustObsidian, data: 0, chance: 1 },
@@ -235,7 +235,7 @@ RecipeRegistry.addCrusher({
 });
 
 RecipeRegistry.addCrusher({
-  ingridient: { id: VanillaBlockID.gold_ore, data: 0 },
+  ingredient: { id: VanillaBlockID.gold_ore, data: 0 },
   result0: { id: ItemID.dustGold, data: 0, chance: 1 },
   result1: { id: ItemID.dustGold, data: 0, chance: 1 },
   result2: { id: ItemID.dustSilver, data: 0, chance: 0.4 },
@@ -244,7 +244,7 @@ RecipeRegistry.addCrusher({
 });
 
 RecipeRegistry.addCrusher({
-  ingridient: { id: VanillaBlockID.iron_ore, data: 0 },
+  ingredient: { id: VanillaBlockID.iron_ore, data: 0 },
   result0: { id: ItemID.dustIron, data: 0, chance: 1 },
   result1: { id: ItemID.dustIron, data: 0, chance: 1 },
   result2: { id: ItemID.dustTin, data: 0, chance: 0.05 },
@@ -253,7 +253,7 @@ RecipeRegistry.addCrusher({
 });
 
 RecipeRegistry.addCrusher({
-  ingridient: { id: ItemID.pulsatingCrystal, data: 0 },
+  ingredient: { id: ItemID.pulsatingCrystal, data: 0 },
   result0: { id: ItemID.dustPulsating, data: 0, chance: 1 },
   result1: { id: 0, data: 0, chance: 0 },
   result2: { id: 0, data: 0, chance: 0 },
@@ -262,7 +262,7 @@ RecipeRegistry.addCrusher({
 });
 
 RecipeRegistry.addCrusher({
-  ingridient: { id: VanillaBlockID.coal_ore, data: 0 },
+  ingredient: { id: VanillaBlockID.coal_ore, data: 0 },
   result0: { id: 263, data: 0, chance: 1 },
   result1: { id: 263, data: 0, chance: 1 },
   result2: { id: 264, data: 0, chance: 0.01 },
@@ -271,7 +271,7 @@ RecipeRegistry.addCrusher({
 });
 
 RecipeRegistry.addCrusher({
-  ingridient: { id: VanillaBlockID.sand, data: 0 },
+  ingredient: { id: VanillaBlockID.sand, data: 0 },
   result0: { id: ItemID.silicon, data: 0, chance: 0.5 },
   result1: { id: 0, data: 0, chance: 1 },
   result2: { id: 0, data: 0, chance: 1 },
@@ -280,7 +280,7 @@ RecipeRegistry.addCrusher({
 });
 
 RecipeRegistry.addCrusher({
-  ingridient: { id: 4, data: 0 },
+  ingredient: { id: 4, data: 0 },
   result0: { id: 13, data: 0, chance: 0.7 },
   result1: { id: 13, data: 0, chance: 0.3 },
   result2: { id: 12, data: 0, chance: 0.1 },
@@ -289,7 +289,7 @@ RecipeRegistry.addCrusher({
 });
 
 RecipeRegistry.addCrusher({
-  ingridient: { id: VanillaBlockID.quartz_ore, data: 0 },
+  ingredient: { id: VanillaBlockID.quartz_ore, data: 0 },
   result0: { id: ItemID.dustQuarzt, data: 0, chance: 1 },
   result1: { id: ItemID.dustQuarzt, data: 0, chance: 0.75 },
   result2: { id: VanillaBlockID.netherrack, data: 0, chance: 0.6 },
@@ -298,7 +298,7 @@ RecipeRegistry.addCrusher({
 });
 
 RecipeRegistry.addCrusher({
-  ingridient: { id: VanillaItemID.quartz, data: 0 },
+  ingredient: { id: VanillaItemID.quartz, data: 0 },
   result0: { id: ItemID.dustQuarzt, data: 0, chance: 1 },
   result1: { id: ItemID.dustQuarzt, data: 0, chance: 0.1 },
   result2: { id: 0, data: 0, chance: 0 },
@@ -307,7 +307,7 @@ RecipeRegistry.addCrusher({
 });
 
 RecipeRegistry.addCrusher({
-  ingridient: { id: VanillaBlockID.lapis_ore, data: 0 },
+  ingredient: { id: VanillaBlockID.lapis_ore, data: 0 },
   result0: { id: ItemID.dustLapis, data: 0, chance: 1 },
   result1: { id: ItemID.dustLapis, data: 0, chance: 0.75 },
   result2: { id: 4, data: 0, chance: 0.6 },
@@ -316,7 +316,7 @@ RecipeRegistry.addCrusher({
 });
 
 RecipeRegistry.addCrusher({
-  ingridient: { id: VanillaItemID.lapis_lazuli, data: 0 },
+  ingredient: { id: VanillaItemID.lapis_lazuli, data: 0 },
   result0: { id: ItemID.dustLapis, data: 0, chance: 1 },
   result1: { id: ItemID.dustLapis, data: 0, chance: 0.1 },
   result2: { id: 0, data: 0, chance: 0 },
@@ -325,7 +325,7 @@ RecipeRegistry.addCrusher({
 });
 
 RecipeRegistry.addCrusher({
-  ingridient: { id: 296, data: 0 },
+  ingredient: { id: 296, data: 0 },
   result0: { id: ItemID.dustWheat, data: 0, chance: 1 },
   result1: { id: VanillaItemID.wheat_seed, data: 0, chance: 0.45 },
   result2: { id: 0, data: 0, chance: 0 },
@@ -337,7 +337,7 @@ RecipeRegistry.addCrusher({
 
 StorageInterface.createInterface(BlockID.sagmill, {
 	slots: {
-		"ingridient": {input: true,
+		"ingredient": {input: true,
 			isValid: function(item){
 				return RecipeRegistry.getInCrusher(item.id);
 			}

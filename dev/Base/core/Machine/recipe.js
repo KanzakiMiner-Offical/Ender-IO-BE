@@ -27,9 +27,9 @@ var RecipeRegistry = {
       for (let i in rec) {
         let recipe = rec[i]
         let result0 = recipe.result;
-        let input0 = recipe.ingridient1;
-        let input1 = recipe.ingridient2;
-        let input2 = recipe.ingridient3;
+        let input0 = recipe.ingredient1;
+        let input1 = recipe.ingredient2;
+        let input2 = recipe.ingredient3;
         return {
           input: [
             { id: input0.id, data: input0.data, count: 1 },
@@ -49,7 +49,7 @@ var RecipeRegistry = {
       var rec = RecipeRegistry.reqCrusher(true)
       for (let i in rec) {
         let recipe = rec[i];
-        let input = recipe.ingridient;
+        let input = recipe.ingredient;
         let result0 = recipe.result0;
         let result1 = recipe.result1;
         let result2 = recipe.result2;
@@ -77,7 +77,7 @@ var RecipeRegistry = {
   getSmelter: function(id1, id2, id3) {
     var data = this.reqSmelter(true);
     if (data) {
-      if (id1 == data.ingridient1.id && id2 == data.ingridient2.id && d3 == data.ingridient3.id) {
+      if (id1 == data.ingredient1.id && id2 == data.ingredient2.id && d3 == data.ingredient3.id) {
         return this.smelter
       } else {
         return null;
@@ -95,7 +95,7 @@ var RecipeRegistry = {
   getCrusher: function(id) {
     var data = reqCrusher(true);
     if (data) {
-      if (id == data.ingridient.id) {
+      if (id == data.ingredient.id) {
         return this.crusher
       } else {
         return null;
@@ -105,10 +105,10 @@ var RecipeRegistry = {
   getInCrusher: function(id) {
     var data = reqCrusher(true);
     if (data) {
-      if (id == data.ingridient.id) {
+      if (id == data.ingredient.id) {
         for (let i in this.crusher) {
           var recipe = this.crusher[i]
-          return recipe.ingridient.id;
+          return recipe.ingredient.id;
         }
       } else {
         return null;

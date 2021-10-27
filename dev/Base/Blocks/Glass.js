@@ -25,16 +25,16 @@ bakeModel(BlockID.fusedQuartz, 0, "fusedQuartzItem");
 
 Callback.addCallback("PostLoaded", function() {
   RecipeRegistry.addSmelter({
-    ingridient1: { id: 12, data: 0 },
-    ingridient2: { id: 12, data: 0 },
-    ingridient3: { id: 12, data: 0 },
+    ingredient1: { id: 12, data: 0 },
+    ingredient2: { id: 12, data: 0 },
+    ingredient3: { id: 12, data: 0 },
     result: { id: BlockID.fusedGlass, count: 1, data: 0 },
     time: 800
   });
   RecipeRegistry.addSmelter({
-    ingridient1: { id: 406, data: 0 },
-    ingridient2: { id: 406, data: 0 },
-    ingridient3: { id: 406, data: 0 },
+    ingredient1: { id: 406, data: 0 },
+    ingredient2: { id: 406, data: 0 },
+    ingredient3: { id: 406, data: 0 },
     result: { id: BlockID.fusedQuartz, count: 1, data: 0 },
     time: 800
   });

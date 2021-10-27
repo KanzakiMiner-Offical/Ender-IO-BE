@@ -71,7 +71,7 @@ var simpleFurnaceUI = new UI.StandartWindow({
       }
     },
     "energyScale": { type: "scale", x: 335, y: 140, direction: 1, bitmap: "redflux_bar1", scale: 3.2 },
-    "ingridient1": { type: "slot", x: 600, y: 140 },
+    "ingredient1": { type: "slot", x: 600, y: 140 },
     "text": { type: "text", x: 400, y: 100, width: 100, height: 30, text: "RF" },
     "resultSlot": { type: "slot", x: 600, y: 320 }
   }
@@ -102,9 +102,9 @@ MachineRegistry.registerElectricMachine(BlockID.simplePoweredFurnace, {
   },
 
   tick: function() {
-    let ingridient1 = this.container.getSlot("ingridient1");
+    let ingredient1 = this.container.getSlot("ingredient1");
     let result = this.container.getSlot("resultSlot");
-    let rec = Recipes.getFurnaceRecipeResult(ingridient1.id, "iron");
+    let rec = Recipes.getFurnaceRecipeResult(ingredient1.id, "iron");
 
     let newActive = false;
     if (rec) {
@@ -121,7 +121,7 @@ MachineRegistry.registerElectricMachine(BlockID.simplePoweredFurnace, {
           result.data = rec.data;
           result.count++;
           this.data.progress = 0;
-          ingridient1.count--;
+          ingredient1.count--;
           this.container.validateAll();
         }
 

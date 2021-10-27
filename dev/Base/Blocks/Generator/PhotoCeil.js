@@ -34,9 +34,9 @@ Callback.addCallback("PostLoaded", function() {
      "   "],
   [ 's', ItemID.silicon, 0, 'p', ItemID.dustLapis, 0, 'g', ItemID.dustCoal, 0]);
 RecipeRegistry.addSmelter({
-  ingridient1: { id: ItemID.dustPhotovoltaic, data: 0 },
-  ingridient2: { id: 0, data: 0 },
-  ingridient3: { id: 0, data: 0 },
+  ingredient1: { id: ItemID.dustPhotovoltaic, data: 0 },
+  ingredient2: { id: 0, data: 0 },
+  ingredient3: { id: 0, data: 0 },
   result: { id: ItemID.platePhotovoltaic, count: 6, data: 0 },
   time: 500
 });

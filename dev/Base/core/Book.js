@@ -32,7 +32,7 @@
               }
             }
           },
-          "ingridient": { type: "slot", x: 602, y: 170, source: { id: 0, count: 1 } },
+          "ingredient": { type: "slot", x: 602, y: 170, source: { id: 0, count: 1 } },
           "result0": { type: "slot", x: 505, y: 340, source: { id: 0, count: 1 } },
           "result1": { type: "slot", x: 570, y: 340, source: { id: 0, count: 1 } },
           "result2": { type: "slot", x: 635, y: 340, source: { id: 0, count: 1 } },
@@ -74,7 +74,7 @@
       var rec = RecipeRegistry.reqCrusher(true)
       let a = i - 1;
       let recipe = rec[a];
-      let input = recipe.ingridient;
+      let input = recipe.ingredient;
       let result0 = recipe.result0;
       let result1 = recipe.result1;
       let result2 = recipe.result2;
@@ -89,7 +89,7 @@
       elem = elements.get("textChance3");
       elem.onBindingUpdated("textChance3", result3.chance * 100 + "%");
 
-      elem = elements.get("ingridient");
+      elem = elements.get("ingredient");
       elem.source.id = input.id;
       elem = elements.get("result0");
       elem.source.id = result0.id;

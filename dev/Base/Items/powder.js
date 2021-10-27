@@ -117,7 +117,7 @@ Callback.addCallback("PostLoaded", function() {
     ingredient2: { id: ItemID.machineDye, data: 0 },
     ingredient3: { id: 0, data: 0 },
     result: { id: BlockID.machineChassi, count: 1, data: 0 },
-    time: 240
+    time: 250
   });
 
   RecipeRegistry.addSmelter({
@@ -125,7 +125,7 @@ Callback.addCallback("PostLoaded", function() {
     ingredient2: { id: ItemID.soulMachineDye, data: 0 },
     ingredient3: { id: 0, data: 0 },
     result: { id: BlockID.machineChassiSoul, count: 1, data: 0 },
-    time: 240
+    time: 250
   });
 
 });

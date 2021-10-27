@@ -194,7 +194,7 @@ MachineRegistry.registerElectricMachine(BlockID.alloySmelter, {
       var ingri3 = Recipe.ingredient3;
       var time = Recipe.time
       var result = Recipe.result
-      if (ingredient1.id == ingri1.id && ingredient1.data == ingri1.data && (ingredient1.count == ingri1.count || 1 ) && ingredient2.id == ingri2.id && ingredient2.data == ingri2.data && ingredient3.id == ingri3.id && ingredient3.data == ingri3.data && (ingredient3.count == ingri3.count || 1 ) ) {
+      if (ingredient1.id == ingri1.id && ingredient1.data == ingri1.data && (ingredient1.count == ingri1.count || 1 ) && ingredient2.id == ingri2.id && ingredient2.data == ingri2.data && ingredient3.id == ingri3.id && ingredient3.data == ingri3.data && (ingredient3.count == ingri3.count || 1 ) && (resultSlot.id == result.id && resultSlot.count < 64 && resultSlot.data == result.data || resultSlot.id == 0)) {
         this.data.work_time = time;
         if (this.data.energy >= this.data.energy_consumption) {
           newActive = true;

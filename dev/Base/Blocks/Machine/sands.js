@@ -39,7 +39,7 @@ Callback.addCallback("PostLoaded", function() {
     	"shs",
     	"amc",
 	   "sss"
-  ], ['s', ItemID.soularium, 0, 'h', 397, -1, "a", 258, 0, "c", 359, 0, "m", BlockID.machineChassi, 0]);
+  ], ['s', ItemID.soularium, 0, 'h', 397, -1, "a", 258, 0, "c", 359, 0, "m", BlockID.machineChassiSoul, 0]);
 
   RecipeRegistry.addSliceAndSplice({
     input0: { id: ItemID.soulariumI, data: 0 },
@@ -140,7 +140,7 @@ MachineRegistry.registerElectricMachine(BlockID.sliceAndSplice, {
         run = true;
       }
       this.container.setScale("progressScale", this.data.progress / time)
-      if (run && AXES[slotAxe.id] && slotShears.id == 359 && (output.id == recipe.id && output.count < 64 && output.data == recipe.data || output.id == 0)) {
+      if (run && AXES[slotAxe.id] && slotShears.id == 359 && (output.id == out.id && output.count < 64 && output.data == out.data || output.id == 0)) {
         if (this.data.energy >= this.data.energy_consumption) {
           this.data.progress += this.data.speed;
           this.data.energy -= this.data.energy_consumption;

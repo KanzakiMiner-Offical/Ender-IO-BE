@@ -14,6 +14,7 @@ mod_tip(BlockID[id])
 };
 Block.createChassisBlock("Chassi", "Industrial Machine");
 Block.createChassisBlock("ChassiSimple", "Simple Machine");
+Block.createChassisBlock("ChassiSoul", "Soul Machine");
 Callback.addCallback("PostLoaded", function() {
   Recipes.addShaped({ id: BlockID.machineChassiSimple, count: 1, data: 0 }, [
   	"aba",

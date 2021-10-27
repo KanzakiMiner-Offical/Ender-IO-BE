@@ -1,0 +1,12 @@
+Header.js
+
+Base/core/.
+Base/Items/.
+Base/Integration/.
+Base/Blocks/.
+
+Endergy/.
+
+Machine/.
+ModInfo.js
+Shared.js

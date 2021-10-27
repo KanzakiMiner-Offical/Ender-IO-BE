@@ -48,8 +48,8 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
                 { id: input1.id, data: input1.data, count: 1 },
                 { id: input2.id, data: input2.data, count: input2.count || 1 }
                  ],
-              output: [{ id: result0.id, data: result0.data, count: result0.count }]
-              //     time: recipe.time
+              output: [{ id: result0.id, data: result0.data, count: result0.count }],
+               time: recipe.time
             });
           } else if (result0.id == id) {
             list.push({
@@ -58,8 +58,8 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
                 { id: input1.id, data: input1.data, count: 1 },
                 { id: input2.id, data: input2.data, count: input2.count || 1 }
                                          ],
-              output: [{ id: result0.id, data: result0.data, count: result0.count }]
-              //    time: recipe.time
+              output: [{ id: result0.id, data: result0.data, count: result0.count }],
+               time: recipe.time
             });
           }
         }
@@ -78,8 +78,8 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
                 { id: input1.id, data: input1.data, count: 1 },
                 { id: input2.id, data: input2.data, count: input2.count || 1 }
                                ],
-              output: [{ id: result0.id, data: result0.data, count: result0.count }]
-              //    time: recipe.time
+              output: [{ id: result0.id, data: result0.data, count: result0.count }],
+               time: recipe.time
             });
           }
         }
@@ -103,18 +103,17 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
             { id: input1.id, data: input1.data, count: 1 },
             { id: input2.id, data: input2.data, count: input2.count || 1 }
                                ],
-          output: [{ id: result0.id, data: result0.data, count: result0.count }]
-          //    time: recipe.time
+          output: [{ id: result0.id, data: result0.data, count: result0.count }],
+          time: recipe.time
         });
 
       }
       return list;
-    }
-    /*
+    },
         onOpen: function(elements, data) {
           let elem = elements.get("textTine");
           elem.onBindingUpdated("text", data ? Translation.translate("Time: ") + data.time : "");
-        }*/
+        }
   });
   //RecipeRegistry.showCrusher(RecipeViewer);
   //RecipeRegistry.show(RecipeViewer);
@@ -311,7 +310,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
           }
         }
       }
-      /*else {
+      else {
              for (let i in RecipeRegistry.theVat) {
                let recipe = RecipeRegistry.theVat[i];
                let input1 = recipe.input1;
@@ -330,7 +329,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
                }
 
              }
-           }*/
+           }
 
       return list;
 

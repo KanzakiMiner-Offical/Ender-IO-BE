@@ -130,7 +130,7 @@ function regUpgrade(id, type, storage, usage, speed, bonus) {
   
   capacitorObj.push(id);
 }
-regUpgrade(ItemID.basicCapacitor, "capacitor", 100000, 40, 1.15, 1);
+regUpgrade(ItemID.basicCapacitor, "capacitor", 100000, 40, 1.15, 1.25);
 regUpgrade(ItemID.doublelayerCapacitor, "capacitor", 200000, 80, 2, 2);
 regUpgrade(ItemID.octadicCapacitor, "capacitor", 400000, 160, 4, 4);
 regUpgrade(ItemID.enderCapacitor, "capacitor", 800000, 640, 10, 10);

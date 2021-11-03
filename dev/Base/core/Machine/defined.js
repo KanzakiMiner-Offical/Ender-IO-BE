@@ -28,58 +28,58 @@ var MachineRegistry = {
 			}
 		};*/
     // audio
-		if(Prototype.getStartSoundFile){
-			if(!Prototype.getStartingSoundFile){
-				Prototype.getStartingSoundFile = function(){return null;}
-			}
-			if(!Prototype.getInterruptSoundFile){
-				Prototype.getInterruptSoundFile = function(){return null;}
-			}
-			Prototype.startPlaySound = Prototype.startPlaySound || function(){
-				if(!Config.machineSoundEnabled){return;}
-				let audio = this.audioSource;
-				if(audio && audio.isFinishing){
-					audio.stop();
-					audio.media = audio.startingSound || audio.startSound;
-					audio.start();
-					audio.isFinishing = false;
-				}
-				else if(!this.remove && (!audio || !audio.isPlaying()) && this.dimension == Player.getDimension()){
-					this.audioSource = SoundAPI.createSource([this.getStartingSoundFile(), this.getStartSoundFile(), this.getInterruptSoundFile()], this, 16);
-				}
-			}
-			Prototype.stopPlaySound = Prototype.stopPlaySound || function(playInterruptSound){
-				let audio = this.audioSource;
-				if(audio){
-					if(!audio.isPlaying()){
-						this.audioSource = null;
-					}
-					else if(!audio.isFinishing){
-						audio.stop();
-						if(playInterruptSound){
-							audio.playFinishingSound();
-						}
-					}
-				}
-			}
-		} 
-		else {
-			Prototype.startPlaySound = Prototype.startPlaySound || function(name){
-				if(!Config.machineSoundEnabled){return;}
-				let audio = this.audioSource;
-				if(!this.remove && (!audio || !audio.isPlaying()) && this.dimension == Player.getDimension()){
-					let sound = SoundAPI.playSoundAt(this, name, true, 16);
-					this.audioSource = sound;
-				}
-			}
-			Prototype.stopPlaySound = Prototype.stopPlaySound || function(){
-				if(this.audioSource && this.audioSource.isPlaying()){
-					this.audioSource.stop();
-					this.audioSource = null;
-				}
-			}
-		}
-		
+    if (Prototype.getStartSoundFile) {
+      if (!Prototype.getStartingSoundFile) {
+        Prototype.getStartingSoundFile = function() { return null; }
+      }
+      if (!Prototype.getInterruptSoundFile) {
+        Prototype.getInterruptSoundFile = function() { return null; }
+      }
+      Prototype.startPlaySound = Prototype.startPlaySound || function() {
+        if (!Config.machineSoundEnabled) { return; }
+        let audio = this.audioSource;
+        if (audio && audio.isFinishing) {
+          audio.stop();
+          audio.media = audio.startingSound || audio.startSound;
+          audio.start();
+          audio.isFinishing = false;
+        }
+        else if (!this.remove && (!audio || !audio.isPlaying()) && this.dimension == Player.getDimension()) {
+          this.audioSource = SoundAPI.createSource([this.getStartingSoundFile(), this.getStartSoundFile(), this.getInterruptSoundFile()], this, 16);
+        }
+      }
+      Prototype.stopPlaySound = Prototype.stopPlaySound || function(playInterruptSound) {
+        let audio = this.audioSource;
+        if (audio) {
+          if (!audio.isPlaying()) {
+            this.audioSource = null;
+          }
+          else if (!audio.isFinishing) {
+            audio.stop();
+            if (playInterruptSound) {
+              audio.playFinishingSound();
+            }
+          }
+        }
+      }
+    }
+    else {
+      Prototype.startPlaySound = Prototype.startPlaySound || function(name) {
+        if (!Config.machineSoundEnabled) { return; }
+        let audio = this.audioSource;
+        if (!this.remove && (!audio || !audio.isPlaying()) && this.dimension == Player.getDimension()) {
+          let sound = SoundAPI.playSoundAt(this, name, true, 16);
+          this.audioSource = sound;
+        }
+      }
+      Prototype.stopPlaySound = Prototype.stopPlaySound || function() {
+        if (this.audioSource && this.audioSource.isPlaying()) {
+          this.audioSource.stop();
+          this.audioSource = null;
+        }
+      }
+    }
+
     // machine activation
     if (Prototype.defaultValues && Prototype.defaultValues.isActive !== undefined) {
       if (!Prototype.renderModel) {
@@ -109,11 +109,12 @@ var MachineRegistry = {
     TileEntity.registerPrototype(id, Prototype);
   },
 
-registerElectricPrototype: function(id, Prototype) {
+  registerElectricPrototype: function(id, Prototype) {
     // wire connection
     ICRender.getGroup("rf-wire").add(id, -1);
-  //  ICRender.getGroup("ic-wire").add(id, -1);
+    //  ICRender.getGroup("ic-wire").add(id, -1);
 
+    this.registerPrototype(id, Prototype);
     // setup energy values
     if (Prototype.defaultValues) {
       Prototype.defaultValues.energy = 0;
@@ -123,22 +124,22 @@ registerElectricPrototype: function(id, Prototype) {
         energy: 0
       };
     }
-    
+
     if (!Prototype.defaultValues.energy) {
-       Prototype.defaultValues.energy = 0;
-     }
+      Prototype.defaultValues.energy = 0;
+    }
 
     Prototype.getTier = Prototype.getTier || function() {
       return 1;
     }
-    
-    
+
+
     if (!Prototype.getMaxPacketSize) {
       Prototype.getMaxPacketSize = function(tier) {
         return 8 << this.getTier() * 2;
       }
     }
-    
+
     if (!Prototype.getEnergyStorage) {
       Prototype.getEnergyStorage = function() {
         return 0;
@@ -147,109 +148,60 @@ registerElectricPrototype: function(id, Prototype) {
 
     Prototype.energyReceive = Prototype.energyReceive || this.basicEnergyReceiveFunc;
 
-    this.registerPrototype(id, Prototype);
     // register for energy net
     EnergyTileRegistry.addEnergyTypeForId(id, RF);
     //EnergyTileRegistry.addEnergyTypeForId(id, EU);
   },
   registerElectricMachine: function(id, Prototype) {
     this.registerElectricPrototype(id, Prototype);
-
+    //Prototype.energyReceive = Prototype.energyReceive || this.basicEnergyReceiveFunc;
     Prototype.canReceiveEnergy = function() {
         return true;
       },
 
-    Prototype.canExtractEnergy = function () {
+      Prototype.canExtractEnergy = function() {
         return false;
       }
-      
-  },
-/*
-  // RF machines
-  registerElectricMachine: function(id, Prototype) {
-    // wire connection
-    ICRender.getGroup("rf-wire").add(id, -1);
-  //  ICRender.getGroup("ic-wire").add(id, -1);
-
-    // setup energy values
-    if (Prototype.defaultValues) {
-      Prototype.defaultValues.energy = 0;
-    }
-    else {
-      Prototype.defaultValues = {
-        energy: 0
-      };
-    }
-    
-    if (!Prototype.defaultValues.energy) {
-       Prototype.defaultValues.energy = 0;
-     }
-
-    Prototype.getTier = Prototype.getTier || function() {
-      return 1;
-    },
-    
-    Prototype.canReceiveEnergy = function() {
-        return true;
-      },
-
-    Prototype.canExtractEnergy = function () {
-        return false;
-      }
-
-    if (!Prototype.getEnergyStorage) {
-      Prototype.getEnergyStorage = function() {
-        return 0;
-      };
-    }
-    if (!Prototype.getMaxPacketSize) {
-      Prototype.getMaxPacketSize = function(tier) {
-        return 8 << this.getTier() * 2;
-      }
-    }
 
     Prototype.energyReceive = Prototype.energyReceive || this.basicEnergyReceiveFunc;
 
-    this.registerPrototype(id, Prototype);
-    // register for energy net
-    EnergyTileRegistry.addEnergyTypeForId(id, RF);
-
-  },*/
+  },
 
   registerGenerator(id, Prototype) {
     this.registerElectricPrototype(id, Prototype);
+
     Prototype.canReceiveEnergy = function() {
         return false;
       },
 
-      Prototype.canExtractEnergy = function () {
-            return true;
+      Prototype.canExtractEnergy = function() {
+        return true;
       },
 
-      Prototype.energyTick = function (type, src) {
-            var output = Math.min(this.data.energy, this.getMaxPacketSize());
-            this.data.energy += src.add(output) - output;
+      Prototype.energyTick = function(type, src) {
+        var output = Math.min(this.data.energy, this.getMaxPacketSize());
+        this.data.energy += src.add(output) - output;
       }
 
-    
   },
 
   registerRFStorage(id, Prototype) {
-   this.registerElectricPrototype(id, Prototype);
-    Prototype.canExtractEnergy = function () {
-            return true;
+    this.registerElectricPrototype(id, Prototype);
+
+    Prototype.canExtractEnergy = function() {
+        return true;
       },
 
-    Prototype.energyTick = function (type, src) {
-            var output = Math.min(this.data.energy, this.getMaxPacketSize());
-            this.data.energy += src.add(output) - output;
+      Prototype.canReceiveEnergy = function() {
+        return true;
       },
-     
-	 Prototype.canReceiveEnergy = function () {
-			return true;
-		}
 
-    //Prototype.energyTick = Prototype.energyTick || this.basicEnergyOut
+      Prototype.energyTick = function(type, src) {
+        let output = Math.min(this.data.energy, this.getMaxPacketSize());
+        this.data.energy += src.add(output) - output;
+      }
+
+   
   },
 
   // standard functions
@@ -304,28 +256,28 @@ registerElectricPrototype: function(id, Prototype) {
       this.renderModel();
     }
   },
-/*
-  basicEnergyOutFunc: function(type, src) {
-    this.data.last_energy_receive = this.data.energy_receive;
-    this.data.energy_receive = 0;
-    this.data.last_voltage = this.data.voltage;
-    this.data.voltage = 0;
-    var output = this.getMaxPacketSize();
-    if (this.data.energy >= output) {
-      this.data.energy += src.add(output) - output;
-    }
-  },*/
+  /*
+    basicEnergyOutFunc: function(type, src) {
+      this.data.last_energy_receive = this.data.energy_receive;
+      this.data.energy_receive = 0;
+      this.data.last_voltage = this.data.voltage;
+      this.data.voltage = 0;
+      var output = this.getMaxPacketSize();
+      if (this.data.energy >= output) {
+        this.data.energy += src.add(output) - output;
+      }
+    },*/
 
   basicEnergyReceiveFunc: function(type, amount, voltage) {
-     var maxVoltage = this.getMaxPacketSize();
-            if (voltage > maxVoltage) {
-                amount = Math.min(amount, maxVoltage);
-            }
-            var add = Math.min(amount, this.getEnergyStorage() - this.data.energy);
-              this.data.energy += add;
-              //this.data.energy_receive += add;
-              //this.data.voltage = Math.max(this.data.voltage, voltage);
-            return add;
+    var maxVoltage = this.getMaxPacketSize();
+    if (voltage > maxVoltage) {
+      amount = Math.min(amount, maxVoltage);
+    }
+    var add = Math.min(amount, this.getEnergyStorage() - this.data.energy);
+    this.data.energy += add;
+    //this.data.energy_receive += add;
+    //this.data.voltage = Math.max(this.data.voltage, voltage);
+    return add;
   },
 
   getLiquidFromItem: function(liquid, inputItem, outputItem, hand) {
@@ -402,9 +354,9 @@ registerElectricPrototype: function(id, Prototype) {
     var header = gui.getWindow("header");
     header.contentProvider.drawing[2].text = Translation.translate(text);
   },
-   getRelativeEnergy: function () {
-            return this.data.energy / this.getEnergyStorage();
-   }
+  getRelativeEnergy: function() {
+    return this.data.energy / this.getEnergyStorage();
+  }
 }
 
 var transferByTier = {

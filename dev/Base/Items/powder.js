@@ -40,7 +40,7 @@ Callback.addCallback("PostLoaded", function() {
     	"pmp",
 	     "ip "
   ], ['i', ItemID.brownDye, 0, "m", ItemID.blackDye, 0, "p", ItemID.dustQuarzt, 0]);
-  
+
   Recipes.addShaped({ id: ItemID.machineDye, count: 6, data: 0 }, [
     	"fpi",
     	"pmp",
@@ -83,7 +83,7 @@ Callback.addCallback("PostLoaded", function() {
   RecipeRegistry.addSmelter({
     ingredient1: { id: VanillaItemID.green_dye, data: 0, count: 6 },
     ingredient2: { id: VanillaItemID.egg, data: 0 },
-    ingredient3: { id: 0, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0 },
     result: { id: ItemID.greenDye, count: 2, data: 0 },
     time: 500
   });
@@ -91,7 +91,7 @@ Callback.addCallback("PostLoaded", function() {
   RecipeRegistry.addSmelter({
     ingredient1: { id: ItemID.clipAndTrim, data: 0, count: 12 },
     ingredient2: { id: VanillaItemID.slime_ball, data: 0 },
-    ingredient3: { id: 0, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0 },
     result: { id: ItemID.greenDye, count: 2, data: 0 },
     time: 500
   });
@@ -99,7 +99,7 @@ Callback.addCallback("PostLoaded", function() {
   RecipeRegistry.addSmelter({
     ingredient1: { id: ItemID.twigAndPrun, data: 0, count: 12 },
     ingredient2: { id: VanillaItemID.slime_ball, data: 0 },
-    ingredient3: { id: 0, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0 },
     result: { id: ItemID.brownDye, count: 2, data: 0 },
     time: 500
   });
@@ -107,7 +107,7 @@ Callback.addCallback("PostLoaded", function() {
   RecipeRegistry.addSmelter({
     ingredient1: { id: ItemID.dustCoal, data: 0, count: 6 },
     ingredient2: { id: VanillaItemID.slime_ball, data: 0 },
-    ingredient3: { id: 0, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0 },
     result: { id: ItemID.blackDye, count: 2, data: 0 },
     time: 500
   });
@@ -115,7 +115,7 @@ Callback.addCallback("PostLoaded", function() {
   RecipeRegistry.addSmelter({
     ingredient1: { id: BlockID.machineChassiSimple, data: 0, count: 1 },
     ingredient2: { id: ItemID.machineDye, data: 0 },
-    ingredient3: { id: 0, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0 },
     result: { id: BlockID.machineChassi, count: 1, data: 0 },
     time: 250
   });
@@ -123,7 +123,7 @@ Callback.addCallback("PostLoaded", function() {
   RecipeRegistry.addSmelter({
     ingredient1: { id: BlockID.machineChassiSimple, data: 0, count: 1 },
     ingredient2: { id: ItemID.soulMachineDye, data: 0 },
-    ingredient3: { id: 0, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0 },
     result: { id: BlockID.machineChassiSoul, count: 1, data: 0 },
     time: 250
   });

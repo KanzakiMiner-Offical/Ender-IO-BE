@@ -101,7 +101,7 @@ MachineRegistry.registerElectricMachine(BlockID.simpleAlloySmelter, {
       var ingri3 = Recipe.ingredient3;
       var time = Recipe.time*2;
       var result = Recipe.result
-      if (ingredient1.id == ingri1.id && ingredient1.data == ingri1.data && ingredient2.id == ingri2.id && ingredient2.data == ingri2.data && ingredient3.id == ingri3.id && ingredient3.data == ingri3.data) {
+      if (ingredient1.id == ingri1.id && ingredient1.data == ingri1.data && (ingredient1.count >= ingri1.count) && ingredient2.id == ingri2.id && ingredient2.data == ingri2.data && ingredient3.id == ingri3.id && ingredient3.data == ingri3.data && (ingredient3.count >= ingri3.count) && (resultSlot.id == result.id && resultSlot.count < 64 && resultSlot.data == result.data || resultSlot.id == 0)) {
         this.data.work_time = time;
         if (this.data.energy >= this.data.energy_consumption) {
           newActive = true;
@@ -113,9 +113,9 @@ MachineRegistry.registerElectricMachine(BlockID.simpleAlloySmelter, {
             resultSlot.id = result.id;
             resultSlot.data = result.data;
             resultSlot.count += result.count;
-            ingredient1.count--;
+                        ingredient1.count -= ingredient1.count;
             ingredient2.count--;
-            ingredient3.count--;
+            ingredient3.count -= ingredient3.count;
             this.container.validateAll();
             this.data.progress = 0;
           }

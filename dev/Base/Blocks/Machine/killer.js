@@ -57,7 +57,7 @@ var SWORD_DAMAGE = {
 var MOBS = [Native.EntityType.BAT, Native.EntityType.CHICKEN, Native.EntityType.COW, Native.EntityType.MUSHROOM_COW, Native.EntityType.OCELOT, Native.EntityType.PIG, Native.EntityType.RABBIT, Native.EntityType.SHEEP, Native.EntityType.SNOW_GOLEM, Native.EntityType.SQUID, Native.EntityType.VILLAGER, Native.EntityType.WOLF, 23, 24, 25, 26, 27, Native.EntityType.BLAZE, Native.EntityType.CAVE_SPIDER, Native.EntityType.CREEPER, Native.EntityType.ENDERMAN, Native.EntityType.GHAST, Native.EntityType.IRON_GOLEM, Native.EntityType.LAVA_SLIME, Native.EntityType.PIG_ZOMBIE, Native.EntityType.SILVERFISH, Native.EntityType.SKELETON, Native.EntityType.SLIME, Native.EntityType.SPIDER, Native.EntityType.ZOMBIE, Native.EntityType.ZOMBIE_VILLAGER, 45, 46, 47, 48, 49, 52, 55];
 
 
-/*
+
 TileEntity.registerPrototype(BlockID.killerJoe, {
   getGuiScreen: function(){
     return guiKillerJoe;
@@ -95,7 +95,7 @@ TileEntity.registerPrototype(BlockID.killerJoe, {
     }
   }
 });
-*/
+
 
 Callback.addCallback("PostLoaded", function(){
   Recipes.addShaped({id: BlockID.killerJoe, count: 1, data: 0}, [

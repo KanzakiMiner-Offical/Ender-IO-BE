@@ -33,16 +33,32 @@ var smelterGUI = new UI.StandartWindow({
         //{type: "bitmap", x: 600, y: 170, bitmap: "bar_alloy", scale: 4.5},
     ],
   elements: {
-    "progressScale0": { type: "scale", x: 527, y: 235, direction: 1, bitmap: "fire_scale1", scale: 3.2, clicker: {
-            onClick: function(){
-                RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_alloy");
-            }
-        }},
-    "progressScale1": { type: "scale", x: 687, y: 235, direction: 1, bitmap: "fire_scale1", scale: 3.2, clicker: {
-            onClick: function(){
-                RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_alloy");
-            }
-        }},
+    "progressScale0": {
+      type: "scale",
+      x: 527,
+      y: 235,
+      direction: 1,
+      bitmap: "fire_scale1",
+      scale: 3.2,
+      clicker: {
+        onClick: function() {
+          RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_alloy");
+        }
+      }
+    },
+    "progressScale1": {
+      type: "scale",
+      x: 687,
+      y: 235,
+      direction: 1,
+      bitmap: "fire_scale1",
+      scale: 3.2,
+      clicker: {
+        onClick: function() {
+          RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_alloy");
+        }
+      }
+    },
     "energyScale": { type: "scale", x: 335, y: 140, direction: 1, bitmap: "redflux_bar1", scale: 3.2 },
     "ingredient1": { type: "slot", x: 520, y: 170 },
     "ingredient2": { type: "slot", x: 600, y: 140 },
@@ -65,94 +81,94 @@ var smelterGUI = new UI.StandartWindow({
     }
   }
 });
-Callback.addCallback("PostLoaded", function(){
-	Recipes.addFurnace(ItemID.dustLapis, VanillaItemID.lapis_lazuli, 0);
-Recipes.addFurnace(ItemID.dustQuarzt, VanillaItemID.quartz, 0);
-RecipeRegistry.addSmelter({
-  ingredient1: { id: ItemID.dustQuarzt, data: 0 },
-  ingredient2: { id: 0, data: 0 },
-  ingredient3: { id: 0, data: 0 },
-  result: { id: VanillaItemID.quartz, count: 1, data: 0 },
-  time: 500
-});
-RecipeRegistry.addSmelter({
-  ingredient1: { id: ItemID.dustLapis, data: 0 },
-  ingredient2: { id: 0, data: 0 },
-  ingredient3: { id: 0, data: 0 },
-  result: { id: VanillaItemID.lapis_lazuli, count: 1, data: 0 },
-  time: 500
-});
-RecipeRegistry.addSmelter({
-  ingredient1: { id: 331, data: 0 },
-  ingredient2: { id: 265, data: 0 },
-  ingredient3: { id: 0, data: 0 },
-  result: { id: ItemID.conductiveIron, count: 1, data: 0 },
-  time: 500
-});
-RecipeRegistry.addSmelter({
-  ingredient1: { id: 331, data: 0 },
-  ingredient2: { id: 265, data: 0 },
-  ingredient3: { id: 0, data: 0 },
-  result: { id: ItemID.conductiveIron, count: 1, data: 0 },
-  time: 500
-});
-RecipeRegistry.addSmelter({
-  ingredient1: { id: 266, data: 0 },
-  ingredient2: { id: 331, data: 0 },
-  ingredient3: { id: 348, data: 0 },
-  result: { id: ItemID.energeticAlloy, count: 1, data: 0 },
-  time: 500
-});
-RecipeRegistry.addSmelter({
-  ingredient1: { id: ItemID.energeticAlloy, data: 0 },
-  ingredient2: { id: 368, data: 0 },
-  ingredient3: { id: 0, data: 0 },
-  result: { id: ItemID.vibrantAlloy, count: 1, data: 0 },
-  time: 550
-});
-RecipeRegistry.addSmelter({
-  ingredient1: { id: 265, data: 0 },
-  ingredient2: { id: 368, data: 0 },
-  ingredient3: { id: 0, data: 0 },
-  result: { id: ItemID.pulsatingIron, count: 1, data: 0 },
-  time: 500
-});
-RecipeRegistry.addSmelter({
-  ingredient1: { id: VanillaItemID.iron_ingot, data: 0 },
-  ingredient2: { id: ItemID.dustCoal, data: 0 },
-  ingredient3: { id: 49, data: 0 },
-  result: { id: ItemID.darkSteel, count: 1, data: 0 },
-  time: 1000
-});
-RecipeRegistry.addSmelter({
-  ingredient1: { id: VanillaItemID.iron_ingot, data: 0 },
-  ingredient2: { id: ItemID.dustCoal, data: 0 },
-  ingredient3: { id: ItemID.silicon, data: 0 },
-  result: { id: ItemID.electricalSteel, count: 1, data: 0 },
-  time: 500
-});
-RecipeRegistry.addSmelter({
-  ingredient1: { id: 331, data: 0 },
-  ingredient2: { id: ItemID.silicon, data: 0 },
-  ingredient3: { id: 0, data: 0 },
-  result: { id: ItemID.redstoneAlloy, count: 1, data: 0 },
-  time: 500
-});
-// Under 1.12 PC/No have Machine Addon
-/*
-Recipes.addShaped({ id: BlockID.alloySmelter, count: 1, data: 0 }, [
-    	"ifi",
-    	"fmf",
-	   "ici"
-  ], ['i', 265, 0, 'f', 61, 0, "m", BlockID.machineChassi, 0, "c", 380, 0]);
- */
+Callback.addCallback("PostLoaded", function() {
+  Recipes.addFurnace(ItemID.dustLapis, VanillaItemID.lapis_lazuli, 0);
+  Recipes.addFurnace(ItemID.dustQuarzt, VanillaItemID.quartz, 0);
+  RecipeRegistry.addSmelter({
+    ingredient1: { id: ItemID.dustQuarzt, data: 0, count: 1 },
+    ingredient2: { id: 0, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0 },
+    result: { id: VanillaItemID.quartz, count: 1, data: 0 },
+    time: 500
+  });
+  RecipeRegistry.addSmelter({
+    ingredient1: { id: ItemID.dustLapis, data: 0, count: 1 },
+    ingredient2: { id: 0, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0 },
+    result: { id: VanillaItemID.lapis_lazuli, count: 1, data: 0 },
+    time: 500
+  });
+  RecipeRegistry.addSmelter({
+    ingredient1: { id: 331, data: 0, count: 1 },
+    ingredient2: { id: 265, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0 },
+    result: { id: ItemID.conductiveIron, count: 1, data: 0 },
+    time: 500
+  });
+  RecipeRegistry.addSmelter({
+    ingredient1: { id: 331, data: 0, count: 1 },
+    ingredient2: { id: 265, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0 },
+    result: { id: ItemID.conductiveIron, count: 1, data: 0 },
+    time: 500
+  });
+  RecipeRegistry.addSmelter({
+    ingredient1: { id: 266, data: 0, count: 1 },
+    ingredient2: { id: 331, data: 0 },
+    ingredient3: { id: 348, data: 0, count: 1 },
+    result: { id: ItemID.energeticAlloy, count: 1, data: 0 },
+    time: 500
+  });
+  RecipeRegistry.addSmelter({
+    ingredient1: { id: ItemID.energeticAlloy, data: 0, count: 1 },
+    ingredient2: { id: 368, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0 },
+    result: { id: ItemID.vibrantAlloy, count: 1, data: 0 },
+    time: 550
+  });
+  RecipeRegistry.addSmelter({
+    ingredient1: { id: 265, data: 0, count: 1 },
+    ingredient2: { id: 368, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0 },
+    result: { id: ItemID.pulsatingIron, count: 1, data: 0 },
+    time: 500
+  });
+  RecipeRegistry.addSmelter({
+    ingredient1: { id: VanillaItemID.iron_ingot, data: 0, count: 1 },
+    ingredient2: { id: ItemID.dustCoal, data: 0 },
+    ingredient3: { id: 49, data: 0, count: 1 },
+    result: { id: ItemID.darkSteel, count: 1, data: 0 },
+    time: 1000
+  });
+  RecipeRegistry.addSmelter({
+    ingredient1: { id: VanillaItemID.iron_ingot, data: 0, count: 1 },
+    ingredient2: { id: ItemID.dustCoal, data: 0 },
+    ingredient3: { id: ItemID.silicon, data: 0, count: 1 },
+    result: { id: ItemID.electricalSteel, count: 1, data: 0 },
+    time: 500
+  });
+  RecipeRegistry.addSmelter({
+    ingredient1: { id: 331, data: 0, count: 1 },
+    ingredient2: { id: ItemID.silicon, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0, count: 1 },
+    result: { id: ItemID.redstoneAlloy, count: 1, data: 0 },
+    time: 500
+  });
+  // Under 1.12 PC/No have Machine Addon
+  /*
+  Recipes.addShaped({ id: BlockID.alloySmelter, count: 1, data: 0 }, [
+      	"ifi",
+      	"fmf",
+  	   "ici"
+    ], ['i', 265, 0, 'f', 61, 0, "m", BlockID.machineChassi, 0, "c", 380, 0]);
+   */
   // Machine Addon :>
-Recipes.addShaped({ id: BlockID.alloySmelter, count: 1, data: 0 }, [
+  Recipes.addShaped({ id: BlockID.alloySmelter, count: 1, data: 0 }, [
     	"i i",
     	"amf",
 	   "c c"
   ], ['i', ItemID.darkSteel, 0, 'f', BlockID.simpleAlloySmelter, 0, "m", BlockID.machineChassi, 0, "c", ItemID.darkSteelGear, 0, "a", BlockID.simplePoweredFurnace, 0]);
-  });
+});
 MachineRegistry.registerElectricMachine(BlockID.alloySmelter, {
   defaultValues: {
     power_tier: 2,
@@ -172,9 +188,9 @@ MachineRegistry.registerElectricMachine(BlockID.alloySmelter, {
 
   upgrades: ["capacitor"],
 
-  getTier: function(){
-		return this.data.power_tier;
-	},
+  getTier: function() {
+    return this.data.power_tier;
+  },
 
   getGuiScreen: function() {
     return smelterGUI;
@@ -194,21 +210,21 @@ MachineRegistry.registerElectricMachine(BlockID.alloySmelter, {
       var ingri3 = Recipe.ingredient3;
       var time = Recipe.time
       var result = Recipe.result
-      if (ingredient1.id == ingri1.id && ingredient1.data == ingri1.data && (ingredient1.count == ingri1.count || 1 ) && ingredient2.id == ingri2.id && ingredient2.data == ingri2.data && ingredient3.id == ingri3.id && ingredient3.data == ingri3.data && (ingredient3.count == ingri3.count || 1 ) && (resultSlot.id == result.id && resultSlot.count < 64 && resultSlot.data == result.data || resultSlot.id == 0)) {
+      if (ingredient1.id == ingri1.id && ingredient1.data == ingri1.data && (ingredient1.count >= ingri1.count) && ingredient2.id == ingri2.id && ingredient2.data == ingri2.data && ingredient3.id == ingri3.id && ingredient3.data == ingri3.data && (ingredient3.count >= ingri3.count) && (resultSlot.id == result.id && resultSlot.count < 64 && resultSlot.data == result.data || resultSlot.id == 0)) {
         this.data.work_time = time;
         if (this.data.energy >= this.data.energy_consumption) {
           newActive = true;
           this.data.energy -= this.data.energy_consumption;
           this.data.progress += this.data.speed;
-          Particles.addFarParticle(Native.ParticleType.smoke, this.x+.5,this.y+1.1,this.z+.5)
-        Particles.addFarParticle(Native.ParticleType.flame, this.x+.5,this.y+1.1,this.z+.5)
+          Particles.addFarParticle(Native.ParticleType.smoke, this.x + .5, this.y + 1.1, this.z + .5)
+          Particles.addFarParticle(Native.ParticleType.flame, this.x + .5, this.y + 1.1, this.z + .5)
           if (this.data.progress >= this.data.work_time) {
             resultSlot.id = result.id;
             resultSlot.data = result.data;
             resultSlot.count += result.count;
-            ingredient1.count--;
+            ingredient1.count -= ingredient1.count;
             ingredient2.count--;
-            ingredient3.count--;
+            ingredient3.count -= ingredient3.count;
             this.container.validateAll();
             this.data.progress = 0;
           }
@@ -275,10 +291,10 @@ MachineRegistry.registerElectricMachine(BlockID.alloySmelter, {
 
     if (this.data.mode === 0) this.alloy();
     if (this.data.mode === 1) this.furnace();
-   // if (this.data.mode === 2) {
-   // this.furnace();
-   // this.alloy();
-   // }
+    // if (this.data.mode === 2) {
+    // this.furnace();
+    // this.alloy();
+    // }
 
     if (this.container.getGuiContent()) {
       this.container.getGuiContent().elements["changeMode"].bitmap = "alloy" + this.data.mode;
@@ -304,10 +320,10 @@ MachineRegistry.registerElectricMachine(BlockID.alloySmelter, {
   }
 });
 StorageInterface.createInterface(BlockID.alloySmelter, {
-	slots: {
-		"ingredient1": {input: true},
-		"ingredient2": {input: true},
-		"ingredient3": {input: true},
-		"resultSlot": {output: true}
-	}
+  slots: {
+    "ingredient1": { input: true },
+    "ingredient2": { input: true },
+    "ingredient3": { input: true },
+    "resultSlot": { output: true }
+  }
 });

@@ -1,9 +1,8 @@
-
 Item.setItems = function(id, types) {
   for (i in types) {
     IDRegistry.genItemID(id + types[i]);
     Item.createItem(id + types[i], types[i] + " " + id, { name: id + types[i] }, { stack: 64 });
-    var this_id = id +types[i];
+    var this_id = id + types[i];
     mod_tip(ItemID[this_id])
   }
 }
@@ -17,7 +16,7 @@ Item.createResourceItem = function(id, name) {
 
   IDRegistry.genItemID(nug);
   Item.createItem(nug, nugg, { name: nug }, { stack: 64 });
-  
+
   Callback.addCallback("PostLoaded", function() {
     Recipes.addShaped({ id: ItemID[id], count: 1, data: 0 }, [
 	  "bbb",
@@ -35,13 +34,13 @@ Item.createResourceItem("pulsatingIron", "Pulsating Iron");
 Item.createResourceItem("soularium", "Soularium");
 
 IDRegistry.genItemID("dustPulsating");
-    Item.createItem("dustPulsating", "Grains of Piezallity", { name: "dustPulsating"}, { stack: 64 });
-    
-    IDRegistry.genItemID("dustInfinity");
-    Item.createItem("dustInfinity", "Grains of Infinity", { name: "dustInfinity"}, { stack: 64 });
-    
- IDRegistry.genItemID("pulsatingCrystal");
-    Item.createItem("pulsatingCrystal", "Pulsating Crustal", { name: "pulsatingCrystal"}, { stack: 64 });
+Item.createItem("dustPulsating", "Grains of Piezallity", { name: "dustPulsating" }, { stack: 64 });
+
+IDRegistry.genItemID("dustInfinity");
+Item.createItem("dustInfinity", "Grains of Infinity", { name: "dustInfinity" }, { stack: 64 });
+
+IDRegistry.genItemID("pulsatingCrystal");
+Item.createItem("pulsatingCrystal", "Pulsating Crustal", { name: "pulsatingCrystal" }, { stack: 64 });
 
 
 IDRegistry.genItemID("basicCapacitor");
@@ -120,20 +119,22 @@ Item.createItem("octadicCapacitor", "Octadic Capacitor", { name: "octadicCapacit
 IDRegistry.genItemID("enderCapacitor");
 Item.createItem("enderCapacitor", "Ender Capacitor", { name: "enderface" }, { stack: 64 });
 var capacitorObj = [];
-function regUpgrade(id, type, storage, usage, speed, bonus) {
+
+function regUpgrade(id, type, storage, usage, speed, bonus, range) {
   UpgradeAPI.registerUpgrade(id, type, function(item, machine, container, data) {
     data.energy_storage += storage;
     data.speed = data.speed * speed;
     data.energy_consumption += usage;
     data.bonus += bonus;
+    data.range += range;
   });
-  
+
   capacitorObj.push(id);
 }
-regUpgrade(ItemID.basicCapacitor, "capacitor", 100000, 40, 1.15, 1.25);
-regUpgrade(ItemID.doublelayerCapacitor, "capacitor", 200000, 80, 2, 2);
-regUpgrade(ItemID.octadicCapacitor, "capacitor", 400000, 160, 4, 4);
-regUpgrade(ItemID.enderCapacitor, "capacitor", 800000, 640, 10, 10);
+regUpgrade(ItemID.basicCapacitor, "capacitor", 100000, 40, 1.15, 1.25, 4);
+regUpgrade(ItemID.doublelayerCapacitor, "capacitor", 200000, 80, 2, 2, 8);
+regUpgrade(ItemID.octadicCapacitor, "capacitor", 400000, 160, 4, 4, 12);
+regUpgrade(ItemID.enderCapacitor, "capacitor", 800000, 640, 10, 10, 16);
 
 
 /*
@@ -165,7 +166,7 @@ Callback.addCallback("PostLoaded", function() {
 	 "aaa"
 ], ['a', ItemID.vibrantNugget, 0, 'e', 388, 0]);
 
-Recipes.addShaped({ id: ItemID.pulsatingCrystal, count: 1, data: 0 }, [
+  Recipes.addShaped({ id: ItemID.pulsatingCrystal, count: 1, data: 0 }, [
   	"aaa",
   	"aea",
 	 "aaa"
@@ -225,7 +226,9 @@ Item.createItem("skullZombieElectrode", "Zombie Electrode", { name: "skullZombie
 
 Callback.addCallback("ItemUse", function(coords, item, block) {
   if (World.getBlockID(coords.x, coords.y, coords.z) == VanillaBlockID.bedrock && item.id == 259) {
-    World.drop(coords.x+.5, coords.y + 1, coords.z, ItemID.dustInfinity, 1);
-    //World.setBlock(coords.x, coords.y, coords.z, 0, 0);
+    if (Math.random() >= 0.5) {
+      World.drop(coords.x + .5, coords.y + 1, coords.z, ItemID.dustInfinity, 1);
+      //World.setBlock(coords.x, coords.y, coords.z, 0, 0);
+    }
   }
 });

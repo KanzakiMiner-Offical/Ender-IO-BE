@@ -16,7 +16,7 @@ TileRenderer.registerRotationModel(BlockID.stirlingGen, 4, [["machineBottom", 0]
 TileRenderer.setRotationPlaceFunction(BlockID.stirlingGen);
 
 Callback.addCallback("PostLoaded", function() {
-	/*
+  /*
   Recipes.addShaped({ id: BlockID.stirlingGen, count: 1, data: 0 },
     ["sss",
      "sfs",
@@ -58,55 +58,74 @@ MachineRegistry.registerGenerator(BlockID.stirlingGen, {
   oldValues: {
     bonus: 1
   },
-  
+
   upgrades: ["capacitor"],
-  
+
   getGuiScreen: function() {
     return stirlingGenGUI;
   },
-  
-  getFuel: function(slotName){
-		var fuelSlot = this.container.getSlot(slotName);
-		if (fuelSlot.id > 0){
-			var burn = Recipes.getFuelBurnDuration(fuelSlot.id, fuelSlot.data);
-			if (burn && !LiquidRegistry.getItemLiquid(fuelSlot.id, fuelSlot.data)){
-				fuelSlot.count--;
-				this.container.validateSlot(slotName);
-				
-				return burn;
-			}
-		}
-		return 0;
-	},
 
-  resetValues: function(){
-		      this.data.bonus = this.oldValues.bonus
-	},
-	
-	tick: function(){
-		this.resetValues();
-		UpgradeAPI.executeUpgrades(this);
-		/*  let slotCapacitor = this.container.getSlot("slotCapacitor");
+  getFuel: function(slotName) {
+    var fuelSlot = this.container.getSlot(slotName);
+    if (fuelSlot.id > 0) {
+      var burn = Recipes.getFuelBurnDuration(fuelSlot.id, fuelSlot.data);
+      if (burn && !LiquidRegistry.getItemLiquid(fuelSlot.id, fuelSlot.data)) {
+        fuelSlot.count--;
+        this.container.validateSlot(slotName);
+
+        return burn;
+      }
+    }
+    return 0;
+  },
+
+  resetValues: function() {
+    this.data.bonus = this.oldValues.bonus
+  },
+
+  tick: function() {
+    this.resetValues();
+    UpgradeAPI.executeUpgrades(this);
+    /*  let slotCapacitor = this.container.getSlot("slotCapacitor");
 		for(let i in capacitorObj){
 			var capac = capacitorObj[i];
     if (slotCapacitor.id != capac) {
       this.data.bonus = this.oldValues.bonus
     }
     }*/
+    var energyStorage = this.getEnergyStorage();
+    this.data.energy = Math.min(this.data.energy, energyStorage);
     this.container.setText("text", "RF: " + this.data.energy + "/" + this.getEnergyStorage() + ". Bonus energy: x" + this.data.bonus + ".0");
 
-    var energyStorage = this.getEnergyStorage();
-    this.container.setScale("energyScale", this.data.energy / this.getEnergyStorage());
-    if (this.data.burn <= 0 && this.data.energy + 20 * this.data.bonus < energyStorage) {
+    /* var energyStorage = this.getEnergyStorage();
+     this.container.setScale("energyScale", this.data.energy / this.getEnergyStorage());*/
+    // Lava Access
+
+    var randomXYZ = []
+    randomXYZ.push({ x: Math.floor(Math.random() * 10), y: Math.floor(Math.random() * 10), z: Math.floor(Math.random() * 10) });
+    var tempBlockList = {
+      10: 2.5,
+      11: 3,
+      50: 1,
+      213: 2
+    }
+    for (let i in randomXYZ) {
+      let tempAcces = tempBlockList[World.getBlockID(this.x + randomXYZ[i].x, this.y + randomXYZ[i].y, this.z + randomXYZ[i].z)]
+      if (tempAcces) {
+        this.data.energy += 30 * this.data.bonus * tempAcces;
+      }
+    }
+    // Use Fuel
+    if (this.data.burn <= 0 && this.data.energy + 40 * this.data.bonus < energyStorage) {
       this.data.burn = this.data.burnMax = this.getFuel("slotFuel") / 4;
     }
     if (this.data.burn > 0 && this.data.energy + 20 * this.data.bonus < energyStorage) {
-    	Particles.addFarParticle(Native.ParticleType.smoke, this.x+.5,this.y+1.1,this.z+.5)
-        this.data.energy += 20 * this.data.bonus;
-            this.data.burn--;
+      Particles.addFarParticle(Native.ParticleType.smoke, this.x - .5, this.y + 1.1, this.z + .5)
+      this.data.energy += 40 * this.data.bonus;
+      this.data.burn--;
       this.activate();
-    } else{
-    	this.deactivate();
+    } else {
+      this.deactivate();
     }
     this.container.setScale("burningScale", this.data.burn / this.data.burnMax || 0);
     this.container.setScale("energyScale", this.data.energy / this.getEnergyStorage());
@@ -115,16 +134,16 @@ MachineRegistry.registerGenerator(BlockID.stirlingGen, {
     return 100000;
   },
   energyTick: function(type, src) {
-    let output = Math.min(20 * this.data.bonus, this.data.energy);
+    let output = Math.min(120 * this.data.bonus, this.data.energy);
     this.data.energy += src.add(output) - output;
   }
 });
 
 StorageInterface.createInterface(BlockID.stirlingGen, {
-	slots: {
-		"slotFuel": {input: true}
-	},
-	isValidInput: function(item){
-		return Recipes.getFuelBurnDuration(item.id, item.data) > 0;
-	}
+  slots: {
+    "slotFuel": { input: true }
+  },
+  isValidInput: function(item) {
+    return Recipes.getFuelBurnDuration(item.id, item.data) > 0;
+  }
 });

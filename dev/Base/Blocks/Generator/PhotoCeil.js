@@ -34,9 +34,9 @@ Callback.addCallback("PostLoaded", function() {
      "   "],
   [ 's', ItemID.silicon, 0, 'p', ItemID.dustLapis, 0, 'g', ItemID.dustCoal, 0]);
 RecipeRegistry.addSmelter({
-  ingredient1: { id: ItemID.dustPhotovoltaic, data: 0 },
+  ingredient1: { id: ItemID.dustPhotovoltaic, data: 0, count: 2},
   ingredient2: { id: 0, data: 0 },
-  ingredient3: { id: 0, data: 0 },
+  ingredient3: { id: 0, data: 0 , count: 0},
   result: { id: ItemID.platePhotovoltaic, count: 6, data: 0 },
   time: 500
 });
@@ -48,6 +48,8 @@ MachineRegistry.registerGenerator(BlockID.photovoltaicCell, {
   },
 
   tick: function() {
+    var energyStorage = this.getEnergyStorage();
+    this.data.energy = Math.min(this.data.energy, energyStorage);
     if (World.getThreadTime() % 100 == 0) {
       this.data.canSeeSky = GenerationUtils.canSeeSky(this.x, this.y + 1, this.z);
     }
@@ -83,6 +85,8 @@ MachineRegistry.registerGenerator(BlockID.advancedPhotovoltaicCell, {
   },
 
   tick: function() {
+    var energyStorage = this.getEnergyStorage();
+    this.data.energy = Math.min(this.data.energy, energyStorage);
     if (World.getThreadTime() % 100 == 0) {
       this.data.canSeeSky = GenerationUtils.canSeeSky(this.x, this.y + 1, this.z);
     }
@@ -123,6 +127,8 @@ MachineRegistry.registerGenerator(BlockID.vibrantPhotovoltaicCell, {
   },
 
   tick: function() {
+    var energyStorage = this.getEnergyStorage();
+    this.data.energy = Math.min(this.data.energy, energyStorage);
     if (World.getThreadTime() % 100 == 0) {
       this.data.canSeeSky = GenerationUtils.canSeeSky(this.x, this.y + 1, this.z);
     }
@@ -158,6 +164,8 @@ MachineRegistry.registerGenerator(BlockID[id], {
   },
 
   tick: function() {
+    var energyStorage = this.getEnergyStorage();
+    this.data.energy = Math.min(this.data.energy, energyStorage);
     if (World.getThreadTime() % 100 == 0) {
       this.data.canSeeSky = GenerationUtils.canSeeSky(this.x, this.y + 1, this.z);
     }

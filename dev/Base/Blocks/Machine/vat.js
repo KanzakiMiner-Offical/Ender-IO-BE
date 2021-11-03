@@ -22,28 +22,36 @@ setVatRender()
 
 var VatGUI = new UI.StandartWindow({
   standart: {
-    header: {text: {text: "The Vat" }},
-    inventory: {standart: true},
-    background: {standart: true}
+    header: { text: { text: "The Vat" } },
+    inventory: { standart: true },
+    background: { standart: true }
   },
   drawing: [
-    {type: "bitmap", x: 281, y: -190, bitmap: "backgroundVat", scale: 3.3},
+    { type: "bitmap", x: 281, y: -190, bitmap: "backgroundVat", scale: 3.3 },
   ],
   elements: {
-    "energyScale": {type: "scale", x: 446, y: 131, direction: 1, bitmap: "redflux_bar1", scale: 2.75},
-    "slotInput0": {type: "slot", x: 590, y: 130, bitmap: "empty", isTransparentBackground: true},
-    "slotInput1": {type: "slot", x: 753, y: 130, bitmap: "empty", isTransparentBackground: true},
-    "liquidScale1": {type: "scale", x: 508, y: 130, direction: 1, bitmap: "fluid_scale", scale: 3},
-    "liquidScale2": {type: "scale", x: 856, y: 130, direction: 1, bitmap: "fluid_scale", scale: 3},
-    "progressScale": {type: "scale", x: 679, y: 304, direction: 1, bitmap: "fire_scale1", scale: 3.3, clicker: {
-            onClick: function(){
-                RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_vat");
-            }
-        }}, 
-    "slot1": {type: "slot",  x: 502, y: 296, size: 60, bitmap: "slot_fluid_full"},
-    "slot3": {type: "slot", x: 842, y: 296, size: 60, bitmap: "slot_fluid_empty",},
-    "slot2": {type: "slot", x: 502, y: 366, size: 60, bitmap: "slot_fluid_empty"},
-    "slot4": {type: "slot", x: 842, y: 359, size: 60, bitmap: "slot_fluid_full"},
+    "energyScale": { type: "scale", x: 446, y: 131, direction: 1, bitmap: "redflux_bar1", scale: 2.75 },
+    "slotInput0": { type: "slot", x: 590, y: 130, bitmap: "empty", isTransparentBackground: true },
+    "slotInput1": { type: "slot", x: 753, y: 130, bitmap: "empty", isTransparentBackground: true },
+    "liquidScale1": { type: "scale", x: 508, y: 130, direction: 1, bitmap: "fluid_scale", scale: 3 },
+    "liquidScale2": { type: "scale", x: 856, y: 130, direction: 1, bitmap: "fluid_scale", scale: 3 },
+    "progressScale": {
+      type: "scale",
+      x: 679,
+      y: 304,
+      direction: 1,
+      bitmap: "fire_scale1",
+      scale: 3.3,
+      clicker: {
+        onClick: function() {
+          RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_vat");
+        }
+      }
+    },
+    "slot1": { type: "slot", x: 502, y: 296, size: 60, bitmap: "slot_fluid_full" },
+    "slot3": { type: "slot", x: 842, y: 296, size: 60, bitmap: "slot_fluid_empty", },
+    "slot2": { type: "slot", x: 502, y: 366, size: 60, bitmap: "slot_fluid_empty" },
+    "slot4": { type: "slot", x: 842, y: 359, size: 60, bitmap: "slot_fluid_full" },
   }
 });
 
@@ -62,7 +70,7 @@ Callback.addCallback("PostLoaded", function() {
     liquidIn: { id: "water", count: 1 },
     time: 100
   });
-  
+
   RecipeRegistry.addVat({
     input1: { id: 295, data: 0 },
     input2: { id: 353, data: 0 },
@@ -70,7 +78,7 @@ Callback.addCallback("PostLoaded", function() {
     liquidIn: { id: "water", count: 1 },
     time: 100
   });
-  
+
   RecipeRegistry.addVat({
     input1: { id: 392, data: 0 },
     input2: { id: 353, data: 0 },
@@ -105,9 +113,9 @@ MachineRegistry.registerElectricMachine(BlockID.theVat, {
     energy_consumption: 30,
     energy_storage: 100000,
     isActive: false,
-    
+
     // Fluid :>
-    
+
     resultFluid: null,
     inputFluid: null
 
@@ -119,7 +127,7 @@ MachineRegistry.registerElectricMachine(BlockID.theVat, {
   },
 
   upgrades: ["capacitor"],
-  
+
   getTier: function() {
     return this.data.power_tier;
   },
@@ -137,7 +145,7 @@ MachineRegistry.registerElectricMachine(BlockID.theVat, {
     this.data.speed = this.oldValues.speed;
   },
   init: function() {
-  	// for (let i in EnderIOLiquid){
+    // for (let i in EnderIOLiquid){
     this.liquidStorage.setLimit("water", 4);
     this.liquidStorage.setLimit("hootch", 4);
     this.liquidStorage.setLimit("nutrientDistillation", 4);
@@ -158,10 +166,11 @@ MachineRegistry.registerElectricMachine(BlockID.theVat, {
       var liquid1 = recipe.liquidIn;
       var liquid2 = recipe.liquidOut;
       var time = recipe.time;
-        let inputFluid = this.data.inputFluid;
-        let resultFluid = this.data.resultFluid;
-     
-      if (i0.id == input1.id && i1 == input2.id && (inputFluid == liquid1.id && this.liquidStorage.getAmount(inputFluid) == liquid1.count && this.liquidStorage.getAmount(inputFluid) >= 1) && (this.liquidStorage.getAmount(resultFluid) == liquid2.count && this.liquidStorage.getAmount(resultFluid) <= 3 || !resultFluid)) {
+      let inputFluid = this.data.inputFluid;
+      let resultFluid = this.data.resultFluid;
+
+      if (i0.id == input1.id && i1 == input2.id && (inputFluid == liquid1.id && (this.liquidStorage.getAmount(inputFluid) >= liquid1.count || this.liquidStorage.getAmount(inputFluid) >= 1)) && (
+       !resultFluid || this.liquidStorage.getAmount(resultFluid) <= 3)) {
         if (this.data.energy >= this.data.energy_consumption) {
           newActive = true;
           this.data.energy -= this.data.energy_consumption;
@@ -180,28 +189,28 @@ MachineRegistry.registerElectricMachine(BlockID.theVat, {
           this.data.progress = 0;
         }
       }
-      
+
       if (!newActive)
         // this.stopPlaySound(true);
         this.setActive(newActive);
-        
 
-        if(!this.data.inputFluid || this.data.inputFluid == liquid1.id){
+
+      if (!this.data.inputFluid || this.data.inputFluid == liquid1.id) {
         var slot1 = this.container.getSlot("slot1");
-		var slot2 = this.container.getSlot("slot2");
-		this.getLiquidFromItem(liquid1.id, slot1, slot2);
-		this.data.inputFluid = liquid1.id
-		}
-		if(this.data.resultFluid){
-		var slot3 = this.container.getSlot("slot3");
-		var slot4 = this.container.getSlot("slot4");
-		this.addLiquidToItem(this.data.resultFluid, slot3, slot4);
-		}
-		
-		this.liquidStorage.updateUiScale("liquidScale1", this.data.inputFluid);
-		this.liquidStorage.updateUiScale("liquidScale2", this.data.resultFluid);
+        var slot2 = this.container.getSlot("slot2");
+        this.getLiquidFromItem(liquid1.id, slot1, slot2);
+        this.data.inputFluid = liquid1.id
+      }
+      if (this.data.resultFluid) {
+        var slot3 = this.container.getSlot("slot3");
+        var slot4 = this.container.getSlot("slot4");
+        this.addLiquidToItem(this.data.resultFluid, slot3, slot4);
+      }
+
+      this.liquidStorage.updateUiScale("liquidScale1", this.data.inputFluid);
+      this.liquidStorage.updateUiScale("liquidScale2", this.data.resultFluid);
     }
-    
+
     var energyStorage = this.getEnergyStorage();
     this.data.energy = Math.min(this.data.energy, energyStorage);
     this.container.setScale("energyScale", this.data.energy / energyStorage);
@@ -210,5 +219,5 @@ MachineRegistry.registerElectricMachine(BlockID.theVat, {
   getEnergyStorage: function() {
     return this.data.energy_storage;
   }
-  
+
 });

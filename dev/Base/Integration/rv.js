@@ -2,11 +2,11 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
 
   RecipeViewer = api.Core;
 
-  const Bitmap = android.graphics.Bitmap;
-  const Canvas = android.graphics.Canvas;
-  const Rect = android.graphics.Rect;
+  /* const Bitmap = android.graphics.Bitmap;
+   const Canvas = android.graphics.Canvas;
+   const Rect = android.graphics.Rect;
 
-  let bmp, cvs, source;
+   let bmp, cvs, source;*/
   let x = y = 0;
 
 
@@ -49,7 +49,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
                 { id: input2.id, data: input2.data, count: input2.count || 1 }
                  ],
               output: [{ id: result0.id, data: result0.data, count: result0.count }],
-               time: recipe.time
+              time: recipe.time
             });
           } else if (result0.id == id) {
             list.push({
@@ -59,7 +59,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
                 { id: input2.id, data: input2.data, count: input2.count || 1 }
                                          ],
               output: [{ id: result0.id, data: result0.data, count: result0.count }],
-               time: recipe.time
+              time: recipe.time
             });
           }
         }
@@ -79,7 +79,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
                 { id: input2.id, data: input2.data, count: input2.count || 1 }
                                ],
               output: [{ id: result0.id, data: result0.data, count: result0.count }],
-               time: recipe.time
+              time: recipe.time
             });
           }
         }
@@ -110,10 +110,10 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
       }
       return list;
     },
-        onOpen: function(elements, data) {
-          let elem = elements.get("textTine");
-          elem.onBindingUpdated("text", data ? Translation.translate("Time: ") + data.time : "");
-        }
+    onOpen: function(elements, data) {
+      let elem = elements.get("textTime");
+      elem.onBindingUpdated("text", data ? Translation.translate("Time: ") + data.time : "");
+    }
   });
   //RecipeRegistry.showCrusher(RecipeViewer);
   //RecipeRegistry.show(RecipeViewer);
@@ -286,7 +286,8 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
         x: 730,
         y: 316,
         slots: ["slotInput0", "slotInput1"]
-      }
+      },
+      tankLimit: 1000
     },
     getList: function(id, data, isUsage) {
       let list = [];
@@ -304,47 +305,68 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
               input: [{ id: input1.id, count: 1, data: input1.data || 0 },
                 { id: input2.id || 0, count: 1, data: input2.data || 0 }
               ],
-              liquidInput: liqInput.id,
-              liquidOutput: liqOut.id
+              inputLiquid: [{ liquid: liqInput.id, amount: liqInput.count * 1000 }],
+              outputLiquid: [{ liquid: liqOut.id, amount: liqOut.count * 1000 }]
             });
           }
         }
       }
       else {
-             for (let i in RecipeRegistry.theVat) {
-               let recipe = RecipeRegistry.theVat[i];
-               let input1 = recipe.input1;
-               let input2 = recipe.input2;
-               let liqInput = recipe.liquidIn;
-               let liqOut = recipe.liquidOut;
-               if (liqOut.id == id || liqInput.id == id) {
-                 list.push({
-                   input: [
-                     { id: input1.id, count: 1, data: input1.data || 0 },
-                     { id: input2.id || 0, count: 1, data: input2.data || 0 }
+        for (let i in RecipeRegistry.theVat) {
+          let recipe = RecipeRegistry.theVat[i];
+          let input1 = recipe.input1;
+          let input2 = recipe.input2;
+          let liqInput = recipe.liquidIn;
+          let liqOut = recipe.liquidOut;
+          if (liqOut.id == id || liqInput.id == id) {
+            list.push({
+              input: [
+                { id: input1.id, count: 1, data: input1.data || 0 },
+                { id: input2.id || 0, count: 1, data: input2.data || 0 }
                    ],
-                   liquidInput: liqInput.id,
-                   liquidOutput: liqOut.id
-                 });
-               }
+              inputLiquid: [{ liquid: liqInput.id, amount: liqInput.count * 1000 }],
+              outputLiquid: [{ liquid: liqOut.id, amount: liqOut.count * 1000 }]
+            });
+          }
 
-             }
-           }
+        }
+      }
 
       return list;
 
     },
+
+    getAllList: function() {
+      const list = [];
+      for (let i in RecipeRegistry.theVat) {
+        let recipe = RecipeRegistry.theVat[i];
+        let input1 = recipe.input1;
+        let input2 = recipe.input2;
+        let liqInput = recipe.liquidIn;
+        let liqOut = recipe.liquidOut;
+          list.push({
+            input: [{ id: input1.id, count: 1, data: input1.data || 0 },
+              { id: input2.id || 0, count: 1, data: input2.data || 0 }
+              ],
+            inputLiquid: [{ liquid: liqInput.id, amount: liqInput.count * 1000 }],
+            outputLiquid: [{ liquid: liqOut.id, amount: liqOut.count * 1000 }]
+          });
+        }
+      
+      return list
+    },
+
 
     onOpen: function(elements, data) {
       let scaleInputLiquid = elements.get("scaleInputLiquid");
       let scaleResultLiquid = elements.get("scaleResultLiquid");
 
       scaleInputLiquid.onBindingUpdated("texture",
-        LiquidRegistry.getLiquidUITexture(data.liquidInput, 16, 58));
+        LiquidRegistry.getLiquidUITexture(data.inputLiquid.liquid, 16, 58));
       scaleInputLiquid.onBindingUpdated("value", 1 / 4);
 
       scaleResultLiquid.onBindingUpdated("texture",
-        LiquidRegistry.getLiquidUITexture(data.liquidOutput, 16, 58));
+        LiquidRegistry.getLiquidUITexture(data.outputLiquid.liquid, 16, 58));
       scaleResultLiquid.onBindingUpdated("value", 1 / 4);
 
     }

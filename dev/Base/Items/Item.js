@@ -28,10 +28,15 @@ Item.createResourceItem = function(id, name) {
   mod_tip(ItemID[id]);
   mod_tip(ItemID[nug]);
 };
+
+Item.createResourceItem("endSteel", "End Steel");
 Item.createResourceItem("darkSteel", "Dark Steel");
 Item.createResourceItem("conductiveIron", "Conductive Iron");
 Item.createResourceItem("pulsatingIron", "Pulsating Iron");
-Item.createResourceItem("soularium", "Soularium");
+Item.createResourceItem("soularium", "Soularium Alloy");
+Item.createResourceItem("electricalSteel", "Electrical Steel");
+Item.createResourceItem("energeticAlloy", "Energetic Alloy");
+Item.createResourceItem("redstoneAlloy", "Redstone Alloy");
 
 IDRegistry.genItemID("dustPulsating");
 Item.createItem("dustPulsating", "Grains of Piezallity", { name: "dustPulsating" }, { stack: 64 });
@@ -76,14 +81,6 @@ Item.createItem("pulsatingIron", "Pulsating Iron", { name: "pulsatingIron" }, { 
 IDRegistry.genItemID("darkSteel");
 Item.createItem("darkSteel", "Dark Steel", { name: "darkSteel" }, { stack: 64 });
 */
-IDRegistry.genItemID("electricalSteel");
-Item.createItem("electricalSteel", "Electrical Steel", { name: "electricalSteel" }, { stack: 64 });
-
-IDRegistry.genItemID("energeticAlloy");
-Item.createItem("energeticAlloy", "Energetic Alloy", { name: "energeticAlloy" }, { stack: 64 });
-
-IDRegistry.genItemID("redstoneAlloy");
-Item.createItem("redstoneAlloy", "Redstone Alloy", { name: "redstoneAlloy" }, { stack: 64 });
 
 IDRegistry.genItemID("vibrantAlloy");
 Item.createItem("vibrantAlloy", "Vibrant Alloy", { name: "vibrantAlloy" }, { stack: 64 });
@@ -131,7 +128,7 @@ function regUpgrade(id, type, storage, usage, speed, bonus, range) {
 
   capacitorObj.push(id);
 }
-regUpgrade(ItemID.basicCapacitor, "capacitor", 100000, 40, 1.15, 1.25, 4);
+regUpgrade(ItemID.basicCapacitor, "capacitor", 100000, 40, 1.15, 0, 4);
 regUpgrade(ItemID.doublelayerCapacitor, "capacitor", 200000, 80, 2, 2, 8);
 regUpgrade(ItemID.octadicCapacitor, "capacitor", 400000, 160, 4, 4, 12);
 regUpgrade(ItemID.enderCapacitor, "capacitor", 800000, 640, 10, 10, 16);

@@ -1,6 +1,6 @@
 ModAPI.addAPICallback("RecipeViewer", function(api) {
 
-  RecipeViewer = api.Core;
+  RV = api.Core;
 
   /* const Bitmap = android.graphics.Bitmap;
    const Canvas = android.graphics.Canvas;
@@ -10,10 +10,11 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
   let x = y = 0;
 
 
-  RecipeViewer.registerRecipeType("enderio_alloy", {
+  RV.registerRecipeType("enderio_alloy", {
     title: "Alloy Smelter",
     contents: {
       icon: BlockID.alloySmelter,
+      description: "alloy",
       drawing: [
         { type: "bitmap", x: 527, y: 235, bitmap: "fire_scale0", scale: 3.2 },
         { type: "bitmap", x: 687, y: 235, bitmap: "fire_scale0", scale: 3.2 },
@@ -23,7 +24,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
         input1: { type: "slot", x: 600, y: 140 },
         input2: { type: "slot", x: 680, y: 170 },
         output0: { type: "slot", x: 600, y: 320 },
-        textTime: { type: "text", x: 680, y: 200 }
+        textTime: { type: "text", x: 750, y: 200 }
       },
       moveItems: {
         x: 630,
@@ -44,7 +45,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
           if (input1.id == id || input0.id == id || input2.id == id) {
             list.push({
               input: [
-                { id: input0.id, data: input0.data, count: input1.count || 1 },
+                { id: input0.id, data: input0.data, count: input0.count || 1 },
                 { id: input1.id, data: input1.data, count: 1 },
                 { id: input2.id, data: input2.data, count: input2.count || 1 }
                  ],
@@ -54,7 +55,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
           } else if (result0.id == id) {
             list.push({
               input: [
-                { id: input0.id, data: input0.data, count: input1.count || 1 },
+                { id: input0.id, data: input0.data, count: input0.count || 1 },
                 { id: input1.id, data: input1.data, count: 1 },
                 { id: input2.id, data: input2.data, count: input2.count || 1 }
                                          ],
@@ -74,7 +75,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
           if (result0.id == id) {
             list.push({
               input: [
-                { id: input0.id, data: input0.data, count: input1.count || 1 },
+                { id: input0.id, data: input0.data, count: input0.count || 1 },
                 { id: input1.id, data: input1.data, count: 1 },
                 { id: input2.id, data: input2.data, count: input2.count || 1 }
                                ],
@@ -99,9 +100,9 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
         let input2 = recipe.ingredient3;
         list.push({
           input: [
-            { id: input0.id, data: input0.data, count: input1.count || 1 },
+            { id: input0.id, data: input0.data, count: input1.count },
             { id: input1.id, data: input1.data, count: 1 },
-            { id: input2.id, data: input2.data, count: input2.count || 1 }
+            { id: input2.id, data: input2.data, count: input2.count }
                                ],
           output: [{ id: result0.id, data: result0.data, count: result0.count }],
           time: recipe.time
@@ -115,9 +116,9 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
       elem.onBindingUpdated("text", data ? Translation.translate("Time: ") + data.time : "");
     }
   });
-  //RecipeRegistry.showCrusher(RecipeViewer);
-  //RecipeRegistry.show(RecipeViewer);
-  RecipeViewer.registerRecipeType("enderio_sag", {
+  //RecipeRegistry.showCrusher(RV);
+  //RecipeRegistry.show(RV);
+  RV.registerRecipeType("enderio_sag", {
     title: "SAG Mill",
     contents: {
       icon: BlockID.sagmill,
@@ -133,8 +134,8 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
         textChance0: { type: "text", x: 505, y: 300 },
         textChance1: { type: "text", x: 570, y: 300 },
         textChance2: { type: "text", x: 635, y: 300 },
-        textChance3: { type: "text", x: 700, y: 300 }
-        //   textTime: { type: "text", x: 700, y: 200 }
+        textChance3: { type: "text", x: 700, y: 300 },
+        textBy: { type: "text", x: 600, y: 420, font: { size: 15, color: Color.WHITE, shadow: 0.25 } }
       },
       moveItems: {
         x: 730,
@@ -169,7 +170,8 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
                 result1.chance,
                 result2.chance,
                 result3.chance
-                                  ]
+                                  ],
+               by: recipe.by
             });
           }
         }
@@ -197,7 +199,8 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
                 result1.chance,
                 result2.chance,
                 result3.chance
-                                  ]
+                                  ],
+                by: recipe.by
             });
           }
         }
@@ -230,7 +233,8 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
                 result1.chance,
                 result2.chance,
                 result3.chance
-                                  ]
+                                 ],
+          by: recipe.by
         });
       }
       return list;
@@ -249,10 +253,13 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
 
       let elem4 = elements.get("textChance1");
       elem4.onBindingUpdated("text", data ? data.chance[1] * 100 + "%" : "");
+      
+      let by = elements.get("textBy");
+      by.onBindingUpdated("text", data ? Translation.translate("Recipe add by: ")  + data.by : "");
     }
   });
 
-  RecipeViewer.registerRecipeType("enderio_vat", {
+  RV.registerRecipeType("enderio_vat", {
     title: "Vat",
     contents: {
       icon: BlockID.theVat,
@@ -263,32 +270,18 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
       elements: {
         input0: { type: "slot", x: 590, y: 130, size: 65 },
         input1: { type: "slot", x: 753, y: 130, size: 65 },
-        scaleInputLiquid: {
-          type: "scale",
-          x: 508,
-          y: 130,
-          scale: 5,
-          direction: 1,
-          bitmap: "fluid_scale",
-          overlay: "fluid_scale"
-        },
-        scaleResultLiquid: {
-          type: "scale",
-          x: 856,
-          y: 130,
-          scale: 5,
-          direction: 1,
-          bitmap: "fluid_scale",
-          overlay: "fluid_scale"
-        },
+
+        outputLiq0: {x: 508, y: 130, width: 50, height: 200},
+        outputLiq0: {x: 856, y: 130, width: 50, height: 200},
       },
       moveItems: {
         x: 730,
         y: 316,
         slots: ["slotInput0", "slotInput1"]
       },
-      tankLimit: 1000
     },
+    
+    tankLimit: 8,
     getList: function(id, data, isUsage) {
       let list = [];
 
@@ -305,8 +298,8 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
               input: [{ id: input1.id, count: 1, data: input1.data || 0 },
                 { id: input2.id || 0, count: 1, data: input2.data || 0 }
               ],
-              inputLiquid: [{ liquid: liqInput.id, amount: liqInput.count * 1000 }],
-              outputLiquid: [{ liquid: liqOut.id, amount: liqOut.count * 1000 }]
+              inputLiq: [{ liquid: liqInput.id, amount: liqInput.count * 1000 }],
+              outputLiq: [{ liquid: liqOut.id, amount: liqOut.count * 1000 }]
             });
           }
         }
@@ -324,8 +317,8 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
                 { id: input1.id, count: 1, data: input1.data || 0 },
                 { id: input2.id || 0, count: 1, data: input2.data || 0 }
                    ],
-              inputLiquid: [{ liquid: liqInput.id, amount: liqInput.count * 1000 }],
-              outputLiquid: [{ liquid: liqOut.id, amount: liqOut.count * 1000 }]
+              inputLiq: [{ liquid: liqInput.id, amount: liqInput.count * 1000 }],
+              outputLiq: [{ liquid: liqOut.id, amount: liqOut.count * 1000 }]
             });
           }
 
@@ -344,15 +337,15 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
         let input2 = recipe.input2;
         let liqInput = recipe.liquidIn;
         let liqOut = recipe.liquidOut;
-          list.push({
-            input: [{ id: input1.id, count: 1, data: input1.data || 0 },
-              { id: input2.id || 0, count: 1, data: input2.data || 0 }
+        list.push({
+          input: [{ id: input1.id, count: 1, data: input1.data || 0 },
+            { id: input2.id || 0, count: 1, data: input2.data || 0 }
               ],
-            inputLiquid: [{ liquid: liqInput.id, amount: liqInput.count * 1000 }],
-            outputLiquid: [{ liquid: liqOut.id, amount: liqOut.count * 1000 }]
-          });
-        }
-      
+         inputLiq: [{ liquid: liqInput.id, amount: liqInput.count * 1000 }],
+         outputLiq: [{ liquid: liqOut.id, amount: liqOut.count * 1000 }]
+        });
+      }
+
       return list
     },
 
@@ -373,7 +366,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
   });
 
 
-  RecipeViewer.registerRecipeType("enderio_sas", {
+  RV.registerRecipeType("enderio_sas", {
     title: "Slice And Splice",
     contents: {
       icon: BlockID.sliceAndSplice,

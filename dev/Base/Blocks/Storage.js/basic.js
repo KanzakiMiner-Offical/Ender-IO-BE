@@ -27,7 +27,7 @@ Callback.addCallback("PostLoaded", function(){
     	"ici",
     	"crc",
 	   "ici"
-  ], ['i', 265, 0, 'c', ItemID.basicCapacitor, 0, "r", 152, 0]);
+  ], ['i', 265, 0, 'c', ItemID.basicCapacitor, 0, "r", BlockID.machineChassi, 0]);
 });
 
 MachineRegistry.registerRFStorage(BlockID.storageCapacitorBank, {

@@ -49,19 +49,41 @@ Callback.addCallback("PostLoaded", function() {
 
   RecipeRegistry.addCrusher({
     ingredient: { id: 2, data: 0 },
-    result0: { id: ItemID.clipAndTrim, data: 0, chance: 0.25 },
-    result1: { id: ItemID.clipAndTrim, data: 0, chance: 0.3 },
+    result0: { id: ItemID.clipAndTrim, data: 0, chance: 0.65 },
+    result1: { id: ItemID.clipAndTrim, data: 0, chance: 0.55 },
     result2: { id: 0, data: 0, chance: 0 },
     result3: { id: 0, data: 0, chance: 0 },
-    time: 100
+    time: 100,
+    by: "EnderIO"
   });
+  RecipeRegistry.addCrusher({
+    ingredient: { id: 31, data: 0 },
+    result0: { id: ItemID.clipAndTrim, data: 0, chance: 0.95 },
+    result1: { id: ItemID.clipAndTrim, data: 0, chance: 0.6 },
+    result2: { id: 0, data: 0, chance: 0 },
+    result3: { id: 0, data: 0, chance: 0 },
+    time: 100,
+    by: "EnderIO"
+  });
+  
+  RecipeRegistry.addCrusher({
+    ingredient: { id: 175, data: 0 },
+    result0: { id: ItemID.clipAndTrim, data: 0, chance: 1 },
+    result1: { id: ItemID.clipAndTrim, data: 0, chance: 0.9 },
+    result2: { id: ItemID.clipAndTrim, data: 0, chance: 0.7 },
+    result3: { id: 0, data: 0, chance: 0 },
+    time: 100,
+    by: "EnderIO"
+  });
+  
   RecipeRegistry.addCrusher({
     ingredient: { id: 38, data: 0 },
     result0: { id: VanillaItemID.red_dye, data: 0, chance: 1 },
     result1: { id: VanillaItemID.red_dye, data: 0, chance: 1 },
     result2: { id: VanillaItemID.red_dye, data: 0, chance: 0.95 },
     result3: { id: ItemID.clipAndTrim, data: 0, chance: 0.15 },
-    time: 100
+    time: 100,
+    by: "EnderIO"
   });
   RecipeRegistry.addCrusher({
     ingredient: { id: 37, data: 0 },
@@ -69,7 +91,8 @@ Callback.addCallback("PostLoaded", function() {
     result1: { id: VanillaItemID.yellow_dye, data: 0, chance: 1 },
     result2: { id: VanillaItemID.yellow_dye, data: 0, chance: 0.95 },
     result3: { id: ItemID.clipAndTrim, data: 0, chance: 0.15 },
-    time: 100
+    time: 100,
+    by: "EnderIO"
   });
   RecipeRegistry.addCrusher({
     ingredient: { id: 32, data: 0 },
@@ -77,7 +100,8 @@ Callback.addCallback("PostLoaded", function() {
     result1: { id: ItemID.twigAndPrun, data: 0, chance: 0.3 },
     result2: { id: ItemID.twigAndPrun, data: 0, chance: 0.1 },
     result3: { id: 0, data: 0, chance: 0 },
-    time: 100
+    time: 100,
+    by: "EnderIO"
   });
 
   RecipeRegistry.addSmelter({
@@ -85,7 +109,8 @@ Callback.addCallback("PostLoaded", function() {
     ingredient2: { id: VanillaItemID.egg, data: 0 },
     ingredient3: { id: 0, data: 0, count: 0 },
     result: { id: ItemID.greenDye, count: 2, data: 0 },
-    time: 500
+    time: 500,
+    by: "EnderIO"
   });
 
   RecipeRegistry.addSmelter({
@@ -93,7 +118,8 @@ Callback.addCallback("PostLoaded", function() {
     ingredient2: { id: VanillaItemID.slime_ball, data: 0 },
     ingredient3: { id: 0, data: 0, count: 0 },
     result: { id: ItemID.greenDye, count: 2, data: 0 },
-    time: 500
+    time: 500,
+    by: "EnderIO"
   });
 
   RecipeRegistry.addSmelter({
@@ -101,7 +127,8 @@ Callback.addCallback("PostLoaded", function() {
     ingredient2: { id: VanillaItemID.slime_ball, data: 0 },
     ingredient3: { id: 0, data: 0, count: 0 },
     result: { id: ItemID.brownDye, count: 2, data: 0 },
-    time: 500
+    time: 500,
+    by: "EnderIO"
   });
 
   RecipeRegistry.addSmelter({
@@ -109,7 +136,8 @@ Callback.addCallback("PostLoaded", function() {
     ingredient2: { id: VanillaItemID.slime_ball, data: 0 },
     ingredient3: { id: 0, data: 0, count: 0 },
     result: { id: ItemID.blackDye, count: 2, data: 0 },
-    time: 500
+    time: 500,
+    by: "EnderIO"
   });
 
   RecipeRegistry.addSmelter({
@@ -117,7 +145,8 @@ Callback.addCallback("PostLoaded", function() {
     ingredient2: { id: ItemID.machineDye, data: 0 },
     ingredient3: { id: 0, data: 0, count: 0 },
     result: { id: BlockID.machineChassi, count: 1, data: 0 },
-    time: 250
+    time: 250,
+    by: "EnderIO"
   });
 
   RecipeRegistry.addSmelter({
@@ -125,7 +154,8 @@ Callback.addCallback("PostLoaded", function() {
     ingredient2: { id: ItemID.soulMachineDye, data: 0 },
     ingredient3: { id: 0, data: 0, count: 0 },
     result: { id: BlockID.machineChassiSoul, count: 1, data: 0 },
-    time: 250
+    time: 250,
+    by: "EnderIO"
   });
 
 });

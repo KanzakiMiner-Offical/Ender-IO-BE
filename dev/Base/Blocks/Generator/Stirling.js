@@ -16,13 +16,13 @@ TileRenderer.registerRotationModel(BlockID.stirlingGen, 4, [["machineBottom", 0]
 TileRenderer.setRotationPlaceFunction(BlockID.stirlingGen);
 
 Callback.addCallback("PostLoaded", function() {
-  /*
+  
   Recipes.addShaped({ id: BlockID.stirlingGen, count: 1, data: 0 },
-    ["sss",
+    ["   ",
      "sfs",
      "gpg"],
-    ['s', 4, 0, 'f', 61, 0, 'g', ItemID.basicGear, 0, "p", 33, 0]);
-    */
+    ['s', ItemID.darkSteel, 0, 'f', BlockID.machineChassi, 0, 'g', ItemID.darkSteelGear, 0, "p", BlockID.simpleStirlingGen, 0]);
+    
 });
 
 var stirlingGenGUI = new UI.StandartWindow({
@@ -39,6 +39,7 @@ var stirlingGenGUI = new UI.StandartWindow({
 
   elements: {
     "energyScale": { type: "scale", x: 335, y: 140, direction: 1, value: 0.5, bitmap: "redflux_bar1", scale: 3.2 },
+        "textInstall": { type: "text", font: { size: 20, color: Color.YELLOW }, x: 325, y: 50, width: 50, height: 30, text: "" },
     "burningScale": { type: "scale", x: 450, y: 135, direction: 1, bitmap: "fire_scale1", scale: 3.2 },
     "slotFuel": { type: "slot", x: 441, y: 180 },
     "text": { type: "text", x: 400, y: 100, width: 100, height: 30, text: "RF" },
@@ -82,7 +83,37 @@ MachineRegistry.registerGenerator(BlockID.stirlingGen, {
   resetValues: function() {
     this.data.bonus = this.oldValues.bonus
   },
-
+  
+  MachineRun: function(){
+   let energyStorage = this.getEnergyStorage();
+    if (this.data.burn <= 0 && this.data.energy + 40 * this.data.bonus < energyStorage) {
+      this.data.burn = this.data.burnMax = this.getFuel("slotFuel") / 4;
+    }
+    if (this.data.burn > 0 && this.data.energy + 20 * this.data.bonus < energyStorage) {
+      Particles.addFarParticle(Native.ParticleType.smoke, this.x - .5, this.y + 1.1, this.z + .5)
+      this.data.energy += 40 * this.data.bonus;
+      this.data.burn--;
+      this.activate();
+    } else {
+      this.deactivate();
+    }
+    
+        var randomXYZ = []
+    randomXYZ.push({ x: Math.floor(Math.random() * 10), y: Math.floor(Math.random() * 10), z: Math.floor(Math.random() * 10) });
+    var tempBlockList = {
+      10: 2.5,
+      11: 3,
+      50: 1,
+      213: 2
+    }
+    for (let i in randomXYZ) {
+      if (tempBlockList[World.getBlockID(this.x + randomXYZ[i].x, this.y + randomXYZ[i].y, this.z + randomXYZ[i].z).id]) {
+        this.data.energy += 30 * this.data.bonus * tempAcces;
+      }
+     }
+    
+  },
+  
   tick: function() {
     this.resetValues();
     UpgradeAPI.executeUpgrades(this);
@@ -97,35 +128,15 @@ MachineRegistry.registerGenerator(BlockID.stirlingGen, {
     this.data.energy = Math.min(this.data.energy, energyStorage);
     this.container.setText("text", "RF: " + this.data.energy + "/" + this.getEnergyStorage() + ". Bonus energy: x" + this.data.bonus + ".0");
 
-    /* var energyStorage = this.getEnergyStorage();
-     this.container.setScale("energyScale", this.data.energy / this.getEnergyStorage());*/
-    // Lava Access
-
-    var randomXYZ = []
-    randomXYZ.push({ x: Math.floor(Math.random() * 10), y: Math.floor(Math.random() * 10), z: Math.floor(Math.random() * 10) });
-    var tempBlockList = {
-      10: 2.5,
-      11: 3,
-      50: 1,
-      213: 2
-    }
-    for (let i in randomXYZ) {
-      let tempAcces = tempBlockList[World.getBlockID(this.x + randomXYZ[i].x, this.y + randomXYZ[i].y, this.z + randomXYZ[i].z)]
-      if (tempAcces) {
-        this.data.energy += 30 * this.data.bonus * tempAcces;
-      }
-    }
-    // Use Fuel
-    if (this.data.burn <= 0 && this.data.energy + 40 * this.data.bonus < energyStorage) {
-      this.data.burn = this.data.burnMax = this.getFuel("slotFuel") / 4;
-    }
-    if (this.data.burn > 0 && this.data.energy + 20 * this.data.bonus < energyStorage) {
-      Particles.addFarParticle(Native.ParticleType.smoke, this.x - .5, this.y + 1.1, this.z + .5)
-      this.data.energy += 40 * this.data.bonus;
-      this.data.burn--;
-      this.activate();
+    let capacitor = this.container.getSlot("slotCapacitor");
+    for(let i in capacitorObj){
+     if(capacitor.id == capacitorObj[i]){
+     	this.container.setText("textInstall", "Installed");
+     this.MachineRun();
     } else {
-      this.deactivate();
+    	this.container.setText("textInstall", "Please put Capacitor in slot capacitor to install function for machine");
+    }
+    
     }
     this.container.setScale("burningScale", this.data.burn / this.data.burnMax || 0);
     this.container.setScale("energyScale", this.data.energy / this.getEnergyStorage());
@@ -134,7 +145,7 @@ MachineRegistry.registerGenerator(BlockID.stirlingGen, {
     return 100000;
   },
   energyTick: function(type, src) {
-    let output = Math.min(120 * this.data.bonus, this.data.energy);
+    let output = Math.min(40 * this.data.bonus, this.data.energy);
     this.data.energy += src.add(output) - output;
   }
 });

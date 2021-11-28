@@ -2,8 +2,8 @@
 var GUI_SCALE = 3.2;
 var GUI_ENER = 0.6;
 // API Machine
-var RF = EnergyTypeRegistry.assureEnergyType("RF", 0.25);
-//var EU = EnergyTypeRegistry.assureEnergyType("Eu", 1);
+var RF = EnergyTypeRegistry.assureEnergyType("Rf", 0.25);
+var EU = EnergyTypeRegistry.assureEnergyType("Eu", 1);
 var MachineRegistry = {
   machineIDs: {},
 
@@ -112,9 +112,8 @@ var MachineRegistry = {
   registerElectricPrototype: function(id, Prototype) {
     // wire connection
     ICRender.getGroup("rf-wire").add(id, -1);
-    //  ICRender.getGroup("ic-wire").add(id, -1);
+    ICRender.getGroup("ic-wire").add(id, -1);
 
-    this.registerPrototype(id, Prototype);
     // setup energy values
     if (Prototype.defaultValues) {
       Prototype.defaultValues.energy = 0;
@@ -148,13 +147,14 @@ var MachineRegistry = {
 
     Prototype.energyReceive = Prototype.energyReceive || this.basicEnergyReceiveFunc;
 
+    this.registerPrototype(id, Prototype);
     // register for energy net
     EnergyTileRegistry.addEnergyTypeForId(id, RF);
-    //EnergyTileRegistry.addEnergyTypeForId(id, EU);
+    EnergyTileRegistry.addEnergyTypeForId(id, EU);
   },
   registerElectricMachine: function(id, Prototype) {
     this.registerElectricPrototype(id, Prototype);
-    //Prototype.energyReceive = Prototype.energyReceive || this.basicEnergyReceiveFunc;
+
     Prototype.canReceiveEnergy = function() {
         return true;
       },
@@ -163,13 +163,61 @@ var MachineRegistry = {
         return false;
       }
 
-    Prototype.energyReceive = Prototype.energyReceive || this.basicEnergyReceiveFunc;
-
   },
+  /*
+    // RF machines
+    registerElectricMachine: function(id, Prototype) {
+      // wire connection
+      ICRender.getGroup("rf-wire").add(id, -1);
+    //  ICRender.getGroup("ic-wire").add(id, -1);
+
+      // setup energy values
+      if (Prototype.defaultValues) {
+        Prototype.defaultValues.energy = 0;
+      }
+      else {
+        Prototype.defaultValues = {
+          energy: 0
+        };
+      }
+      
+      if (!Prototype.defaultValues.energy) {
+         Prototype.defaultValues.energy = 0;
+       }
+
+      Prototype.getTier = Prototype.getTier || function() {
+        return 1;
+      },
+      
+      Prototype.canReceiveEnergy = function() {
+          return true;
+        },
+
+      Prototype.canExtractEnergy = function () {
+          return false;
+        }
+
+      if (!Prototype.getEnergyStorage) {
+        Prototype.getEnergyStorage = function() {
+          return 0;
+        };
+      }
+      if (!Prototype.getMaxPacketSize) {
+        Prototype.getMaxPacketSize = function(tier) {
+          return 8 << this.getTier() * 2;
+        }
+      }
+
+      Prototype.energyReceive = Prototype.energyReceive || this.basicEnergyReceiveFunc;
+
+      this.registerPrototype(id, Prototype);
+      // register for energy net
+      EnergyTileRegistry.addEnergyTypeForId(id, RF);
+
+    },*/
 
   registerGenerator(id, Prototype) {
     this.registerElectricPrototype(id, Prototype);
-
     Prototype.canReceiveEnergy = function() {
         return false;
       },
@@ -178,30 +226,31 @@ var MachineRegistry = {
         return true;
       },
 
-      Prototype.energyTick = function(type, src) {
+      Prototype.energyTick = Prototype.energyTick || function(type, src) {
         var output = Math.min(this.data.energy, this.getMaxPacketSize());
         this.data.energy += src.add(output) - output;
       }
+
 
   },
 
   registerRFStorage(id, Prototype) {
     this.registerElectricPrototype(id, Prototype);
-
+    
     Prototype.canExtractEnergy = function() {
         return true;
       },
 
-      Prototype.canReceiveEnergy = function() {
-        return true;
+      Prototype.energyTick = Prototype.energyTick || function(type, src) {
+        var output = Math.min(this.data.energy, this.getMaxPacketSize());
+        this.data.energy += src.add(output) - output;
       },
 
-      Prototype.energyTick = function(type, src) {
-        let output = Math.min(this.data.energy, this.getMaxPacketSize());
-        this.data.energy += src.add(output) - output;
+      Prototype.canReceiveEnergy = function() {
+        return true;
       }
 
-   
+    //Prototype.energyTick = Prototype.energyTick || this.basicEnergyOut
   },
 
   // standard functions

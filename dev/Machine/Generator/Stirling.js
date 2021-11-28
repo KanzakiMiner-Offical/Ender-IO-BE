@@ -78,12 +78,12 @@ MachineRegistry.registerGenerator(BlockID.simpleStirlingGen, {
 
     var energyStorage = this.getEnergyStorage();
     this.container.setScale("energyScale", this.data.energy / this.getEnergyStorage());
-    if (this.data.burn <= 0 && this.data.energy + 10 * this.data.bonus < energyStorage) {
+    if (this.data.burn <= 0 && this.data.energy + 20 * this.data.bonus < energyStorage) {
       this.data.burn = this.data.burnMax = this.getFuel("slotFuel") / 4;
     }
     if (this.data.burn > 0 && this.data.energy + 10 * this.data.bonus < energyStorage) {
     	Particles.addFarParticle(Native.ParticleType.smoke, this.x+.5,this.y+1.1,this.z+.5)
-        this.data.energy += 10 * this.data.bonus;
+        this.data.energy += 20 * this.data.bonus;
             this.data.burn--;
       this.activate();
     } else{
@@ -96,7 +96,7 @@ MachineRegistry.registerGenerator(BlockID.simpleStirlingGen, {
     return 5000;
   },
   energyTick: function(type, src) {
-    let output = Math.min(10 * this.data.bonus, this.data.energy);
+    let output = Math.min(20 * this.data.bonus, this.data.energy);
     this.data.energy += src.add(output) - output;
   }
 });

@@ -46,12 +46,12 @@ var simpleAlloyUI = new UI.StandartWindow({
   elements: {
     "progressScale0": { type: "scale", x: 527, y: 235, direction: 1, bitmap: "fire_scale1", scale: 3.2, clicker: {
             onClick: function(){
-                RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_alloy");
+                RV && RV.RecipeTypeRegistry.openRecipePage("enderio_alloy");
             }
         }},
     "progressScale1": { type: "scale", x: 687, y: 235, direction: 1, bitmap: "fire_scale1", scale: 3.2, clicker: {
             onClick: function(){
-                RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_alloy");
+                RV && RV.RecipeTypeRegistry.openRecipePage("enderio_alloy");
             }
         }},
     "energyScale": { type: "scale", x: 335, y: 140, direction: 1, bitmap: "redflux_bar1", scale: 3.2 },
@@ -79,7 +79,7 @@ MachineRegistry.registerElectricMachine(BlockID.simpleAlloySmelter, {
     work_time: 0,
     speed: 1,
     energy_consumption: 15,
-    energy_storage: 2000,
+    energy_storage: 3000,
     isActive: false
   },
   
@@ -113,9 +113,9 @@ MachineRegistry.registerElectricMachine(BlockID.simpleAlloySmelter, {
             resultSlot.id = result.id;
             resultSlot.data = result.data;
             resultSlot.count += result.count;
-                        ingredient1.count -= ingredient1.count;
+                        ingredient1.count -= ingri1.count;
             ingredient2.count--;
-            ingredient3.count -= ingredient3.count;
+            ingredient3.count -= ingri3.count;
             this.container.validateAll();
             this.data.progress = 0;
           }

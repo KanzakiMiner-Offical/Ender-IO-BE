@@ -1,5 +1,5 @@
 IDRegistry.genItemID("soulVesselEmpty");
-Item.createItem("soulVesselEmpty", "Soul Vessel", { name: "itemSoulVessel" }, { stack: 16 });
+Item.createItem("soulVesselEmpty", "Soul Vessel", { name: "itemSoulVessel" }, { stack: 1 });
 var SoulVessel = {
   values: {},
   addVesselMob: function(id, mob) {

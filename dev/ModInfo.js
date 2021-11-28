@@ -3,7 +3,7 @@ mod_tip(BlockID.sagmill);
 mod_tip(BlockID.alloySmelter);
 //Conduit;
 mod_tip(BlockID.fluidConduit);
-mod_tip(BlockID.powerConduit);
+mod_tip(BlockID.energyConduit);
 mod_tip(BlockID.itemConduit);
 //Generator;
 mod_tip(BlockID.photovoltaicCell);

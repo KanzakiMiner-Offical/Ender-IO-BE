@@ -1,5 +1,10 @@
 ModAPI.addAPICallback("ICore", function(api) {
+  
   Callback.addCallback("PostLoaded", function() {
+  	
+  SWORD_DAMAGE["ItemID.nanoSaberActive"] = 20;
+  SWORD_DAMAGE["ItemID.bronzeSword"] = 6;// maybe 4 :))))
+  SWORD_DAMAGE["ItemID.chainsaw"] = 4;
 
     RecipeRegistry.addSmelter({
       ingredient1: { id: ItemID.ingotCopper, data: 0, count: 3 },
@@ -23,7 +28,8 @@ ModAPI.addAPICallback("ICore", function(api) {
       result1: { id: ItemID.dustSilver, data: 0, chance: 1 },
       result2: { id: ItemID.dustLead, data: 0, chance: 0.1 },
       result3: { id: 4, data: 0, chance: 0.15 },
-      time: 180
+      time: 180,
+      by: "IC2"
     });
 
     RecipeRegistry.addCrusher({
@@ -32,7 +38,8 @@ ModAPI.addAPICallback("ICore", function(api) {
       result1: { id: ItemID.dustLead, data: 0, chance: 1 },
       result2: { id: ItemID.dustSilver, data: 0, chance: 0.1 },
       result3: { id: 4, data: 0, chance: 0.15 },
-      time: 180
+      time: 180,
+      by: "IC2"
     });
 
   });

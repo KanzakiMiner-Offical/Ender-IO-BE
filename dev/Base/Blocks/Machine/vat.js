@@ -44,7 +44,7 @@ var VatGUI = new UI.StandartWindow({
       scale: 3.3,
       clicker: {
         onClick: function() {
-          RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_vat");
+          RV && RV.RecipeTypeRegistry.openRecipePage("enderio_vat");
         }
       }
     },

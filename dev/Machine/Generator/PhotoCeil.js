@@ -8,7 +8,7 @@ Block.createBlock("simplePhotovoltaicCell", [
     inCreative: true
   }
 ]);
-CreatePhotovoltaicCell("simplePhotovoltaicCell", 10, 50);
+CreatePhotovoltaicCell("simplePhotovoltaicCell", 20, 200);
 
 Callback.addCallback("PostLoaded", function() {
 	  Recipes.addShaped({ id: BlockID.simplePhotovoltaicCell, count: 1, data: 0 },

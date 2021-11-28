@@ -53,7 +53,7 @@ var simpleFurnaceUI = new UI.StandartWindow({
       scale: 3.2,
       clicker: {
         onClick: function() {
-          RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_alloy");
+          RV && RV.RecipeTypeRegistry.openRecipePage("enderio_alloy");
         }
       }
     },
@@ -66,7 +66,7 @@ var simpleFurnaceUI = new UI.StandartWindow({
       scale: 3.2,
       clicker: {
         onClick: function() {
-          RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_alloy");
+          RV && RV.RecipeTypeRegistry.openRecipePage("enderio_alloy");
         }
       }
     },

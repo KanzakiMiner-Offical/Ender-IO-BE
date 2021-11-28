@@ -49,14 +49,15 @@ ModAPI.addAPICallback("SkyOrchard", function(api) {
     }
 
   }
-
-  IntegrationSO.crushSap("dirt", 0.75, 1, 1);
-  IntegrationSO.crushLeave("dirt", 0.7, 0.99);
-  IntegrationSO.crushLog("dirt", 0.7);
-  IntegrationSO.crushSap("petrified", 0.7, 1, 1);
-  IntegrationSO.crushLeave("petrified", 0.5, 0.99);
-  IntegrationSO.crushLog("petrified", 0.7);
-  IntegrationSO.crushSap("gravel", 0.5, 1, 1)
-  IntegrationSO.crushLeave("gravel", 0.5, 1)
+  Callback.addCallback("PostLoaded", function() {
+    IntegrationSO.crushSap("dirt", 0.75, 1, 1);
+    IntegrationSO.crushLeave("dirt", 0.7, 0.99);
+    IntegrationSO.crushLog("dirt", 0.7);
+    IntegrationSO.crushSap("petrified", 0.7, 1, 1);
+    IntegrationSO.crushLeave("petrified", 0.5, 0.99);
+    IntegrationSO.crushLog("petrified", 0.7);
+    IntegrationSO.crushSap("gravel", 0.5, 1, 1)
+    IntegrationSO.crushLeave("gravel", 0.5, 1)
     IntegrationSO.crushLog("gravel", 0.8);
+  });
 });

@@ -18,6 +18,7 @@ var SliceAndSpliceGUI = new UI.StandartWindow({
     { type: "bitmap", x: 630, y: 235, bitmap: "bar_progress0", scale: 3.2 },
   ],
   elements: {
+    "textInstall": { type: "text", font: { size: 20, color: Color.YELLOW }, x: 325, y: 50, width: 100, height: 30, text: "" },
     "energyScale": { type: "scale", x: 335, y: 140, direction: 1, bitmap: "redflux_bar1", scale: 3.2 },
     "progressScale": { type: "scale", x: 630, y: 235, bitmap: "bar_progress2", scale: 3.2 },
     "slotInput0": { type: "slot", x: 400, y: 200 },
@@ -108,12 +109,9 @@ MachineRegistry.registerElectricMachine(BlockID.sliceAndSplice, {
     this.data.energy_consumption = this.oldValues.energy_consumption;
     this.data.speed = this.oldValues.speed;
   },
-
-  tick: function() {
-    this.resetValues();
-    UpgradeAPI.executeUpgrades(this);
-
-    let newActive = false;
+  
+  MachineRun: function(){
+  	  let newActive = false;
     let input0 = this.container.getSlot("slotInput0");
     let input1 = this.container.getSlot("slotInput1");
     let input2 = this.container.getSlot("slotInput2");
@@ -176,7 +174,22 @@ MachineRegistry.registerElectricMachine(BlockID.sliceAndSplice, {
     if (!newActive)
       // this.stopPlaySound(true);
       this.setActive(newActive);
+  },
+  
+  tick: function() {
+    this.resetValues();
+    UpgradeAPI.executeUpgrades(this);
+    
+    let capacitor = this.container.getSlot("slotCapacitor");
+    for (let i in capacitorObj) {
+      if (capacitor.id == capacitorObj[i]) {
+    	this.container.setText("textInstall", "Installed");
+       this.MachineRun();
 
+      } else {
+        this.container.setText("textInstall", "Please put Capacitor in slot capacitor to install function for machine");
+      }
+    }
 
     var energyStorage = this.getEnergyStorage();
     this.data.energy = Math.min(this.data.energy, energyStorage);

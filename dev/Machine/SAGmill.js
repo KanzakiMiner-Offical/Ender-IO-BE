@@ -40,7 +40,7 @@ var SimpleSAGGui = new UI.StandartWindow({
       scale: 4.2,
       clicker: {
         onClick: function() {
-          RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_sag");
+          RV && RV.RecipeTypeRegistry.openRecipePage("enderio_sag");
         }
       }
     },

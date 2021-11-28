@@ -8,12 +8,30 @@ Block.createBlockWithRotation("farmStation", [
     inCreative: true
   }
 ]);
-let CropFarm = [
-  { id: 59, age: 7 },
-  { id: 244, age: 3 },
-  { id: 142, age: 4 },
-  { id: 141, age: 4 },
-]
+
+function setFarm() {
+  var farmRender = new ICRender.Model();
+  BlockRenderer.setStaticICRender(BlockID.farmStation, 0, farmRender);
+  var model = BlockRenderer.createModel();
+
+  model.addBox(0, 0, 0, 16 / 16, 11 / 16, 16 / 16, "farm_side", 0);
+  model.addBox(0, 15 / 16, 0, 15 / 16, 1 / 16, 15 / 16, "farm_hat_bottom", 0);
+  model.addBox(0, 11 / 16, 0, 13 / 16, 3 / 16, 14 / 16, "farm_side", 0);
+  /*
+  model.addBox(9 / 16, 4 / 16, 0 / 16, 16 / 16, 16 / 16, 16 / 16, "machineBottom", 0);
+  model.addBox(0 / 16, 4 / 16, 0 / 16, 7 / 16, 16 / 16, 16 / 16, "machineBottom", 0);
+  model.addBox(7 / 16, 4 / 16, 4 / 16, 9 / 16, 11 / 16, 12 / 16, "machineBottom", 0);
+  model.addBox(7 / 16, 8 / 16, 4 / 16, 9 / 16, 10 / 16, 18 / 16, "machineBottom", 0);
+  model.addBox(7 / 16, 12 / 16, 4 / 16, 9 / 16, 14 / 16, 12 / 16, "machineBottom", 0);
+ */
+
+  farmRender.addEntry(model);
+}
+setFarm();
+
+
+Block.setBlockShape(BlockID.farmStation, { "x": 0, "y": 0, "z": 0 }, { "x": 1, "y": 1, "z": 1 });
+
 
 var farmUI = new UI.StandartWindow({
   standart: {
@@ -23,12 +41,12 @@ var farmUI = new UI.StandartWindow({
   },
   drawing: [
     { type: "bitmap", x: 320, y: 70, bitmap: "FarmingStationInterface", scale: 1.95 },
-    { type: "scale", x: 373, y: 106, bitmap: "redflux_bar0", scale: 4.1 },
+    { type: "bitmap", x: 373, y: 106, bitmap: "redflux_bar0", scale: 4.1 },
     { type: "bitmap", x: 925, y: 91, bitmap: "empty_button_up", scale: 3.75 },
     ],
   elements: {
     // "text": { type: "text", x: 370, y: 100, width: 100, height: 30, text: "Progress" },
-    "energyScale": { type: "scale", x: 373, y: 106, bitmap: "redflux_bar1", scale: 3.9, value: 0.5 },
+    "energyScale": { type: "scale", x: 373, y: 106, bitmap: "redflux_bar1", scale: 3.9, value: 0.5, direction: 1 },
     //Capacitor
     "slotCapacitor": { type: "slot", x: 367, y: 316, size: 60, bitmap: "empty" },
 
@@ -76,11 +94,9 @@ MachineRegistry.registerElectricMachine(BlockID.farmStation, {
     // work_time: 20,
     speed: 1,
     energy_consumption: 40,
-    energy_storage: 250000,
+    energy_storage: 25000,
     isActive: false,
 
-    signal: 0,
-    // 
     // Scan
     scanX: -3,
     scanY: 0,
@@ -90,7 +106,7 @@ MachineRegistry.registerElectricMachine(BlockID.farmStation, {
   oldValues: {
     speed: 1,
     energy_consumption: 40,
-    energy_storage: 250000,
+    energy_storage: 25000,
     range: 3
   },
 
@@ -104,83 +120,71 @@ MachineRegistry.registerElectricMachine(BlockID.farmStation, {
     return farmUI;
   },
 
-  redstoneUpdate(signal) {
-    this.data.signal = signal.power;
-  },
-
   resetValues: function() {
     this.data.energy_storage = this.oldValues.energy_storage;
     this.data.energy_consumption = this.oldValues.energy_consumption;
     this.data.speed = this.oldValues.speed;
-    //  this.data.range = this.oldValues.range;
+    this.data.range = this.oldValues.range;
   },
-  getXYZ: function() {
-    var range = this.data.range
-    var rangeNegative = 0 - range
-    this.data.scanX++;
-    if (this.data.scanX >= range) {
-      this.data.scanZ++;
-      this.data.scanX = rangeNegative;
-      if (this.data.scanZ >= range) {
-        this.data.scanY++;
-        if (this.data.scanY >= range) {
-          this.data.scanY = 0;
-        }
+
+  harvest: function(x, y, z) {
+    for (let o = 1; o++; o <= 6) {
+      var slot = this.container.getSlot("output" + o);
+      var block = World.getBlock(x, this.y, z);
+      //var putItem = this.putItem
+      if (block.id == 86) {
+        this.addItemBySlot(slot, 86, 1, 0);
+        World.destroyBlock(x, this.y, z);
       }
-    }
-  },
 
-  checkDirt: function(x, y, z) {
-    return World.getBlock(x, y, z);
-  },
+      if (block.id == 103) {
+        this.addItemBySlot(slot, 360, Math.floor(Math.random() * 5 + 3), 0);
+        World.destroyBlock(x, this.y, z);
+      }
 
-  findCrop: function(x, y, z) {
-    let findCropValue = World.getBlock(x, y, z)
-    return {
-      id: findCropValue.id,
-      data: findCropValue.data
-    }
-  },
+      var isHarvest = false;
 
-  doBone: function(x, y, z) {
-    var crop1 = [
-      59,
-      104,
-      105
-      ];
-    var crop2 = [
-      144,
-      145,
-      244
-        ]
+      if (block.data == 7) {
+        if (block.id == 59) {
+          this.addItemBySlot(slot, 295, Math.floor(Math.random() * 3 + 1), 0);
+          this.addItemBySlot(slot, 296, 1, 0);
 
-    for (let i in crop1) {
-      if (this.findCrop(x, this.y, z).id == crop1[i]) {
-        if (this.findCrop(x, this.y, z).data < 7) {
-          World.setBlock(x, y, z, crop1[i], Math.min(this.findCrop(x, this.y, z).data + (3 + Math.random() * 3), 7));
-
+          isHarvest = true;
         }
 
+        if (block.id == 141) {
+          this.addItemBySlot(slot, 391, Math.floor(Math.random() * 3 + 1), 0);
+          isHarvest = true;
+        }
       }
-    }
-    for (let i in crop2) {
-      if (this.findCrop(x, this.y, z).id == crop2[i]) {
-        if (this.findCrop(x, this.y, z).data < 3) {
-          World.setBlock(x, y, z, crop2[i], Math.min(this.findCrop(x, this.y, z).data + (1 + Math.random() * 2), 3));
+
+      if (block.data == 3) {
+        if (block.id == 142) {
+          this.addItemBySlot(slot, 392, Math.floor(Math.random() * 3 + 1), 0);
+          if (Math.random() < 0.02) this.addItemBySlot(slot, 394, 1, 0);
+          isHarvest = true;
         }
 
+        if (block.id == 244) {
+          this.addItemBySlot(slot, 458, Math.floor(Math.random() * 3), 0);
+          this.addItemBySlot(slot, 457, Math.floor(Math.random() * 2 + 1), 0);
+          isHarvest = true;
+        }
       }
+
+      if (isHarvest) World.destroyBlock(x, this.y, z);
+
     }
   },
 
-  doHoe: function(x, y, z) {
-    //Hoe Dirt
-
-    if (this.checkDirt(x, this.y - 1, z).id == 1) {
-      World.setBlock(x, this.y - 1, z, 60, 0)
-      this.data.energy -= this.data.energy_consumption
-
-    }
+  growCrop: function(x, y, z) {
+    var seed1 = this.container.getSlot("slotSeed1");
+    var seed2 = this.container.getSlot("slotSeed2");
+    var seed3 = this.container.getSlot("slotSeed3");
+    var seed4 = this.container.getSlot("slotSeed4");
+    var x = this.x + x;
+    var y = this.y + y;
+    var z = this.z + z;
 
     var seeds = {
       295: 59, // 7
@@ -191,200 +195,191 @@ MachineRegistry.registerElectricMachine(BlockID.farmStation, {
       458: 244, // 3
     }
     //Grow
-    var seed1 = this.container.getSlot("slotSeed1");
-    var seed2 = this.container.getSlot("slotSeed2");
-    var seed3 = this.container.getSlot("slotSeed3");
-    var seed4 = this.container.getSlot("slotSeed4");
-    if (seeds[seed1.id]) {
-      if (x < 0 && z <= 0) {
-        if (this.checkDirt(x, this.y, z).id == 0) {
-          World.setBlock(x, this.y, z, seed1.id, seed1.data)
+
+    if (World.getBlockID(x, this.y, z) == 0) {
+      if (seeds[seed1.id] && World.getBlockID(x, this.y - 1, z) == 60) {
+        if (x < 0 && z <= 0) {
+          World.setBlock(x, this.y, z, seeds[seed1.id], 0)
           seed1.count--
           this.container.validateAll();
         }
-      }
-    } else if (seeds[seed2.id]) {
-      if (x >= 0 && z < 0) {
-        if (this.checkDirt(x, this.y, z).id == 0) {
-          World.setBlock(x, this.y, z, seed2.id, seed2.data)
+      } else if (seeds[seed2.id] && World.getBlockID(x, this.y - 1, z) == 60) {
+        if (x >= 0 && z < 0) {
+          World.setBlock(x, this.y, z, seeds[seed2.id], 0)
           seed2.count--
           this.container.validateAll();
         }
-      }
-    } else if (seeds[seed3.id]) {
-      if (x <= 0 && z > 0) {
-        if (this.checkDirt(x, this.y, z).id == 0) {
-          World.setBlock(x, this.y, z, seed3.id, seed3.data)
+      } else if (seeds[seed3.id] && World.getBlockID(x, this.y - 1, z) == 60) {
+        if (x <= 0 && z > 0) {
+          World.setBlock(x, this.y, z, seeds[seed3.id], 0)
           seed3.count--;
           this.container.validateAll();
         }
-      }
-    } else if (seeds[seed4.id]) {
-      if (x > 0 && z >= 0) {
-        if (this.checkDirt(x, this.y, z).id == 0) {
-          World.setBlock(x, this.y, z, seed4.id, seed4.data)
+      } else if (seeds[seed4.id] && World.getBlockID(x, this.y - 1, z) == 60) {
+        if (x > 0 && z >= 0) {
+          World.setBlock(x, this.y, z, seeds[seed4.id], 0)
           seed4.count--;
           this.container.validateAll();
         }
       }
     }
-    // Harvest
 
+    // Sapling
 
-    var block = this.findCrop(x, y, z)
-    //var putItem = this.putItem
-    if (block.id == 86) {
-      this.putItem(86, 1);
-      World.destroyBlock(x, y, z);
-    }
-
-    if (block.id == 103) {
-      this.putItem(360);
-      World.destroyBlock(x, y, z);
-    }
-
-    var isHarvest = false;
-
-    if (block.data == 7) {
-      if (block.id == 59) {
-        this.putItem(295);
-        this.putItem(296);
-
-        isHarvest = true;
+    if (World.getBlockID(x, this.y - 1, z).id == 2 || World.getBlockID(x, this.y - 1, z).id == 3) {
+      if (seed1.id == 6) {
+        if (x < 0 && z <= 0) {
+          if (World.getBlockID(x, this.y, z).id == 0) {
+            World.setBlock(x, this.y, z, seed1.id, seed1.data)
+            seed1.count--;
+            this.container.validateAll();
+            Game.message("Grow At: " + x + "+" + y + "+" + z);
+          }
+        }
+      } else if (seed2.id == 6) {
+        if (x >= 0 && z < 0) {
+          if (World.getBlockID(x, this.y, z).id == 0) {
+            World.setBlock(x, this.y, z, seed2.id, seed2.data)
+            seed2.count--
+            this.container.validateAll();
+          }
+        }
+      } else if (seed3.id == 6) {
+        if (x <= 0 && z > 0) {
+          if (World.getBlockID(x, this.y, z).id == 0) {
+            World.setBlock(x, this.y, z, seed3.id, seed3.data)
+            seed3.count
+            this.container.validateAll();
+          }
+        }
+      } else if (seed4.id == 6) {
+        if (x > 0 && z >= 0) {
+          if (World.getBlockID(x, this.y, z) == 0) {
+            World.setBlock(x, this.y, z, seed4.id, seed4.data)
+            seed4.count
+            this.container.validateAll();
+          }
+        }
       }
 
-      if (block.id == 141) {
-        this.putItem(391);
-        isHarvest = true;
-      }
+
     }
-
-    if (block.data == 3) {
-      if (block.id == 142) {
-        this.putItem(392);
-        if (Math.random() < 0.02) this.putItem(394);
-        isHarvest = true;
-      }
-
-      if (block.id == 244) {
-        this.putItem(458);
-        this.putItem(457);
-        isHarvest = true;
-      }
-    }
-
-    if (isHarvest) World.destroyBlock(x, y, z);
-
-
-
-
   },
-  doAxe: function(x, y, z) {
 
-    let GetOak = World.getBlock(x, y, z)
+  onUseBoneMeal: function(x, y, z) {
+    var x = this.x + x;
+    var y = this.y + y;
+    var z = this.z + z;
 
-
-    if (GetOak.id == 16 || 126) {
-      this.data.energy -= this.data.energy_consumption
-
-
-      this.putItem(GetOak.id)
-      World.destroyBlock(x, y, z, false)
-
-      // Debug :/
-      Game.message("Break At: " + x + "+" + y + "+" + z);
-
-
-    }
-
-    var seed1 = this.container.getSlot("slotSeed1");
-    var seed2 = this.container.getSlot("slotSeed2");
-    var seed3 = this.container.getSlot("slotSeed3");
-    var seed4 = this.container.getSlot("slotSeed4");
-    if (seed1.id == 16) {
-      if (x < 0 && z <= 0) {
-        if (this.checkDirt(x, this.y, z).id == 0) {
-          World.setBlock(x, this.y, z, seed1.id, seed1.data)
-          seed1.count--;
+    var block = World.getBlock(x, y, z);
+    if ((block.id == 59 || block.id == 104 || block.id == 105 || block.id == 141 || block.id == 142 || block.id == 244) && block.data < 7) {
+      for (let i = 0; i < 2; i++) {
+        var slot = this.container.getSlot("slotBone" + i);
+        if (slot.id == VanillaItemID.bone_meal) {
+          World.setBlock(x, y, z, block.id, Math.min(block.data + (3 + Math.random() * 3), 7));
+          slot.count--;
           this.container.validateAll();
-        }
-      }
-    } else if (seed2.id == 16) {
-      if (x >= 0 && z < 0) {
-        if (this.checkDirt(x, this.y, z).id == 0) {
-          World.setBlock(x, this.y, z, seed2.id, seed2.data)
-          seed2.count--
-          this.container.validateAll();
-        }
-      }
-    } else if (seed3.id == 16) {
-      if (x <= 0 && z > 0) {
-        if (this.checkDirt(x, this.y, z).id == 0) {
-          World.setBlock(x, this.y, z, seed3.id, seed3.data)
-          seed3.count
-          this.container.validateAll();
-        }
-      }
-    } else if (seed4.id == 16) {
-      if (x > 0 && z >= 0) {
-        if (this.checkDirt(x, this.y, z) == 0) {
-          World.setBlock(x, this.y, z, seed4.id, seed4.data)
-          seed4.count
-          this.container.validateAll();
+          return;
         }
       }
     }
   },
+
+  hoeDirt: function(x, y, z) {
+    var x = this.x + x;
+    var y = this.y + y;
+    var z = this.z + z;
+
+    //Hoe Dirt
+    var slotHoe = this.container.getSlot("slotHoe");
+    if (slotHoe.id == VanillaItemID.stone_hoe || slotHoe.id == VanillaItemID.iron_hoe || slotHoe.id == VanillaItemID.wooden_hoe || slotHoe.id == VanillaItemID.diamond_hoe || slotHoe.id == VanillaItemID.netherite_hoe) {
+      if ((World.getBlockID(x, this.y - 1, z).id == 3 || World.getBlockID(x, this.y - 1, z).id == 2) && World.getBlockID(x, y, z) == 0) {
+        slotHoe.data++;
+        World.setBlock(x, this.y - 1, z, 60, 1);
+        return;
+      }
+    }
+  },
+  axeOak: function(x, y, z) {
+    var slotAxe = this.container.getSlot("slotAxe");
+    if (slotAxe.id == VanillaItemID.stone_axe || slotAxe.id == VanillaItemID.iron_axe || slotAxe.id == VanillaItemID.wooden_axe || slotAxe.id == VanillaItemID.diamond_axe || slotAxe.id == VanillaItemID.netherite_axe) {
+      var block = World.getBlock(this.x + x, this.y + y, this.z + z);
+      if (block.id == 17 || block.id == 126 || block.id == 16 || block.id == 161) {
+        for (let i = 1; i++; i <= 6) {
+          this.addItemBySlot("output" + i, block.id, block.count, block.data)
+          World.destroyBlock(this.x + x, this.y + y, this.z + z);
+          return;
+        }
+      }
+    }
+  },
+
+  MachineDelop: function() {
+    var range = this.data.range
+    var rangeNegative = 0 - range
+    this.data.scanX++;
+    if (this.data.scanX >= range) {
+      this.data.scanZ++;
+      this.data.scanX = rangeNegative;
+      if (this.data.scanZ >= range) {
+        this.data.scanY++;
+        this.data.scanZ = rangeNegative
+        if (this.data.scanY >= range) {
+          this.data.scanY = 0;
+        }
+      }
+    }
+    this.axeOak(this.data.x, this.data.y, this.data.z);
+    this.onUseBoneMeal(this.data.x, this.data.y, this.data.z);
+    this.hoeDirt(this.data.x, this.data.y, this.data.z);
+    this.growCrop(this.data.x, this.data.y, this.data.z);
+  },
+
+
   tick: function() {
     this.resetValues();
     UpgradeAPI.executeUpgrades(this);
-    this.getXYZ();
-    for (let i = 0; i++; i <= 1) {
-      var slotBone = this.container.getSlot("slotBone" + i);
-      var sAxe = this.container.getSlot("slotAxe");
-      var sHoe = this.container.getSlot("slotHoe");
-      var crX = this.x + this.data.scanX
-      var crY = this.y + this.data.scanY
-      var crZ = this.z + this.data.scanZ
-      let newActive = false;
-      /*
-          if (this.data.mode === 0) this.alloy();
-          if (this.data.mode === 1) this.furnace();
 
-          if (this.container.getGuiContent()) {
-            this.container.getGuiContent().elements["changeMode"].bitmap = "alloy" + this.data.mode;
-          }
-      */
+    let newActive = false;
 
-      if (this.data.energy >= this.data.energy_consumption) {
-        if (sAxe.id == VanillaItemID.stone_axe || VanillaItemID.iron_axe || VanillaItemID.wooden_axe || VanillaItemID.diamond_axe || VanillaItemID.netherite_axe) {
-          newActive = true
-          this.doAxe(this.x + this.data.scanX, this.y + this.data.scanY, this.z + this.data.scanZ);
-          sAxe.data++;
-        }
-
-        if (slotBone.id == VanillaItemID.bone_meal) {
-          newActive = true
-          this.doBone(this.x + this.data.scanX, this.y + this.data.scanY, this.z + this.data.scanZ);
-          slotBone.count--
-          this.container.validateAll();
-        }
-        if (sHoe.id == VanillaItemID.stone_hoe || VanillaItemID.iron_hoe || VanillaItemID.wooden_hoe || VanillaItemID.diamond_hoe || VanillaItemID.netherite_hoe) {
-          newActive = true
-          this.doHoe(this.x + this.data.scanX, this.y + this.data.scanY, this.z + this.data.scanZ);
-          sHoe.data++
-        }
-      }
-      if (!newActive)
-        // this.stopPlaySound(true);
-        this.setActive(newActive);
-
+    if (this.data.energy >= this.data.energy_consumption) {
+      newActive = true
+      this.MachoneDelop()
+      this.data.energy -= this.data.energy_consumption
     }
+    if (!newActive)
+      // this.stopPlaySound(true);
+      this.setActive(newActive);
     var energyStorage = this.getEnergyStorage();
     this.data.energy = Math.min(this.data.energy, energyStorage);
     this.container.setScale("energyScale", this.data.energy / energyStorage);
     //  this.container.setText("text", "Progress" + this.data.progress);
+  },
 
+  addItemBySlot: function(slots, id, count, data) {
+    if (count > 0) {
+      for (let i in slots) {
+        var slot = slots[i];
+
+        var maxStack = Item.getMaxStack(slot.id);
+        if (slot.id == 0 || slot.id == id && slot.data == data && slot.count < maxStack) {
+          slot.id = id;
+          slot.data = data;
+
+          var minCount = maxStack - slot.count;
+          if (minCount < count) {
+            slot.count += Math.min(minCount, count);
+            this.addItemBySlot(slot, id, count - minCount, data);
+            return;
+          } else {
+            slot.count += count;
+            return;
+          }
+        }
+      }
+
+      //World.drop(this.x + 0.5, this.y + 1.5, this.z + 0.5, id, count, data);
+    }
   },
 
   putItem: function(item) {
@@ -408,7 +403,6 @@ MachineRegistry.registerElectricMachine(BlockID.farmStation, {
     }
     return true;
   },
-
 
   getEnergyStorage: function() {
     return this.data.energy_storage;

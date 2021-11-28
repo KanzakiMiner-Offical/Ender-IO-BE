@@ -28,7 +28,7 @@
             scale: 4.2,
             clicker: {
               onClick: function(container) {
-                RecipeViewer && RecipeViewer.RecipeTypeRegistry.openRecipePage("enderio_sag", container);
+                RV && RV.RecipeTypeRegistry.openRecipePage("enderio_sag", container);
               }
             }
           },

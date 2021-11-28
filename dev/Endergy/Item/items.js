@@ -1,8 +1,10 @@
 Item.createResourceItem("crudeSteel", "Crude Steel");
 Item.createResourceItem("crystalline", "Crystalline");
-
+Item.createResourceItem("vividAlloy", "Vivid Alloy");
 endergy_tip(ItemID.crudeSteel);
 endergy_tip(ItemID.crudeSteelNugget);
+endergy_tip(ItemID.vividAlloy);
+endergy_tip(ItemID.vividAlloyNugget)
 IDRegistry.genItemID("ingotSilver");
 Item.createItem("ingotSilver", "Silver Ingot", {name: "ingot_silver"});
 //Recipes.addFurnace(ItemID.dustSilver, ItemID.ingotSilver, 0);

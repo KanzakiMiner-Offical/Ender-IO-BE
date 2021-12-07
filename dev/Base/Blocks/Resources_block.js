@@ -1,5 +1,6 @@
 Block.createResourceBlock = function(id, name) {
-  var bid = "block" + id;
+  var newID = id.charAt(0).toUpperCase() + id.substr(1);
+  var bid = "block" + newID //id;
   IDRegistry.genBlockID(bid);
   Block.createBlock(bid, [
     { name: name + " Block", texture: [[id + "Block", 0]], inCreative: true }
@@ -13,19 +14,15 @@ Block.createResourceBlock = function(id, name) {
   ], ['b', ItemID[id], 0]);
     Recipes.addShapeless({ id: ItemID[id], count: 9, data: 0 }, [{ id: BlockID[bid], data: 0 }]);
   });
-  mod_tip(BlockID[id + "Block"])
+  mod_tip(BlockID[newID])
 };
 
-Block.createResourceBlock("ConductiveIron", "Conductive Iron");
-Block.createResourceBlock("DarkSteel", "Dark Steel");
-Block.createResourceBlock("ElectricalSteel", "Electrical Steel");
-Block.createResourceBlock("Soularium", "Soularium Alloy");
-Block.createResourceBlock("RedstoneAlloy", "Redstone Alloy");
+Block.createResourceBlock("conductiveIron", "Conductive Iron");
+Block.createResourceBlock("darkSteel", "Dark Steel");
+Block.createResourceBlock("electricalSteel", "Electrical Steel");
+Block.createResourceBlock("soularium", "Soularium Alloy");
+Block.createResourceBlock("redstoneAlloy", "Redstone Alloy");
 
-Block.createResourceBlock("EndSteel", "End Steel");
-Block.createResourceBlock("EnergeticAlloy", "Energetic Alloy");
-Block.createResourceBlock("PulsatingIron", "Pulsating Iron");
-
-
-
-
+Block.createResourceBlock("endSteel", "End Steel");
+Block.createResourceBlock("energeticAlloy", "Energetic Alloy");
+Block.createResourceBlock("pulsatingIron", "Pulsating Iron");

@@ -34,6 +34,8 @@ var combustionGenUI = new UI.StandartWindow({
   drawing: [
     { type: "bitmap", x: 490, y: 230, bitmap: "fire_scale0", scale: 3.2 },
     { type: "bitmap", x: 300, y: 110, bitmap: "redflux_bar0", scale: 3.2 },
+    { type: "scale", x: 400, y: 120, bitmap: "tankOverlay", scale: 3.2},
+    { type: "scale", x: 570, y: 120, bitmap: "tankOverlay", scale: 3.2},
 	],
 
   elements: {
@@ -96,7 +98,7 @@ MachineRegistry.registerGenerator(BlockID.combustionGenerator, {
   },
 
   MachineRun: function() {
-       var energyStorage = this.getEnergyStorage();
+    var energyStorage = this.getEnergyStorage();
     // Run;
     for (let i in GenFuel.coolFuel) {
       for (let e in GenFuel.heatFuel) {
@@ -153,7 +155,7 @@ MachineRegistry.registerGenerator(BlockID.combustionGenerator, {
     let capacitor = this.container.getSlot("slotCapacitor");
     for (let i in capacitorObj) {
       if (capacitor.id == capacitorObj[i]) {
-        
+
         this.container.setText("textInstall", "Installed");
         this.MachineRun();
       } else {
@@ -172,3 +174,4 @@ MachineRegistry.registerGenerator(BlockID.combustionGenerator, {
     this.data.energy += src.add(output) - output;
   }
 });
+

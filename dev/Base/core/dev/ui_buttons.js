@@ -150,7 +150,7 @@ var buttonContent = {
       onClick: function() {
         var item = Player.getCarriedItem();
         let energyStored = ChargeItemRegistry.getEnergyStored(item);
-        if (energyStored >= 1500) {
+        if (energyStored >= 15000) {
           let pos = Player.getPosition();
           let vec = Entity.getLookVector(Player.get());
           let crd = {};
@@ -158,12 +158,12 @@ var buttonContent = {
             crd.x = pos.x + vec.x * t;
             crd.y = pos.y + vec.y * t;
             crd.z = pos.z + vec.z * t;
-            if (!GenerationUtils.isTransparentBlock(World.getBlockID(crd.x, crd.y, crd.z))) {
+           // if (!GenerationUtils.isTransparentBlock(World.getBlockID(crd.x, crd.y, crd.z))) {
               Game.tipMessage("Teleport at: X: " + Math.round(crd.x) + " Y: " + Math.round(crd.y + 2) + " Z: " + Math.round(crd.z));
               Entity.setPosition(Player.get(), crd.x, crd.y, crd.z);
               
-              ChargeItemRegistry.setEnergyStored(item, Math.max(energyStored - 1500, 0));
-            }
+              ChargeItemRegistry.setEnergyStored(item, energyStored - 15000);
+           // }
           }
         } else { //debug
         	alert("Error");

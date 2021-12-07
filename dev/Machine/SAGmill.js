@@ -104,7 +104,10 @@ MachineRegistry.registerElectricMachine(BlockID.simplesagmill, {
         time = Math.round(recipe.time / 1.15);
       }
       // KTRA ĐIỆN NĂNG VÀ OUTPUT
-      if (ingredient.id == recipe.ingredient.id && ingredient.data == recipe.ingredient.data /*&& ((res0.id = recipe.result0.id || 0) && (res1.id = recipe.result1.id || 0) && (res2.id == recipe.result2.id || 0) && (res3.id == recipe.result3.id || 0))*/) {
+      if (ingredient.id == recipe.ingredient.id && ingredient.data == recipe.ingredient.data && ((res0.id == recipe.result0.id && res0.data == recipe.result0.data && res0.count <= 64 - recipe.result0.count) || res0.id == 0) &&
+        ((res1.id == recipe.result1.id && res1.data == recipe.result1.data && res1.count <= 64 - recipe.result1.count) || res1.id == 1) &&
+        ((res2.id == recipe.result2.id && res2.data == recipe.result2.data && res2.count <= 64 - recipe.result2.count) || res2.id == 2) &&
+        ((res3.id == recipe.result3.id && res3.data == recipe.result3.data && res3.count <= 64 - recipe.result3.count) || res3.id == 3)) {
         this.data.work_time = time;
         if (this.data.energy >= this.data.energy_consumption) {
           Particles.addFarParticle(Native.ParticleType.itemBreak, this.x, this.y + .1, this.z)

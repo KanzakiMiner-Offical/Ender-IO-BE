@@ -144,6 +144,11 @@ MachineRegistry.registerGenerator(BlockID.stirlingGen, {
   getEnergyStorage: function() {
     return 100000;
   },
+  
+  canReceiveEnergy: function() {
+        return false;
+   },
+
   energyTick: function(type, src) {
     let output = Math.min(40 * this.data.bonus, this.data.energy);
     this.data.energy += src.add(output) - output;

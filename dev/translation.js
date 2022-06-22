@@ -6,3 +6,7 @@ Translation.addTranslation("Soularium Ingot", {ru: "Слиток соулари�
 // Text
 // Rv
 Translation.addTranslation("Time: ", {ru: "Время: " });
+
+// tools
+Translation.addTranslation("dark_steel_pickaxe", { en: "Dark Pick", ru: "Тёмная кирка" });
+Translation.addTranslation("dark_steel_sword", { en: "The Ender", ru: "Меч Края" });

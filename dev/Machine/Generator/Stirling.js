@@ -14,7 +14,7 @@ TileRenderer.registerRotationModel(BlockID.simpleStirlingGen, 4, [["simple_machi
 
 TileRenderer.setRotationPlaceFunction(BlockID.simpleStirlingGen);
 
-Callback.addCallback("PostLoaded", function() {
+Callback.addCallback("PreLoaded", function() {
 	
   Recipes.addShaped({ id: BlockID.simpleStirlingGen, count: 1, data: 0 },
     ["sas",

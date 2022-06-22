@@ -41,7 +41,7 @@ var setVessel = function(arg) {
   Item.addCreativeGroup("SoulVessel", Translation.translate("Soul Vessel"), [
     ItemID["soulVessel" + arg.id]
 ]);
-  mod_tip(ItemID["soulVessel" + arg.id])
+  //mod_tip(ItemID["soulVessel" + arg.id])
 }
 setVessel({ id: "Chicken", mob: { id: 10 } });
 setVessel({ id: "Cow", mob: { id: 11 } });

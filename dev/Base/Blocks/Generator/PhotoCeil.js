@@ -15,7 +15,7 @@ Block.createBlock("photovoltaicCell", [
 ]);
 Block.setBlockShape(BlockID.photovoltaicCell, { x: 0, y: 0, z: 0 }, { x: 1, y: 0.2, z: 1 });
 
-Callback.addCallback("PostLoaded", function() {
+Callback.addCallback("PreLoaded", function() {
   Recipes.addShaped({ id: BlockID.advancedPhotovoltaicCell, count: 1, data: 0 },
     ["aga",
      "sgs",

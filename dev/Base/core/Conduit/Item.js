@@ -51,6 +51,23 @@ const newSides_ = [
 	'1_0_0'
 ]
 
+var conduitTextureSet = [
+	["item_conduit_core", 0],
+	["item_conduit_core", 0],
+	["item_conduit_core", 0],
+	["item_conduit_core", 0],
+	["item_conduit_core", 0],
+	["item_conduit_core", 0]
+];
+var fixedConduitTextureSet = [
+	["item_conduit_core", 0],
+	["item_conduit_core", 0],
+	["item_conduit_core", 0],
+	["item_conduit_core", 0],
+	["item_conduit_core", 0],
+	["item_conduit_core", 0]
+];
+
 const createAnim = function(_values, _duration, _updateFunc){
 	var animation = JAVA_ANIMATOR.ofInt(_values);
 	animation.setDuration(_duration);

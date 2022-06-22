@@ -48,18 +48,19 @@ let ICTool = {
 	},
 	
 	dischargeItem: function(item, consume){
+		let player = Player.get();
 		let energy = 0;
-		let armor = Player.getArmorSlot(1);
+		let armor = Entity.getArmorSlot(player, 1);
 		let itemChargeLevel = ChargeItemRegistry.getItemData(item.id).level;
 		let armorChargeData = ChargeItemRegistry.getItemData(armor.id);
 		if(armorChargeData && armorChargeData.level >= itemChargeLevel){
-			energy = ChargeItemRegistry.getEnergyFrom(armor, "Eu", consume, consume, 100);
+			energy = ChargeItemRegistry.getEnergyFrom(armor, "Rf", consume, consume, 100);
 			consume -= energy;
 		}
 		let energyStored = ChargeItemRegistry.getEnergyStored(item);
 		if(energyStored >= consume){
 			if(energy > 0){
-				Player.setArmorSlot(1, armor.id, 1, armor.data, armor.extra);
+				Entity.setArmorSlot(player, 1, armor.id, 1, armor.data, armor.extra);
 			}
 			ChargeItemRegistry.setEnergyStored(item, energyStored - consume);
 			return true;

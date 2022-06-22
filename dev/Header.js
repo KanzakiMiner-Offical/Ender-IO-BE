@@ -10,17 +10,20 @@ var PotionEffect = Native.PotionEffect;
 var ParticleType = Native.ParticleType;
 var BlockSide = Native.BlockSide;
 var EntityType = Native.EntityType;
+// RECIPE VIEWER SUPPORT
 var RV;
+//var RecipeViewer;
 // load lib
 alert("EnderIO BE \n Remake By KanzakiMiner");
 var DataGroup = ICRender.getGroup("data-conduit");
 
+IMPORT("ConnectedTexture");
 IMPORT("SoundAPI");
 IMPORT("UIAPI")
 IMPORT("BlockEngine");
 IMPORT("StorageInterface");
 IMPORT("flags");
-//IMPORT("ToolType");
+IMPORT("BlockEngine");
 IMPORT("EnergyNet");
 IMPORT("ChargeItem");
 IMPORT("MachineRender");
@@ -28,7 +31,7 @@ IMPORT("TileRender");
 IMPORT("LiquidLib");
 IMPORT("ToolLib");
 IMPORT("PipesAPI");
-IMPORT("bakeModel");
+//IMPORT("bakeModel");
 IMPORT("Pipe");
 
 ICRender.addGroupFor = function(id, groups, data) {

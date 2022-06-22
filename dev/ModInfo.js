@@ -1,3 +1,4 @@
+/*
 //Machine;
 mod_tip(BlockID.sagmill);
 mod_tip(BlockID.alloySmelter);
@@ -29,11 +30,6 @@ mod_tip(ItemID.energeticAlloy);
 mod_tip(ItemID.vibrantNugget);
 mod_tip(ItemID.vibrantCrystal);
 mod_tip(ItemID.enderCrystal);
-/* //Undate 
-mod_tip(ItemID.darkSteel);
-mod_tip(ItemID.darkSteel);
-mod_tip(ItemID.darkSteel);
-*/
 // Skulls
 mod_tip(ItemID.endermanSkull);
 mod_tip(ItemID.zombieSkull);
@@ -44,4 +40,6 @@ mod_tip(ItemID.skeletonSkull);
 mod_tip(ItemID.basicCapacitor);
 mod_tip(ItemID.doublelayerCapacitor);
 mod_tip(ItemID.octadicCapacitor);
+*/
 // END \__*__/
+

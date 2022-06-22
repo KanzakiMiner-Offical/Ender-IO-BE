@@ -17,118 +17,64 @@ var RecipeRegistry = {
   addVat: function(obj) {
     this.theVat.push(obj)
   },
-  /*
-  compileSmelter: function(createIfNotFound) {
-    if (createIfNotFound && this.smelter[0] == undefined) {
-      this.smelter = [];
-      return false;
-    } else {
-      var rec = this.reqSmelter(true)
-      for (let i in rec) {
-        let recipe = rec[i]
-        let result0 = recipe.result;
-        let input0 = recipe.ingredient1;
-        let input1 = recipe.ingredient2;
-        let input2 = recipe.ingredient3;
-        return {
-          input: [
-            { id: input0.id, data: input0.data, count: 1 },
-            { id: input1.id, data: input1.data, count: 1 },
-            { id: input2.id, data: input2.data, count: 1 }
-                 ],
-          output: [{ id: result0.id, data: result0.data, count: result0.count }],
-        };
+  isIngr1: function(id, data) {
+    for (let i in RecipeRegistry.smelter) {
+      var Recipe = RecipeRegistry.smelter[i];
+      var ingre1 = Recipe.ingredient1;
+      if (id == ingre1.id && data == ingre1.data) {
+        return true;
       }
     }
-  },
-  compileCrusher: function(createIfNotFound) {
-    if (createIfNotFound && this.crusher[0] == undefined) {
-      this.crusher = [];
-      return false;
-    } else {
-      var rec = RecipeRegistry.reqCrusher(true)
-      for (let i in rec) {
-        let recipe = rec[i];
-        let input = recipe.ingredient;
-        let result0 = recipe.result0;
-        let result1 = recipe.result1;
-        let result2 = recipe.result2;
-        let result3 = recipe.result3;
-        return {
-          input: [{ id: input.id, count: 1, data: input.data }],
-          output: [
-            { id: result0.id || 0, count: 1, data: result0.data || 0 },
-            { id: result1.id || 0, count: 1, data: result1.data || 0 },
-            { id: result2.id || 0, count: 1, data: result2.data || 0 },
-            { id: result3.id || 0, count: 1, data: result3.data || 0 },
-					],
-
-          chance: [
-                result0.chance,
-                result1.chance,
-                result2.chance,
-                result3.chance
-          ]
-        };
-      }
-    }
-  },
-  */
-  getSmelter: function(id1, id2, id3) {
-    var data = this.reqSmelter(true);
-    if (data) {
-      if (id1 == data.ingredient1.id && id2 == data.ingredient2.id && d3 == data.ingredient3.id) {
-        return this.smelter
-      } else {
-        return null;
-      }
-    }
-  },
-  reqSmelter: function(createIfNotFound) {
-    if (createIfNotFound && this.smelter[0] == undefined) {
-      this.smelter = [];
-      return false;
-    }
-    return this.smelter;
   },
 
-  getCrusher: function(id) {
-    var data = reqCrusher(true);
-    if (data) {
-      if (id == data.ingredient.id) {
-        return this.crusher
-      } else {
-        return null;
+  isIngr2: function(id, data) {
+    for (let i in RecipeRegistry.smelter) {
+      var Recipe = RecipeRegistry.smelter[i];
+      var ingre2 = Recipe.ingredient2;
+      if (id == ingre2.id && data == ingre2.data) {
+        return true
       }
     }
   },
-  getInCrusher: function(id) {
-    var data = reqCrusher(true);
-    if (data) {
-      if (id == data.ingredient.id) {
-        for (let i in this.crusher) {
-          var recipe = this.crusher[i]
-          return recipe.ingredient.id;
-        }
-      } else {
-        return null;
+  isIngr3: function(id, data) {
+    for (let i in RecipeRegistry.smelter) {
+      var Recipe = RecipeRegistry.smelter[i];
+      var ingre3 = Recipe.ingredient3;
+      if (id == ingre3.id && data == ingre3.data) {
+        return true
       }
     }
   },
-  reqCrusher: function(createIfNotFound) {
-    if (createIfNotFound && this.smelter[0] == undefined) {
-      this.smelter = [];
-      return false;
+  getInCrusher: function(id, data) {
+     for (let i in RecipeRegistry.crusher) {
+      var Recipe = RecipeRegistry.crusher[i];
+      var ingre = Recipe.ingredient;
+      if (id == ingre.id && data == ingre.data) {
+        return true
+      }
     }
-    return this.crusher;
   }
-  /*
-    getSmelter: function(id, data){
-      for(let i in this.smelter){
-      var recipe = this.smelter[i];
-        if(id == recipe.input && data == recipe.output){
-        return 
-      }
-    }}
-    */
 };
+/*
+RecipeRegistry.addCrusher({
+    ingredient: { id: 296, data: 0 },
+    result0: { id: ItemID.dustWheat, data: 0, chance: 1 },
+    result1: { id: VanillaItemID.wheat_seed, data: 0, chance: 0.45 },
+    result2: { id: 0, data: 0, chance: 0 },
+    result3: { id: 0, data: 0, chance: 0 },
+    time: 100,
+    by: "EnderIO"
+  });
+
+isValid: function(item) {
+        return RecipeRegistry.getInCrusher(item.id); 
+      }
+
+RecipeRegistry.addSmelter({
+    ingredient1: { id: 331, data: 0, count: 1 },
+    ingredient2: { id: ItemID.silicon, data: 0 },
+    ingredient3: { id: 0, data: 0, count: 0, count: 1 },
+    result: { id: ItemID.redstoneAlloy, count: 1, data: 0 },
+    time: 250
+  });
+*/

@@ -29,7 +29,7 @@ var swtGUI = new UI.StandartWindow({
   }
 });
 
-Callback.addCallback("PostLoaded", function() {
+Callback.addCallback("PreLoaded", function() {
   Recipes.addShaped({ id: BlockID.simpleWirelessTranfer, count: 1, data: 0 }, [
     	"ici",
     	"crc",

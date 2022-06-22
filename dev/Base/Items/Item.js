@@ -3,7 +3,7 @@ Item.setItems = function(id, types) {
     IDRegistry.genItemID(id + types[i]);
     Item.createItem(id + types[i], types[i] + " " + id, { name: id + types[i] }, { stack: 64 });
     var this_id = id + types[i];
-    mod_tip(ItemID[this_id])
+    //mod_tip(ItemID[this_id])
   }
 }
 
@@ -17,7 +17,7 @@ Item.createResourceItem = function(id, name) {
   IDRegistry.genItemID(nug);
   Item.createItem(nug, nugg, { name: nug }, { stack: 64 });
 
-  Callback.addCallback("PostLoaded", function() {
+  Callback.addCallback("PreLoaded", function() {
     Recipes.addShaped({ id: ItemID[id], count: 1, data: 0 }, [
 	  "bbb",
 	  "bbb",
@@ -25,8 +25,8 @@ Item.createResourceItem = function(id, name) {
   ], ['b', ItemID[nug], 0]);
     Recipes.addShapeless({ id: ItemID[nug], count: 9, data: 0 }, [{ id: ItemID[id], data: 0 }]);
   });
-  mod_tip(ItemID[id]);
-  mod_tip(ItemID[nug]);
+  //mod_tip(ItemID[id]);
+  //mod_tip(ItemID[nug]);
 };
 
 Item.createResourceItem("endSteel", "End Steel");
@@ -43,6 +43,8 @@ Item.createItem("dustPulsating", "Grains of Piezallity", { name: "dustPulsating"
 
 IDRegistry.genItemID("dustInfinity");
 Item.createItem("dustInfinity", "Grains of Infinity", { name: "dustInfinity" }, { stack: 64 });
+
+KEX.ItemsModule.setFireResistant(ItemID.dustInfinity, true);
 
 IDRegistry.genItemID("pulsatingCrystal");
 Item.createItem("pulsatingCrystal", "Pulsating Crustal", { name: "pulsatingCrystal" }, { stack: 64 });
@@ -122,8 +124,12 @@ function regUpgrade(id, type, storage, usage, speed, bonus, range) {
     data.energy_storage += storage;
     data.speed = data.speed * speed;
     data.energy_consumption += usage;
-    data.bonus += bonus;
-    data.range += range;
+    if(data.bonus){
+     data.bonus += bonus;
+    }
+    if(data.range){
+     data.range += range;
+    }
   });
 
   capacitorObj.push(id);
@@ -143,7 +149,7 @@ UpgradeAPI.registerUpgradeItem(ItemID.octadicCapacitor, {
   speed: 4, storage: 500000, usage: 160, energyBonus: 4
 });
 */
-Callback.addCallback("PostLoaded", function() {
+Callback.addCallback("PreLoaded", function() {
 
   Recipes.addShapeless({ id: 397, count: 1, data: 0 }, [{ id: ItemID.skeletonSkull, data: 0 }]);
   Recipes.addShapeless({ id: 397, count: 1, data: 2 }, [{ id: ItemID.zombieSkull, data: 0 }]);
@@ -175,6 +181,12 @@ Callback.addCallback("PostLoaded", function() {
 	 "aaa"
 ], ['a', ItemID.vibrantNugget, 0]);
 
+  Recipes.addShaped({ id: ItemID.basicCapacitor, count: 1, data: 0 }, [
+  	" rn",
+  	"rir",
+	 "nr "
+], ['r', VanillaItemID.gold_nugget, 0, 'n', ItemID.dustInfinity, 0, 'i', VanillaItemID.redstone, 0]);
+
 
   Recipes.addShaped({ id: ItemID.doublelayerCapacitor, count: 1, data: 0 }, [
   	" a ",
@@ -187,19 +199,6 @@ Callback.addCallback("PostLoaded", function() {
   	"cpc",
 	 " a "
 ], ['a', ItemID.vibrantAlloy, 0, 'c', ItemID.doublelayerCapacitor, 0, 'p', 89, 0]);
-
-  Recipes.addShaped({ id: ItemID.basicGear, count: 1, data: 0 }, [
-  	"aba",
-  	"b b",
-	 "aba"
-], ['a', 280, 0, 'b', 4, 0]);
-
-
-  Recipes.addShaped({ id: ItemID.basicCapacitor, count: 1, data: 0 }, [
-  	" rn",
-  	"rir",
-	 "nr "
-], ['r', 371, 0, 'n', 331, 0, 'i', 265, 0]);
 
   Recipes.addShaped({ id: ItemID.binderComposite, count: 8, data: 0 }, [
   	"csc",

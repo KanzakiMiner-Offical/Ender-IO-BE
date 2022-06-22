@@ -6,5 +6,5 @@ Item.addCreativeGroup("enderConduit", Translation.translate("Ender IO Conduit"),
 	BlockID.fluidConduit,
 	BlockID.fluidConduitEx,
 	BlockID.itemConduit,
-  BlockID.itemConduitExtract
+    BlockID.itemConduitExtract
 ]);

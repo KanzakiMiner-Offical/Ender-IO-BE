@@ -76,7 +76,7 @@ var simpleFurnaceUI = new UI.StandartWindow({
     "resultSlot": { type: "slot", x: 600, y: 320 }
   }
 });
-Callback.addCallback("PostLoaded", function() {
+Callback.addCallback("PreLoaded", function() {
 
   Recipes.addShaped({ id: BlockID.simplePoweredFurnace, count: 1, data: 0 }, [
     	"ibi",

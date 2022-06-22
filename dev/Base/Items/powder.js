@@ -3,7 +3,7 @@ Item.createDyeItem = function(id, name, type) {
   IDRegistry.genItemID(id);
   Item.createItem(id, name, { name: res }, { stack: 64 });
 
-  mod_tip(ItemID[id]);
+ // mod_tip(ItemID[id]);
 };
 
 Item.createPowderItem = function(id, name, type) {
@@ -12,7 +12,7 @@ Item.createPowderItem = function(id, name, type) {
   IDRegistry.genItemID(id);
   Item.createItem(id, nam, { name: res }, { stack: 64 });
 
-  mod_tip(ItemID[id]);
+ // mod_tip(ItemID[id]);
 };
 Item.createPowderItem("dustLapis", "Lapis Lazuli", "lapis_lazuli")
 Item.createPowderItem("dustQuarzt", "Quartz", "quartz")
@@ -33,7 +33,7 @@ Item.createItem("soulMachineDye", "Soul Attuned Powder Coating", { name: "item_m
 
 
 
-Callback.addCallback("PostLoaded", function() {
+Callback.addCallback("PreLoaded", function() {
 
   Recipes.addShaped({ id: ItemID.soulMachineDye, count: 6, data: 0 }, [
     	" pi",
@@ -46,8 +46,9 @@ Callback.addCallback("PostLoaded", function() {
     	"pmp",
 	     "ipf"
   ], ['i', ItemID.greenDye, 0, 'f', ItemID.dustLapis, 0, "m", ItemID.blackDye, 0, "p", ItemID.dustQuarzt, 0]);
-
+  
   RecipeRegistry.addCrusher({
+  	isGrinding: true,
     ingredient: { id: 263, data: 0 },
     result0: { id: ItemID.dustCoal, data: 0, chance: 1 },
     result1: { id: 0, data: 0, chance: 0 },
@@ -56,11 +57,11 @@ Callback.addCallback("PostLoaded", function() {
     time: 180,
     by: "EnderIO"
   });
-
-
+  
   RecipeRegistry.addCrusher({
+  	isGrinding: true,
     ingredient: { id: 2, data: 0 },
-    result0: { id: ItemID.clipAndTrim, data: 0, chance: 0.65 },
+    result0: { id: ItemID.clipAndTrim, data: 0, chance: 0.75 },
     result1: { id: ItemID.clipAndTrim, data: 0, chance: 0.55 },
     result2: { id: 0, data: 0, chance: 0 },
     result3: { id: 0, data: 0, chance: 0 },
@@ -68,7 +69,8 @@ Callback.addCallback("PostLoaded", function() {
     by: "EnderIO"
   });
   RecipeRegistry.addCrusher({
-    ingredient: { id: VanillaBlockID.tallgrass, data: 0 },
+  	isGrinding: true,
+    ingredient: { id: VanillaTileID.tallgrass, data: 0 },
     result0: { id: ItemID.clipAndTrim, data: 0, chance: 0.95 },
     result1: { id: ItemID.clipAndTrim, data: 0, chance: 0.6 },
     result2: { id: 0, data: 0, chance: 0 },
@@ -76,9 +78,21 @@ Callback.addCallback("PostLoaded", function() {
     time: 100,
     by: "EnderIO"
   });
-
+  
+    RecipeRegistry.addCrusher({
+  	isGrinding: true,
+    ingredient: { id: VanillaTileID.tallgrass, data: 2 },
+    result0: { id: ItemID.clipAndTrim, data: 0, chance: 0.95 },
+    result1: { id: ItemID.clipAndTrim, data: 0, chance: 0.6 },
+    result2: { id: 0, data: 0, chance: 0 },
+    result3: { id: 0, data: 0, chance: 0 },
+    time: 100,
+    by: "EnderIO"
+  });
+  
   RecipeRegistry.addCrusher({
-    ingredient: { id: 175, data: 0 },
+  	isGrinding: true,
+    ingredient: { id: VanillaTileID.double_plant, data: 0 },
     result0: { id: ItemID.clipAndTrim, data: 0, chance: 1 },
     result1: { id: ItemID.clipAndTrim, data: 0, chance: 0.9 },
     result2: { id: ItemID.clipAndTrim, data: 0, chance: 0.7 },
@@ -86,8 +100,20 @@ Callback.addCallback("PostLoaded", function() {
     time: 100,
     by: "EnderIO"
   });
-
+  
   RecipeRegistry.addCrusher({
+  	isGrinding: true,
+    ingredient: { id: VanillaTileID.double_plant, data: 3 },
+    result0: { id: ItemID.clipAndTrim, data: 0, chance: 1 },
+    result1: { id: ItemID.clipAndTrim, data: 0, chance: 0.9 },
+    result2: { id: ItemID.clipAndTrim, data: 0, chance: 0.7 },
+    result3: { id: 0, data: 0, chance: 0 },
+    time: 100,
+    by: "EnderIO"
+  });
+  
+  RecipeRegistry.addCrusher({
+  	isGrinding: true,
     ingredient: { id: 38, data: 0 },
     result0: { id: VanillaItemID.red_dye, data: 0, chance: 1 },
     result1: { id: VanillaItemID.red_dye, data: 0, chance: 1 },
@@ -97,6 +123,7 @@ Callback.addCallback("PostLoaded", function() {
     by: "EnderIO"
   });
   RecipeRegistry.addCrusher({
+  	isGrinding: true,
     ingredient: { id: 37, data: 0 },
     result0: { id: VanillaItemID.yellow_dye, data: 0, chance: 1 },
     result1: { id: VanillaItemID.yellow_dye, data: 0, chance: 1 },
@@ -106,8 +133,9 @@ Callback.addCallback("PostLoaded", function() {
     by: "EnderIO"
   });
   RecipeRegistry.addCrusher({
+  	isGrinding: true,
     ingredient: { id: 32, data: 0 },
-    result0: { id: ItemID.twigAndPrun, data: 0, chance: 0.6 },
+    result0: { id: ItemID.twigAndPrun, data: 0, chance: 0.7 },
     result1: { id: ItemID.twigAndPrun, data: 0, chance: 0.3 },
     result2: { id: ItemID.twigAndPrun, data: 0, chance: 0.1 },
     result3: { id: 0, data: 0, chance: 0 },

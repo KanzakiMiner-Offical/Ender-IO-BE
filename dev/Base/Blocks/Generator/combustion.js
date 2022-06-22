@@ -34,8 +34,6 @@ var combustionGenUI = new UI.StandartWindow({
   drawing: [
     { type: "bitmap", x: 490, y: 230, bitmap: "fire_scale0", scale: 3.2 },
     { type: "bitmap", x: 300, y: 110, bitmap: "redflux_bar0", scale: 3.2 },
-    { type: "scale", x: 400, y: 120, bitmap: "tankOverlay", scale: 3.2},
-    { type: "scale", x: 570, y: 120, bitmap: "tankOverlay", scale: 3.2},
 	],
 
   elements: {
@@ -60,6 +58,20 @@ var combustionGenUI = new UI.StandartWindow({
     "liquidHeat": { type: "scale", x: 400, y: 120, direction: 1, bitmap: "tankOverlay", scale: 3.2, value: 1 },
     "liquidCool": { type: "scale", x: 570, y: 120, direction: 1, bitmap: "tankOverlay", scale: 3.2, value: 1 },
   }
+});
+
+
+StorageInterface.createInterface(BlockID.combustionGenerator, {  
+  slots: {    
+    "slot1": { input: true },
+    "slot2": { output: true },
+    "slot3": { input: true },
+    "slot4": { output: true },
+  },
+
+  canReceiveLiquid: function(liquid, side) { return true; },
+
+  canTransportLiquid: function(liquid, side) { return true; }
 });
 
 GenFuel.addCoolFuel("water", 12);
@@ -174,4 +186,3 @@ MachineRegistry.registerGenerator(BlockID.combustionGenerator, {
     this.data.energy += src.add(output) - output;
   }
 });
-

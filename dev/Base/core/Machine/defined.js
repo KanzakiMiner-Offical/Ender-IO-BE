@@ -138,14 +138,15 @@ var MachineRegistry = {
         return 8 << this.getTier() * 2;
       }
     }
+        
+    
+    Prototype.energyReceive = Prototype.energyReceive || this.basicEnergyReceiveFunc;
 
     if (!Prototype.getEnergyStorage) {
       Prototype.getEnergyStorage = function() {
         return 0;
       };
     }
-
-    Prototype.energyReceive = Prototype.energyReceive || this.basicEnergyReceiveFunc;
 
     this.registerPrototype(id, Prototype);
     // register for energy net
@@ -154,6 +155,7 @@ var MachineRegistry = {
   },
   registerElectricMachine: function(id, Prototype) {
     this.registerElectricPrototype(id, Prototype);
+
 
     Prototype.canReceiveEnergy = function() {
         return true;

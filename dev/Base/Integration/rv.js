@@ -1,3 +1,28 @@
+/*var RecipeViewerSupport = {
+	info: [],
+	
+	addInfo: function(obj) {
+		let input = obj
+	    let item = obj.item;
+        if (!item || !item.id)
+            return;
+
+        item.data = item.data || 0;
+        input.line3 = input.line3 || " ";
+        input.line4 = input.line4 || " ";
+        
+       this.info.push(obj);
+  }
+}
+
+RecipeViewerSupport.addInfo({
+	item: { id: ItemID.dustInfinity },
+	line1: "Grain Of Infinity is an indispensable item ",
+	line2: "when starting Ender IO. To get it, use",
+	line3: "Flint and Steel to burn Bedrock",
+	line4: "Note: It can't Anti-Fire"
+});
+*/
 ModAPI.addAPICallback("RecipeViewer", function(api) {
 
   RV = api.Core;
@@ -8,7 +33,79 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
 
    let bmp, cvs, source;*/
   let x = y = 0;
+  /*
+  
+    RV.registerRecipeType("enderio_info", {
+      title: "Infomation",
+      contents: {
+        icon: ItemID.enderCapacitor,
+        description: "Infomation",
+        drawing: [],
+        elements: {
+          input0: { type: "slot", x: 520, y: 170 },
+          line1: { type: "text", x: 200, y: 200, font: { size: 10, color: Color.WHITE, shadow: 0.25 } },
+          line2: { type: "text", x: 200, y: 230, font: { size: 10, color: Color.WHITE, shadow: 0.25 } },
+          line3: { type: "text", x: 200, y: 260, font: { size: 10, color: Color.WHITE, shadow: 0.25 } },
+          line4: { type: "text", x: 200, y: 290, font: { size: 10, color: Color.WHITE, shadow: 0.25 } },
+        }
+      },
+      getList: function(id, data, isUsage) {
+        let list = [];
+        if (isUsage) {
+          for (let i in RecipeViewerSupport.info) {
+            let info = RecipeViewerSupport.info[i];
+            let Item = info.item
+            if (Item.id == id) {
+              list.push({
+                input: [{ id: item.id, count: 1, data: item.data }],
+                line: [
+                info.line1,
+                info.line2,
+                info.line3,
+                info.line4
+              ]
+              });
+            }
+          }
+        }
+        return list;
+      },
+      getAllList: function() {
+        const list = [];
 
+        for (let i in RecipeViewerSupport.info) {
+          let info = RecipeViewerSupport.info[i];
+          let Item = info.item
+          if (Item.id == id) {
+            list.push({
+              input: [{ id: item.id, count: 1, data: item.data }],
+              line: [
+                        info.line1,
+                        info.line2,
+                        info.line3,
+                        info.line4
+                      ]
+            });
+          }
+        }
+        return list;
+      },
+      onOpen: function(elements, data) {
+        let line1 = elements.get("line1");
+        line1.onBindingUpdated("text", data ? data.line[0] : "");
+
+        let line2 = elements.get("line2");
+        line2.onBindingUpdated("text", data ? data.line[1] : "");
+
+        let line3 = elements.get("line3");
+        line3.onBindingUpdated("text", data ? data.line[2] : "");
+
+        let line4 = elements.get("line4");
+        line4.onBindingUpdated("text", data ? data.line[3] : "");
+
+      }
+    });*/
+  
 
   RV.registerRecipeType("enderio_alloy", {
     title: "Alloy Smelter",
@@ -35,7 +132,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
     getList: function(id, data, isUsage) {
       let list = [];
       if (isUsage) {
-        var rec = RecipeRegistry.reqSmelter(true)
+        var rec = RecipeRegistry.smelter
         for (let i in rec) {
           let recipe = rec[i]
           let result0 = recipe.result;
@@ -65,7 +162,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
           }
         }
       } else {
-        var rec = RecipeRegistry.reqSmelter(true)
+        var rec = RecipeRegistry.smelter
         for (let i in rec) {
           let recipe = rec[i]
           let result0 = recipe.result;
@@ -91,7 +188,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
     getAllList: function() {
       const list = [];
 
-      var rec = RecipeRegistry.reqSmelter(true)
+      var rec = RecipeRegistry.smelter
       for (let i in rec) {
         let recipe = rec[i]
         let result0 = recipe.result;
@@ -100,9 +197,9 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
         let input2 = recipe.ingredient3;
         list.push({
           input: [
-            { id: input0.id, data: input0.data, count: input1.count },
+            { id: input0.id, data: input0.data, count: input1.count || 1},
             { id: input1.id, data: input1.data, count: 1 },
-            { id: input2.id, data: input2.data, count: input2.count }
+            { id: input2.id, data: input2.data, count: input2.count || 1 }
                                ],
           output: [{ id: result0.id, data: result0.data, count: result0.count }],
           time: recipe.time
@@ -131,10 +228,10 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
         output1: { type: "slot", x: 570, y: 340, size: 65 },
         output2: { type: "slot", x: 635, y: 340, size: 65 },
         output3: { type: "slot", x: 700, y: 340, size: 65 },
-        textChance0: { type: "text", x: 505, y: 300 },
-        textChance1: { type: "text", x: 570, y: 300 },
-        textChance2: { type: "text", x: 635, y: 300 },
-        textChance3: { type: "text", x: 700, y: 300 },
+        textChance0: { type: "text", x: 505, y: 300, font: { size: 10, color: Color.WHITE, shadow: 0.25 } },
+        textChance1: { type: "text", x: 570, y: 300, font: { size: 10, color: Color.WHITE, shadow: 0.25 } },
+        textChance2: { type: "text", x: 635, y: 300, font: { size: 10, color: Color.WHITE, shadow: 0.25 } },
+        textChance3: { type: "text", x: 700, y: 300, font: { size: 10, color: Color.WHITE, shadow: 0.25 } },
         textBy: { type: "text", x: 600, y: 420, font: { size: 15, color: Color.WHITE, shadow: 0.25 } }
       },
       moveItems: {
@@ -147,7 +244,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
       let list = [];
 
       if (isUsage) {
-        var rec = RecipeRegistry.reqCrusher(true)
+        var rec = RecipeRegistry.crusher
         for (let i in rec) {
           let recipe = rec[i];
           let input = recipe.ingredient;
@@ -176,7 +273,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
           }
         }
       } else {
-        var rec = RecipeRegistry.reqCrusher(true)
+        var rec = RecipeRegistry.crusher
         for (let i in rec) {
           let recipe = rec[i];
           let input = recipe.ingredient;
@@ -211,7 +308,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
 
     getAllList: function() {
       const list = [];
-      var rec = RecipeRegistry.reqCrusher(true)
+      var rec = RecipeRegistry.crusher
       for (let i in rec) {
         let recipe = rec[i];
         let input = recipe.ingredient;
@@ -257,7 +354,7 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
       let by = elements.get("textBy");
       by.onBindingUpdated("text", data ? Translation.translate("Recipe add by: ")  + data.by : "");
     }
-  });
+  });/*
 
   RV.registerRecipeType("enderio_vat", {
     title: "Vat",
@@ -364,8 +461,8 @@ ModAPI.addAPICallback("RecipeViewer", function(api) {
 
     }
   });
-
-
+  
+*/
   RV.registerRecipeType("enderio_sas", {
     title: "Slice And Splice",
     contents: {

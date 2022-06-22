@@ -159,10 +159,11 @@ var buttonContent = {
             crd.y = pos.y + vec.y * t;
             crd.z = pos.z + vec.z * t;
            // if (!GenerationUtils.isTransparentBlock(World.getBlockID(crd.x, crd.y, crd.z))) {
-              Game.tipMessage("Teleport at: X: " + Math.round(crd.x) + " Y: " + Math.round(crd.y + 2) + " Z: " + Math.round(crd.z));
+              Game.tipMessage("Teleport at: X: " + Math.round(crd.x) + " Y: " + Math.round(crd.y) + " Z: " + Math.round(crd.z));
               Entity.setPosition(Player.get(), crd.x, crd.y, crd.z);
               
-              ChargeItemRegistry.setEnergyStored(item, energyStored - 15000);
+              ChargeItemRegistry.setEnergyStored(item, Math.max(energyStored - 15000, 0));
+
            // }
           }
         } else { //debug

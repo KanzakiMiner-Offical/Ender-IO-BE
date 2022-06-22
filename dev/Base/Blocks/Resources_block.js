@@ -6,7 +6,7 @@ Block.createResourceBlock = function(id, name) {
     { name: name + " Block", texture: [[id + "Block", 0]], inCreative: true }
 	 ], "opaque");
 
-  Callback.addCallback("PostLoaded", function() {
+  Callback.addCallback("PreLoaded", function() {
     Recipes.addShaped({ id: BlockID[bid], count: 1, data: 0 }, [
 	  "bbb",
 	  "bbb",
@@ -14,7 +14,7 @@ Block.createResourceBlock = function(id, name) {
   ], ['b', ItemID[id], 0]);
     Recipes.addShapeless({ id: ItemID[id], count: 9, data: 0 }, [{ id: BlockID[bid], data: 0 }]);
   });
-  mod_tip(BlockID[newID])
+ // mod_tip(BlockID[bid])
 };
 
 Block.createResourceBlock("conductiveIron", "Conductive Iron");
@@ -26,3 +26,7 @@ Block.createResourceBlock("redstoneAlloy", "Redstone Alloy");
 Block.createResourceBlock("endSteel", "End Steel");
 Block.createResourceBlock("energeticAlloy", "Energetic Alloy");
 Block.createResourceBlock("pulsatingIron", "Pulsating Iron");
+
+
+
+

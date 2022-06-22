@@ -3,4 +3,4 @@ Item.createItem("silverCapacitor", "Silver Capacitor", { name: "capacitorSilver"
 
 regUpgrade(ItemID.silverCapacitor, "capacitor", 150000, 60, 1.5, 1);
 
-endergy_tip(ItemID.silverCapacitor);
+//endergy_tip(ItemID.silverCapacitor);

@@ -1,11 +1,7 @@
-/*let MineshaftGenC = WRAP_NATIVE("ItemGenerationModule");
-let MonsterGenC = WRAP_NATIVE("ItemGenerationModule");
-let CrossingGenC = WRAP_NATIVE("ItemGenerationModule");
-let CorridorGenC = WRAP_NATIVE("ItemGenerationModule");
-let LibraryGenC = WRAP_NATIVE("ItemGenerationModule");
-
-MineshaftGenC.addItemGenerator({tableName: "abandoned_mineshaft", id: ItemID.cursed_crystal, data: 0, chance: 20, minCount: 1, maxCount: 1});
-MonsterGenC.addItemGenerator({tableName: "monster_room", id: ItemID.cursed_crystal, data: 0, chance: 20, minCount: 1, maxCount: 1});
-CrossingGenC.addItemGenerator({tableName: "stronghold_crossing", id: ItemID.cursed_crystal, data: 0, chance: 20, minCount: 1, maxCount: 1});
-CorridorGenC.addItemGenerator({tableName: "stronghold_corridor", id: ItemID.cursed_crystal, data: 0, chance: 20, minCount: 1, maxCount: 1});
-LibraryGenC.addItemGenerator({tableName: "stronghold_library", id: ItemID.cursed_crystal, data: 0, chance: 20, minCount: 1, maxCount: 1});*/
+/*IDRegistry.genItemID("advCapacitor");
+Item.createItem("advCapacitor", "Adv Capacitor", { name: "item_basic_capacitor_special2" }, { stack: 64 });
+["stronghold_corridor", "village/village_toolsmith", "end_city_treasure", "bastion_bridge", "nether_bridge", "abandoned_mineshaft", "desert_pyramid", "jungle_temple", "pillager_outpost"].forEach(function(chestName) {
+  KEX.LootModule.createLootTableModifier("chests/" + chestName)
+    .addItem(ItemID.advCapacitor, 1, 0, 0.135, 3);
+});
+*/

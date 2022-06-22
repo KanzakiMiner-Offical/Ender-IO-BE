@@ -3,7 +3,7 @@ Item.createGearItem = function(id, name, type) {
   IDRegistry.genItemID(id);
   Item.createItem(id, name, { name: res }, { stack: 64 });
 
-  mod_tip(ItemID[id]);
+  //mod_tip(ItemID[id]);
 };
 
 var GearName = {
@@ -18,7 +18,7 @@ Item.createGearItem("woodGear", GearName.gear_wood, "wood");
 Item.createGearItem("stoneGear", GearName.gear_stone, "stone");
 Item.createGearItem("ironGear", GearName.gear_iron, "iron");
 Item.createGearItem("darkSteelGear", GearName.gear_darksteel, "darksteel");
-Callback.addCallback("PostLoaded", function() {
+Callback.addCallback("PreLoaded", function() {
   Recipes.addShaped({ id: ItemID.darkSteelGear, count: 1, data: 0 }, [
 	  "bbb",
 	  "bab",

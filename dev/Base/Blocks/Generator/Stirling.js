@@ -15,7 +15,7 @@ TileRenderer.registerRotationModel(BlockID.stirlingGen, 4, [["machineBottom", 0]
 
 TileRenderer.setRotationPlaceFunction(BlockID.stirlingGen);
 
-Callback.addCallback("PostLoaded", function() {
+Callback.addCallback("PreLoaded", function() {
   
   Recipes.addShaped({ id: BlockID.stirlingGen, count: 1, data: 0 },
     ["   ",
@@ -89,7 +89,7 @@ MachineRegistry.registerGenerator(BlockID.stirlingGen, {
     if (this.data.burn <= 0 && this.data.energy + 40 * this.data.bonus < energyStorage) {
       this.data.burn = this.data.burnMax = this.getFuel("slotFuel") / 4;
     }
-    if (this.data.burn > 0 && this.data.energy + 20 * this.data.bonus < energyStorage) {
+    if (this.data.burn > 0 && this.data.energy + 40 * this.data.bonus < energyStorage) {
       Particles.addFarParticle(Native.ParticleType.smoke, this.x - .5, this.y + 1.1, this.z + .5)
       this.data.energy += 40 * this.data.bonus;
       this.data.burn--;
@@ -129,7 +129,7 @@ MachineRegistry.registerGenerator(BlockID.stirlingGen, {
     this.container.setText("text", "RF: " + this.data.energy + "/" + this.getEnergyStorage() + ". Bonus energy: x" + this.data.bonus + ".0");
 
     let capacitor = this.container.getSlot("slotCapacitor");
-    for(let i in capacitorObj){
+    for(var i in capacitorObj){
      if(capacitor.id == capacitorObj[i]){
      	this.container.setText("textInstall", "Installed");
      this.MachineRun();

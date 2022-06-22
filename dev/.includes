@@ -1,13 +1,39 @@
 Header.js
 
 Liquid.js
-Base/core/.
-Base/Items/.
+
+Info.js
+
+ModInfo.js
+
+Base/core/Machine/.
+Base/core/Conduit/api.js
+Base/core/dev/.
+Base/core/Liquid.js
+Base/core/debug.js
+Base/core/Book.js
+Base/core/Renderer.js
+Base/Items/Upgrade/Filter.js
+Base/Items/Upgrade/speed.js
+Base/Items/SoulVessel.js
+Base/Items/Tools/darkSteel.js
+Base/Items/uprDev/staffoftraveling.js
+Base/Items/Armor/darkSteel.js
+Base/Items/powder.js
+Base/Items/Item.js
+Base/Items/gear.js
+Base/Items/advCapacitor.js
+
+Base/core/Conduit/Item.js
+Base/Item/extract.js
+Base/Item/trans.js
+
 Base/Integration/.
 Base/Blocks/.
 
 Endergy/.
+Zoo/.
 
 Machine/.
-ModInfo.js
+
 Shared.js

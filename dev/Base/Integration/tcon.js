@@ -24,7 +24,7 @@ ModAPI.addAPICallback("TConAPI", function(Tcon) {
     AlloyRecipe.addRecipe({ liquid: "molten_pulsating_iron", amount: 4 }, { liquid: "molten_redstone", amount: 2 }, { liquid: "molten_iron", amount: 2 });
   });
 
-  /**/
+  /*
   Item.registerUseFunction("skullZombieElectrode", function(coords, item, block) {
     Game.message(block.id + ":" + block.data);
     for (let i in Tcon.CastingRecipe.table) {
@@ -36,5 +36,5 @@ ModAPI.addAPICallback("TConAPI", function(Tcon) {
 
   });
 
-
+*/
 });

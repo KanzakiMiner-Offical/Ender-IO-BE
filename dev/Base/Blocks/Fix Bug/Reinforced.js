@@ -6,7 +6,7 @@ var BLOCK_TYPE_ANTI_EXPLO = Block.createSpecialType({
   translucency: 0,
   lightopacity: 15,
 //  base: 99,
-  lightlevel: 14,
+  lightlevel: 6,
   sound: "anvil"
 });
 

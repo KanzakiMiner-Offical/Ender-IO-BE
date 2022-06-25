@@ -1,10 +1,10 @@
-/**/Item.registerUseFunction("skullZombieElectrode", function(coords, item, block){
-	//Game.message(block.id+":"+block.data);
-	/*Game.message("Smelter:"  + RecipeRegistry.smelter);
-	Game.message("Crusher:"  + RecipeRegistry.crusher);*/
-	for(let i in RecipeRegistry.crusher){
-	Game.message("input:"  + RecipeRegistry.crusher[i].ingredient.id + ":" + RecipeRegistry.crusher[i].ingredient.data );
-	Game.message("isGrinding" + RecipeRegistry.crusher[i].isGrinding)
-	Game.message("_-End-_");
-}
+IDRegistry.genItemID("EIODebug");
+Item.createItem("EIODebug", "Debug Tool?", { name: "itemConduitProbe" }, { stack: 1 });
+
+Item.registerUseFunction("EIODebug", function(coords, item, block) {
+   for (let i in RecipeRegistry.theVat) {
+      let recipe = RecipeRegistry.theVat[i]
+      Game.message("Recipe:" + recipe.input1.id + ":" + recipe.input1.data + " and " + recipe.input2.id + ":" + recipe.input2.data + " .Liquid:" + recipe.inputLiquid + ":" + recipe.inputAmount + " and " + recipe.outputLiquid + ":" + recipe.outputAmount);
+
+   }
 });

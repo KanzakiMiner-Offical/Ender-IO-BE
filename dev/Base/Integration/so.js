@@ -1,6 +1,4 @@
 /*
- Thứ anh cần là mé lô đi
-
 
 ModAPI.addAPICallback("SkyOrchard", function(api) {
   const IntegrationSO = {

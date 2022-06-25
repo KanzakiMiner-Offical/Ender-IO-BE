@@ -1,59 +1,95 @@
 var RecipeRegistry = {
-  crusher: [],
-  smelter: [],
-  sliceAndSplice: [],
-  theVat: [],
-  soulBinder: [],
+   crusher: [],
+   smelter: [],
+   sliceAndSplice: [],
+   theVat: [],
+   soulBinder: [],
 
-  addSliceAndSplice: function(obj) {
-    this.sliceAndSplice.push(obj);
-  },
-  addSmelter: function(obj) {
-    this.smelter.push(obj);
-  },
-  addCrusher: function(obj) {
-    this.crusher.push(obj);
-  },
-  addVat: function(obj) {
-    this.theVat.push(obj)
-  },
-  isIngr1: function(id, data) {
-    for (let i in RecipeRegistry.smelter) {
-      var Recipe = RecipeRegistry.smelter[i];
-      var ingre1 = Recipe.ingredient1;
-      if (id == ingre1.id && data == ingre1.data) {
-        return true;
+   addSliceAndSplice: function(obj) {
+      this.sliceAndSplice.push(obj);
+   },
+   addSmelter: function(obj) {
+      this.smelter.push(obj);
+   },
+   addCrusher: function(obj) {
+      this.crusher.push(obj);
+   },
+   addVat: function(obj) {
+      this.theVat.push(obj)
+   },
+   isIngr1: function(id, data) {
+      for (let i in RecipeRegistry.smelter) {
+         var Recipe = RecipeRegistry.smelter[i];
+         var ingre1 = Recipe.ingredient1;
+         if (id == ingre1.id && data == ingre1.data) {
+            return true;
+         }
       }
-    }
-  },
+   },
 
-  isIngr2: function(id, data) {
-    for (let i in RecipeRegistry.smelter) {
-      var Recipe = RecipeRegistry.smelter[i];
-      var ingre2 = Recipe.ingredient2;
-      if (id == ingre2.id && data == ingre2.data) {
-        return true
+   isIngr2: function(id, data) {
+      for (let i in RecipeRegistry.smelter) {
+         var Recipe = RecipeRegistry.smelter[i];
+         var ingre2 = Recipe.ingredient2;
+         if (id == ingre2.id && data == ingre2.data) {
+            return true
+         }
       }
-    }
-  },
-  isIngr3: function(id, data) {
-    for (let i in RecipeRegistry.smelter) {
-      var Recipe = RecipeRegistry.smelter[i];
-      var ingre3 = Recipe.ingredient3;
-      if (id == ingre3.id && data == ingre3.data) {
-        return true
+   },
+   isIngr3: function(id, data) {
+      for (let i in RecipeRegistry.smelter) {
+         var Recipe = RecipeRegistry.smelter[i];
+         var ingre3 = Recipe.ingredient3;
+         if (id == ingre3.id && data == ingre3.data) {
+            return true
+         }
       }
-    }
-  },
-  getInCrusher: function(id, data) {
-     for (let i in RecipeRegistry.crusher) {
-      var Recipe = RecipeRegistry.crusher[i];
-      var ingre = Recipe.ingredient;
-      if (id == ingre.id && data == ingre.data) {
-        return true
+   },
+   getInCrusher: function(id, data) {
+      for (let i in RecipeRegistry.crusher) {
+         var Recipe = RecipeRegistry.crusher[i];
+         var ingre = Recipe.ingredient;
+         if (id == ingre.id && data == ingre.data) {
+            return true
+         }
       }
-    }
-  }
+   },
+   getInVat1: function(id, data) {
+      for (let i in RecipeRegistry.theVat) {
+         var Recipe = RecipeRegistry.theVat[i];
+         var ingre1 = Recipe.input1;
+         if (id == ingre1.id && data == ingre1.data) {
+            return true
+         }
+      }
+   },
+   getInVat2: function(id, data) {
+      for (let i in RecipeRegistry.theVat) {
+         var Recipe = RecipeRegistry.theVat[i];
+         var ingre2 = Recipe.input2;
+         if (id == ingre2.id && data == ingre2.data) {
+            return true
+         }
+      }
+   },
+   getLiquidVat1: function(liquid) {
+      for (let i in RecipeRegistry.theVat) {
+         var Recipe = RecipeRegistry.theVat[i];
+         var liquidIn = Recipe.inputLiquid;
+         if (liquid == liquidIn) {
+            return true
+         }
+      }
+   },
+   getLiquidVat2: function(liquid) {
+      for (let i in RecipeRegistry.theVat) {
+         var Recipe = RecipeRegistry.theVat[i];
+         var liquidOut = Recipe.outputLiquid;
+         if (liquid == liquidOut) {
+            return true
+         }
+      }
+   }
 };
 /*
 RecipeRegistry.addCrusher({
